@@ -17,20 +17,20 @@ const confirmTokenAction = ({token}) => {
 };
 
 const login = id => {
-  return axios.post(`/tutorials/${id}`);
-};
-
-const logout = () => {
   return axios.post(`/login`);
 };
 
-const TutorialService = {
+// const logout = () => {
+//   return axios.post(`/login`);
+// };
+
+const muLaServices = {
   loadUser,
   loadUserAvatar,
   registerUser,
   confirmTokenAction,
   login,
-  logout
+  // logout
 };
 
-export default authServices;
+export default muLaServices;
