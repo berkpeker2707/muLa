@@ -1,0 +1,510 @@
+[
+  {
+    "questionText": "At a party do you:",
+    "answerOptions": [
+      {
+        "answerText": "Interact with many, including strangers",
+        "scoreE": true
+      },
+      { "answerText": "Interact with a few, known to you", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Are you more:",
+    "answerOptions": [
+      { "answerText": "Realistic than speculative", "scoreS": true },
+      { "answerText": "Speculative than realistic", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Is it worse to:",
+    "answerOptions": [
+      { "answerText": "Have your \"head in the clouds\"", "scoreS": true },
+      { "answerText": "Be \"in a rut\"", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are you more impressed by:",
+    "answerOptions": [
+      { "answerText": "Principles", "scoreT": true },
+      { "answerText": "Emotions", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Are you more drawn to the:",
+    "answerOptions": [
+      { "answerText": "Convincing", "scoreT": true },
+      { "answerText": "Toucing", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Do you prefer to work:",
+    "answerOptions": [
+      { "answerText": "To deadlines", "scoreJ": true },
+      { "answerText": "Just \"whenever\"", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you tend to choose:",
+    "answerOptions": [
+      { "answerText": "Rather carefully", "scoreJ": true },
+      { "answerText": "Somewhat impulsively", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "At parties do you:",
+    "answerOptions": [
+      { "answerText": "Stay late, with increasing energy", "scoreE": true },
+      { "answerText": "Leave early with decreased energy", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Are you more attracted to:",
+    "answerOptions": [
+      { "answerText": "Sensible people", "scoreS": true },
+      { "answerText": "Imaginative people", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are you more interested in:",
+    "answerOptions": [
+      { "answerText": "What is actual", "scoreS": true },
+      { "answerText": "What is possible", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "In judging others are you more swayed by:",
+    "answerOptions": [
+      { "answerText": "Laws than circumstances", "scoreT": true },
+      { "answerText": "Circumstances than laws", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "In approaching others is your inclination to be somewhat:",
+    "answerOptions": [
+      { "answerText": "Objective", "scoreT": true },
+      { "answerText": "Personal", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Are you more:",
+    "answerOptions": [
+      { "answerText": "Punctual", "scoreJ": true },
+      { "answerText": "Leisurely", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Does it bother you more having things:",
+    "answerOptions": [
+      { "answerText": "Incomplete", "scoreJ": true },
+      { "answerText": "Completed", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "In your social groups do you:",
+    "answerOptions": [
+      { "answerText": "Keep abreast of other's happenings", "scoreE": true },
+      { "answerText": "Get behind on the news", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "In doing ordinary things are you more likely to:",
+    "answerOptions": [
+      { "answerText": "Do it the usual way", "scoreS": true },
+      { "answerText": "Do it your own way", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Writers should:",
+    "answerOptions": [
+      {
+        "answerText": "\"Say what they mean and mean what they say\"",
+        "scoreS": true
+      },
+      { "answerText": "Express things more by use of analogy", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Which appeals to you more:",
+    "answerOptions": [
+      { "answerText": "Consistency of thoughts", "scoreT": true },
+      { "answerText": "Harmonious human relationships", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Are you more comfortable in making:",
+    "answerOptions": [
+      { "answerText": "Logical judgments", "scoreT": true },
+      { "answerText": "Value judgments", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Do you want things:",
+    "answerOptions": [
+      { "answerText": "Settled and decided", "scoreJ": true },
+      { "answerText": "Unsettled and undecided", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Would you say you are more:",
+    "answerOptions": [
+      { "answerText": "Serious and determined", "scoreJ": true },
+      { "answerText": "Easy-going", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "In phoning do you:",
+    "answerOptions": [
+      {
+        "answerText": "Rarely question that it will all be siad",
+        "scoreE": true
+      },
+      { "answerText": "Rehearse what you'll say", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Facts:",
+    "answerOptions": [
+      { "answerText": "\"Speak for themselves\"", "scoreS": true },
+      { "answerText": "Illustrate principles", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are visionaries:",
+    "answerOptions": [
+      { "answerText": "Somewhat annoying", "scoreS": true },
+      { "answerText": "Rather fascinating", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are you more often:",
+    "answerOptions": [
+      { "answerText": "A cool-headed person", "scoreT": true },
+      { "answerText": "A warm-hearted person", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Is it worse to be:",
+    "answerOptions": [
+      { "answerText": "Unjust", "scoreT": true },
+      { "answerText": "Merciless", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Should one usually let events occur:",
+    "answerOptions": [
+      { "answerText": "By careful selection and choice", "scoreJ": true },
+      { "answerText": "Randomly and by chance", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you feel better about:",
+    "answerOptions": [
+      { "answerText": "Having purchased", "scoreJ": true },
+      { "answerText": "Having the option to buy", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "In company do you:",
+    "answerOptions": [
+      { "answerText": "initiate conversation", "scoreE": true },
+      { "answerText": "wait to be approached", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Common sense is:",
+    "answerOptions": [
+      { "answerText": "rarely questionable", "scoreS": true },
+      { "answerText": "frequently questionable", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Children often do not:",
+    "answerOptions": [
+      { "answerText": "make themselves useful enough", "scoreS": true },
+      { "answerText": "exercise their fantasy enough", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "In making decisions do you feel more comfortable with:",
+    "answerOptions": [
+      { "answerText": "standarts", "scoreT": true },
+      { "answerText": "feelings", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Are you more:",
+    "answerOptions": [
+      { "answerText": "firm than gentle", "scoreT": true },
+      { "answerText": "gentle than firm", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Which is more admirable:",
+    "answerOptions": [
+      {
+        "answerText": "the ability to organize and be methodical",
+        "scoreJ": true
+      },
+      { "answerText": "the ability to adapt and make do", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you put more value on:",
+    "answerOptions": [
+      { "answerText": "infinite", "scoreJ": true },
+      { "answerText": "open-minded", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Does new and non-routine interaction with others:",
+    "answerOptions": [
+      { "answerText": "stimulate and energize you", "scoreE": true },
+      { "answerText": "tax your reserves", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Are you more frequently:",
+    "answerOptions": [
+      { "answerText": "a practical sort of person", "scoreS": true },
+      { "answerText": "a fanciful sort of person", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are you more likely to:",
+    "answerOptions": [
+      { "answerText": "see how others useful", "scoreS": true },
+      { "answerText": "see how others see", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Which is more satisfying:",
+    "answerOptions": [
+      { "answerText": "to discuss an issue thoroughly", "scoreT": true },
+      { "answerText": "to arrive at agreement on an issue", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Which rules you more:",
+    "answerOptions": [
+      { "answerText": "your head", "scoreT": true },
+      { "answerText": "your heart", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Are you more comfortable with work that:",
+    "answerOptions": [
+      { "answerText": "contracted", "scoreJ": true },
+      { "answerText": "done on a casual basis", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you tend to look for:",
+    "answerOptions": [
+      { "answerText": "the orderly", "scoreJ": true },
+      { "answerText": "whatever turns up", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you prefer:",
+    "answerOptions": [
+      { "answerText": "many friends with brief contact", "scoreE": true },
+      {
+        "answerText": "a few friends with more lengthy contact",
+        "scoreI": true
+      }
+    ]
+  },
+  {
+    "questionText": "Do you go more by:",
+    "answerOptions": [
+      { "answerText": "facts", "scoreS": true },
+      { "answerText": "principles", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are you more interested in:",
+    "answerOptions": [
+      { "answerText": "production and distribution", "scoreS": true },
+      { "answerText": "design and research", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Which is more of a compliment:",
+    "answerOptions": [
+      { "answerText": "\"There is a very logical person\"", "scoreT": true },
+      { "answerText": "\"There is a very sentimental person\"", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Do you value in yourself more that you are:",
+    "answerOptions": [
+      { "answerText": "unwavering", "scoreT": true },
+      { "answerText": "devoted", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Do you more often prefer the:",
+    "answerOptions": [
+      { "answerText": "final and unalterable statement", "scoreJ": true },
+      { "answerText": "tentative and preliminary statement", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Are you more comfortable:",
+    "answerOptions": [
+      { "answerText": "after a decision", "scoreJ": true },
+      { "answerText": "before a decision", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you:",
+    "answerOptions": [
+      {
+        "answerText": "speak easily and at length with strangers",
+        "scoreE": true
+      },
+      { "answerText": "find little to say to strangers", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Are you more likely to trust your:",
+    "answerOptions": [
+      { "answerText": "experience", "scoreS": true },
+      { "answerText": "hunch", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Do you feel:",
+    "answerOptions": [
+      { "answerText": "more practical than ingenious", "scoreS": true },
+      { "answerText": "more ingenious than practical", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Which person is more to be complimented:",
+    "answerOptions": [
+      { "answerText": "clear reason", "scoreT": true },
+      { "answerText": "strong feeling", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Are you inclined more to be:",
+    "answerOptions": [
+      { "answerText": "fair-minded", "scoreT": true },
+      { "answerText": "sympathetic", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Is it preferable mostly to:",
+    "answerOptions": [
+      { "answerText": "make sure things are arranged", "scoreJ": true },
+      { "answerText": "just let things happen", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "In relationships should most things be:",
+    "answerOptions": [
+      { "answerText": "re-negotiable", "scoreJ": true },
+      { "answerText": "random and circumstantial", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "When the phone rings do you:",
+    "answerOptions": [
+      { "answerText": "hasten to get to it first", "scoreE": true },
+      { "answerText": "hope someone else will answer", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "Do you prize more in yourself:",
+    "answerOptions": [
+      { "answerText": "a strong sense of reality", "scoreS": true },
+      { "answerText": "a vivid imagination", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Are you drawn more to:",
+    "answerOptions": [
+      { "answerText": "fundamentals", "scoreS": true },
+      { "answerText": "overtones", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Which seems the greater error:",
+    "answerOptions": [
+      { "answerText": "to be too passionate", "scoreT": true },
+      { "answerText": "to be too objective", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Do you see yourself as basically:",
+    "answerOptions": [
+      { "answerText": "hard-headed", "scoreT": true },
+      { "answerText": "soft-hearted", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Which situation appeals to you more:",
+    "answerOptions": [
+      { "answerText": "the structured and scheduled", "scoreJ": true },
+      { "answerText": "the unstructured and unscheduled", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Are you a person that is more:",
+    "answerOptions": [
+      { "answerText": "routinized than whimsical", "scoreJ": true },
+      { "answerText": "whimsical than routinized", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Are you more inclined to be:",
+    "answerOptions": [
+      { "answerText": "easy to approach", "scoreE": true },
+      { "answerText": "somewhat reserved", "scoreI": true }
+    ]
+  },
+  {
+    "questionText": "In writing do you prefer:",
+    "answerOptions": [
+      { "answerText": "the more literal", "scoreS": true },
+      { "answerText": "the more figurative", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Is it harder for you to:",
+    "answerOptions": [
+      { "answerText": "identify with others", "scoreS": true },
+      { "answerText": "utilize others", "scoreN": true }
+    ]
+  },
+  {
+    "questionText": "Which do you wish more for yourself:",
+    "answerOptions": [
+      { "answerText": "clarity of reason", "scoreT": true },
+      { "answerText": "strength of compassion", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Which is the greater fault:",
+    "answerOptions": [
+      { "answerText": "being indiscriminate", "scoreT": true },
+      { "answerText": "being critical", "scoreF": true }
+    ]
+  },
+  {
+    "questionText": "Do you prefer the:",
+    "answerOptions": [
+      { "answerText": "planned event", "scoreJ": true },
+      { "answerText": "unplanned event", "scoreP": true }
+    ]
+  },
+  {
+    "questionText": "Do you tend to be more:",
+    "answerOptions": [
+      { "answerText": "deliberate than spontaneous", "scoreJ": true },
+      { "answerText": "spontaneous than deliberate", "scoreP": true }
+    ]
+  }
+]
