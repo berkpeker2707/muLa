@@ -12,7 +12,7 @@ import forgotPasswordReducer from "./Reducers/forgotPasswordReducer";
 import userAvatarReducer from "./Reducers/userAvatarReducer";
 import likeReducer from "./Reducers/likeReducer";
 
-export default configureStore({
+export const store = configureStore({
     reducer: {
         errorReducer: errorReducer,
         authReducer: authReducer,
@@ -38,3 +38,4 @@ export default configureStore({
 // );
 
 // export default store;
+
