@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
-import { login } from "../../../state/actions/authActions";
+import { loginUser } from "../../../state/slices/authSlice";
 import { clearErrors } from "../../../state/actions/errorActions";
 import "../../../App.css";
 import "../Register/logo2.png"
 import Swal from 'sweetalert2';
 import Logo2 from "../Register/logo2.png";
 
-const Login = ({ login, isAuthenticated, error, clearErrors }) => {
+const Login = (
+    // {login, isAuthenticated, error, clearErrors }
+) => {
+    const dispatch = useDispatch();
 
     const [errorState, setErrorState]= useState([]);
 
@@ -44,7 +47,8 @@ const Login = ({ login, isAuthenticated, error, clearErrors }) => {
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
     const onSubmit = e => {
         e.preventDefault();
-        login(email, password);
+        dispatch(loginUser(email, password))
+        // login(email, password);
     }
     useEffect(() => {
             if(error.status === 400){

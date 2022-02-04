@@ -1,7 +1,5 @@
 import React from "react";
 import "../../App.css";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import landingImage1 from "./landingImage1.jpg";

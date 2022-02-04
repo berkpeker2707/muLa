@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { configureStore } from "@reduxjs/toolkit"
 import thunk from "redux-thunk";
 import reducers from "./Reducers";
+import authReducer from "./slices/authSlice";
 
 // import errorReducer from "./Reducers/errorReducer";
 // import authReducer from "./Reducers/authReducer";
@@ -14,7 +15,7 @@ import reducers from "./Reducers";
 
 const store = configureStore({
     reducer: {
-        auth: {}
+        auth: authReducer,
         // errorReducer: errorReducer,
         // authReducer: authReducer,
         // usersReducer: usersReducer,
