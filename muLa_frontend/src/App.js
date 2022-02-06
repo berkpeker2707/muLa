@@ -53,20 +53,20 @@ const App = () => {
 
   const loggedInContainer = () => (
     <div>
-      <Header component={Header} />
+      {/* <Header component={Header} /> */}
       <br />
       <div className="loggedInContainer">
         <Route path="/register" component={Register} />
         <Route path="/activate*" component={ConfirmPage} />
         <Route path="/login" component={Login} />
-        <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password*" component={ResetPassword} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/profile" component={Profile} />
-        <PrivateRoute path="/profile-update" component={ProfileUpdate} />
-        <PrivateRoute path="/uploadtest" component={Uploadfiletest} />
-        <PrivateRoute path="/test-update" component={ReTakeTest} />
-        <PrivateRoute path="/chatroom" component={ChatRoom} />
+        {/* <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/reset-password*" component={ResetPassword} /> */}
+        <Route path="/dashboard" component={Dashboard} />
+        {/* <Route path="/profile" component={Profile} />
+        <Route path="/profile-update" component={ProfileUpdate} />
+        <Route path="/uploadtest" component={Uploadfiletest} />
+        <Route path="/test-update" component={ReTakeTest} /> */}
+        {/* <Route path="/chatroom" component={ChatRoom} /> */}
         {/*  <Route path="/chat" component={Messenger} />*/}
         <Route path="/faq" component={FAQ} />
       </div>

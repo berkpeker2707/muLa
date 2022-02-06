@@ -19,6 +19,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state/index";
 
+import { registerUser } from "../../state/slices/usersSlices";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,8 +35,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Landing = () => {
 
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-  const user = useSelector((state) => state.auth.user);
+  // const {isAuthenticated} = useSelector((state) => state?.users);
+  // const user = useSelector((state) => state.auth.user);
   // const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
 
@@ -45,9 +47,9 @@ const Landing = () => {
   const classes = useStyles();
 
   
-  if (isAuthenticated) {
-    return <Redirect to="/dashboard" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Redirect to="/dashboard" />;
+  // }
   return (
     <div className="LandingComponent">
       <div className={classes.root}>

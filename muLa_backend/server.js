@@ -212,7 +212,7 @@ app.post("/testregister", async (req, res) => {
 
   try {
     //checking user exists
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email }).select("-password");
     if (user) {
       return res
         .status(400)
@@ -641,7 +641,7 @@ app.post(
       //return jsonwebtoken
       const payload = {
         user: {
-          id: user.id,
+          id: user.id
         },
       };
 
@@ -651,7 +651,7 @@ app.post(
         { expiresIn: 31556926 },
         (err, token) => {
           if (err) throw err;
-          res.json({ token });
+          res.json({ token, user });
         }
       );
     } catch (err) {

@@ -1,28 +1,24 @@
+// login(email, password);
 import React, { useEffect, useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { loginUser } from "../../../state/slices/authSlice";
-import { clearErrors } from "../../../state/actions/errorActions";
+import { loginUser } from "../../../state/slices/usersSlices";
 import "../../../App.css";
 import "../Register/logo2.png"
 import Swal from 'sweetalert2';
 import Logo2 from "../Register/logo2.png";
 
-const Login = (
-    // {login, isAuthenticated, error, clearErrors }
-) => {
+const Login = () => {
+
     const dispatch = useDispatch();
+    const {users, isAuthenticated} = useSelector(state => state?.users);
+    // console.log(store);
 
     const [errorState, setErrorState]= useState([]);
 
-    useEffect(() => {
-        setErrorState(error)
-    }, [isAuthenticated])
-    // console.log(error.msg.errors)
-    // console.log(error.msg.errors[0])
-    // console.log(error.msg.errors[0].msg)
-
+    // useEffect(() => {
+    //     setErrorState(error)
+    // }, [isAuthenticated])
 
       const Toast = Swal.mixin({
         toast: true,
@@ -47,17 +43,16 @@ const Login = (
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
     const onSubmit = e => {
         e.preventDefault();
-        dispatch(loginUser(email, password))
-        // login(email, password);
+        dispatch(loginUser(formData))
     }
-    useEffect(() => {
-            if(error.status === 400){
-                Toast.fire({
-                    icon: 'warning',
-                    title: "Wrong Email or Password"
-                })
-            }
-        }, [error])
+    // useEffect(() => {
+    //         if(error.status === 400){
+    //             Toast.fire({
+    //                 icon: 'warning',
+    //                 title: "Wrong Email or Password"
+    //             })
+    //         }
+    //     }, [error])
         
     useEffect(() => {
         if(isAuthenticated){
@@ -133,16 +128,4 @@ const Login = (
     );
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
-
-})
-
-Login.propTypes = {
-    login: PropTypes.func.isRequired,
-    clearErrors: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
-}
-
-export default connect(mapStateToProps, { login, clearErrors })(Login);
+export default Login;

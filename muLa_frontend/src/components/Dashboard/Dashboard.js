@@ -24,17 +24,6 @@ import {
   FaBirthdayCake,
   FaBriefcase,
 } from "react-icons/fa";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-// import { getUsers } from "../../state/actions/usersAction";
-// import { loadUser } from "../../state/actions/authActions";
-// import { getLiked } from "../../state/actions/likeActions";
-// import { likeUser } from "../../state/actions/likeActions";
-// import { unlikeUser } from "../../state/actions/likeActions";
-// import { loadUser } from "../../state/actions/likeActions";
-
-// import { loadUser } from "../../state/actions/index";
-// import { getUsers } from "../../state/actions/index";
 import LoadingGif from "./LoadingGif";
 
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -64,37 +53,25 @@ import store from "../../state/store";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state/index";
+import { getUsers } from "../../state/slices/usersSlices";
 
-const Dashboard = ({
-  // getUsers,
-  // loadUser,
-  getLiked,
-  // auth,
-  // users: { users },
-  // user,
-  likeUser,
-  unlikeUser,
-}) => {
+const Dashboard = () => {
 
 
-  const auth = useSelector((state) => state.auth);
-  const user = useSelector((state) => state.auth.user);
-  // const users = useSelector((state) => state.users.users);
+  const user = useSelector((state) => state.users.user);
+  const auth = useSelector((state) => state.users.isAuthenticated);
+  const users = useSelector((state) => state.users.users);
   const dispatch = useDispatch();
 
-  const {getUsers} = bindActionCreators(actionCreators, dispatch)
+  // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
-  console.log(auth);
-
+console.log(getUsers())
 
   useEffect(() => {
     // dispatch(loadUser());
     dispatch(getUsers());
   }, [dispatch]);
 
-  const users = useSelector((state) => state.users.users);
-
-  
 
   const [currentUser, setCurrentUser] = useState(null);
   const [currentDisplayedUser, setCurrentDisplayedUser] = useState(null);
@@ -403,10 +380,10 @@ const Dashboard = ({
                           color="success"
                           aria-label="add to favorites"
                           // className="letstalkbutton"
-                          onClick={() => {
-                            likeUser(currentDisplayedUser?._id);
-                            setCurrentIndexNumber(currentIndexNumber + 1);
-                          }}
+                          // onClick={() => {
+                          //   likeUser(currentDisplayedUser?._id);
+                          //   setCurrentIndexNumber(currentIndexNumber + 1);
+                          // }}
                           sx={{ mx: "auto" }}
                         >
                           <FavoriteIcon />
@@ -459,29 +436,5 @@ const Dashboard = ({
 >
   <h6> Get Liked Users (Test Button)</h6>
 </Button>; */}
-
-// Dashboard.propTypes = {
-//   getUsers: PropTypes.func.isRequired,
-//   loadUser: PropTypes.func.isRequired,
-//   getLiked: PropTypes.func.isRequired,
-//   likeUser: PropTypes.func.isRequired,
-//   unlikeUser: PropTypes.func.isRequired,
-//   auth: PropTypes.object.isRequired,
-//   users: PropTypes.object.isRequired,
-// };
-
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-//   users: state.users,
-//   user: state.auth.user,
-// });
-
-// export default connect(mapStateToProps, {
-//   getUsers,
-//   loadUser,
-//   getLiked,
-//   likeUser,
-//   unlikeUser,
-// })(Dashboard);
 
 export default Dashboard;
