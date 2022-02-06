@@ -35,11 +35,11 @@ if (localStorage.token) {
 
 const App = () => {
 
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
+  // const state = useSelector((state) => state);
+  // const dispatch = useDispatch();
   // console.log(state);
 
-  const AC = bindActionCreators(actionCreators, dispatch);
+  // const AC = bindActionCreators(actionCreators, dispatch);
 
   // useEffect(() => {
   //   store.dispatch(loadUser());

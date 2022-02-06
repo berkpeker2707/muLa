@@ -4,7 +4,7 @@ import setAuthToken from "../utils/setAuthToken";
 
 //register user action
 export const registerUser = createAsyncThunk(
-  "users/register",
+  "register",
   async (
     {
       email,
@@ -113,17 +113,14 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-//load users on page load
-//get all users
+//get users on page load
 export const getUsers = createAsyncThunk(
   "getUsers",
-  async (_, { rejectWithValue, getState, dispatch }) => {
+  async (getUsers, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.users;
     try {
       const { data } = await axios.get("/users");
-      //save users to local storage
-      localStorage.setItem("usersInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -131,11 +128,6 @@ export const getUsers = createAsyncThunk(
     }
   }
 );
-
-//get user from local storage and place into store
-const userLoginFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
 
 //slices(reducers)
 const usersSlices = createSlice({
@@ -191,7 +183,7 @@ const usersSlices = createSlice({
     });
     builder.addCase(getUsers.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.users = action?.payload?.users;
+      state.users = action?.payload;
       state.appErr = undefined;
       state.serverErr = undefined;
     });

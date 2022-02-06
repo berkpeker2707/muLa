@@ -65,7 +65,7 @@ const Dashboard = () => {
 
   // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
-console.log(getUsers())
+// console.log(getUsers())
 
   useEffect(() => {
     // dispatch(loadUser());
@@ -93,7 +93,7 @@ console.log(getUsers())
   }, [users, currentDisplayedUser, currentIndexNumber]);
 
   // console.log(user);
-  console.log(users);
+  // console.log(users);
   // console.log(currentUser);
   console.log(currentDisplayedUser);
 

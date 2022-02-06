@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
@@ -12,6 +12,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
+
+import { getUsers } from "../../state/slices/usersSlices";
 
 //redux
 import store from "../../state/store";
@@ -34,13 +36,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Landing = () => {
+  
 
   // const {isAuthenticated} = useSelector((state) => state?.users);
   // const user = useSelector((state) => state.auth.user);
-  // const users = useSelector((state) => state.users.users);
+
   const dispatch = useDispatch();
 
-  const {getUsers} = bindActionCreators(actionCreators, dispatch)
+  // const {getUsers} = bindActionCreators(actionCreators, dispatch)
+  // console.log(loadUser);
+// console.log(getUsers())
+
+  useEffect(() => {
+    // dispatch(loadUser());
+    dispatch(getUsers());
+  }, [dispatch]);
+  const users = useSelector((state) => state.users.users);
+
+  console.log(users);
+
+  // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
   // console.log(auth);
 
