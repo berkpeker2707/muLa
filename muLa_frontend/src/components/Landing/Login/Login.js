@@ -1,7 +1,7 @@
 // login(email, password);
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { loginUser } from "../../../state/slices/usersSlices";
 import "../../../App.css";
 import "../Register/logo2.png"
@@ -66,7 +66,7 @@ const Login = () => {
 
     //Redirect if authenticated
     if (isAuthenticated) {
-        return <Redirect to="/dashboard" />
+        return <Navigate to="/dashboard" />
     }
 
     return (

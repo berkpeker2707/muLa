@@ -57,20 +57,21 @@ import { getUsers } from "../../state/slices/usersSlices";
 
 const Dashboard = () => {
 
-
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.users.user);
   const auth = useSelector((state) => state.users.isAuthenticated);
-  const users = useSelector((state) => state.users.users);
-  const dispatch = useDispatch();
 
   // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
 // console.log(getUsers())
 
-  useEffect(() => {
-    // dispatch(loadUser());
-    dispatch(getUsers());
-  }, [dispatch]);
+useEffect(() => {
+  dispatch(getUsers());
+}, [dispatch]);
+
+const users = useSelector((state) => state.users.users);
+
+console.log(users)
 
 
   const [currentUser, setCurrentUser] = useState(null);

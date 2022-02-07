@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   FaBriefcase,
   FaPersonBooth,
@@ -180,8 +180,9 @@ const mapStateToProps = (state) => ({
   error: PropTypes.string,
 });
 
-export default connect(mapStateToProps, {
-  getCurrentUser,
-  getCurrentUserAvatar,
-  updateProfile,
-})(withRouter(Uploadfiletest));
+// export default connect(mapStateToProps, {
+//   getCurrentUser,
+//   getCurrentUserAvatar,
+//   updateProfile,
+// })(withRouter(Uploadfiletest));
+export default Uploadfiletest;

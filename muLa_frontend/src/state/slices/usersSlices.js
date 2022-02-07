@@ -137,6 +137,7 @@ const usersSlices = createSlice({
     isAuthenticated: null,
     isLoading: null,
     user: null,
+    users:null
   },
   extraReducers: (builder) => {
     //registerUser
@@ -183,7 +184,7 @@ const usersSlices = createSlice({
     });
     builder.addCase(getUsers.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.users = action?.payload;
+      state.users = action?.payload?.users;
       state.appErr = undefined;
       state.serverErr = undefined;
     });

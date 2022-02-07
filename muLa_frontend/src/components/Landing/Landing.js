@@ -41,19 +41,19 @@ const Landing = () => {
   // const {isAuthenticated} = useSelector((state) => state?.users);
   // const user = useSelector((state) => state.auth.user);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
 // console.log(getUsers())
 
-  useEffect(() => {
-    // dispatch(loadUser());
-    dispatch(getUsers());
-  }, [dispatch]);
-  const users = useSelector((state) => state.users.users);
+  // useEffect(() => {
+  //   // dispatch(loadUser());
+  //   dispatch(getUsers());
+  // },[dispatch]);
+  // const users = useSelector((state) => state.users.users);
 
-  console.log(users);
+  // console.log(users);
 
   // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);

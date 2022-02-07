@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "../../App.css";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaBriefcase, FaPersonBooth, FaBeer, FaSmoking, FaVenusMars, FaLanguage, FaPrayingHands, FaUtensils, FaBirthdayCake } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import { connect } from "react-redux";
@@ -632,4 +632,5 @@ const mapStateToProps = state => ({
 })
 
 
-export default connect(mapStateToProps, { getCurrentUser, getCurrentUserAvatar, updateProfile })(withRouter(ProfileUpdate))
+// export default connect(mapStateToProps, { getCurrentUser, getCurrentUserAvatar, updateProfile })(withRouter(ProfileUpdate))
+export default ProfileUpdate;
