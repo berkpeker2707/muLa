@@ -58,8 +58,11 @@ import { getUsers } from "../../state/slices/usersSlices";
 const Dashboard = () => {
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.user);
-  const auth = useSelector((state) => state.users.isAuthenticated);
+  const users = useSelector((state) => state?.users?.users);
+  const user = useSelector((state) => state?.users?.user);
+  const auth = useSelector((state) => state?.users?.isAuthenticated);
+  // const {isAuthenticated} = useSelector((state) => state?.users);
+
 
   // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
@@ -69,7 +72,7 @@ useEffect(() => {
   dispatch(getUsers());
 }, [dispatch]);
 
-const users = useSelector((state) => state.users.users);
+ console.log(getUsers())
 
 console.log(users)
 

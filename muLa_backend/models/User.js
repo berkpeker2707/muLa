@@ -14,6 +14,37 @@ const UserSchema = new mongoose.Schema({
     data: String,
     default: "",
   },
+  accountVerified: {
+    type: Boolean,
+    default: false,
+  },
+  accountVerificationToken: {
+    type: String,
+  },
+  accountVerificationTokenExpires: {
+    Date,
+  },
+  viewedBy: {
+    type: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
+  },
+  isActive: {
+    type: Boolean,
+    default: false,
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false,
+  },
+  accountCreatedAt: Date,
+  lastLogin: Date,
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetTokenExpires: Date,
   firstname: {
     type: String,
   },
@@ -62,43 +93,32 @@ const UserSchema = new mongoose.Schema({
   smoking: {
     type: String,
   },
-  pictures: {
+  pictures: {},
+  picture: {
+    type: String,
+    default: "defaultProfilePicture.png",
   },
-  picture:{
-  },
-  image:{
-    name: String,
-    desc: String,
-    img:
-    {
-        data: Buffer,
-        contentType: String
-    }
-  },
-  liked:{
+  liked: {
     type: Array,
-    default:[]
+    default: [],
   },
-  likedBy:{
+  likedBy: {
     type: Array,
-    default:[]
+    default: [],
   },
-  disliked:{
-    type:Array,
-    default:[],
-    createdAt: { type: Date, expires: '2m', default: Date.now }
-  },
-  matched:{
+  disliked: {
     type: Array,
-    default:[]
+    default: [],
+    createdAt: { type: Date, expires: "2m", default: Date.now },
   },
-  blocked:{
+  matched: {
     type: Array,
-    default:[]
+    default: [],
   },
-  // liked: [{}],
-  // likedBy: [{}],
-  // matched: [{}],
+  blocked: {
+    type: Array,
+    default: [],
+  },
   extraversionValue: {
     type: Number,
   },
@@ -126,6 +146,9 @@ const UserSchema = new mongoose.Schema({
   characterType: {
     type: String,
   },
+},
+{
+  timestamps: true
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

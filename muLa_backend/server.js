@@ -8,9 +8,6 @@ const User = require("./models/User");
 const Conversation = require("./models/Conversation");
 const Message = require("./models/Message");
 
-//using this to get config information
-const config = require("config");
-
 //dotenv config
 require("dotenv").config();
 
@@ -26,7 +23,7 @@ var multer = require('multer');
 //using this for file (image) stream
 const Grid = require("gridfs-stream");
 //image for stream
-const conn = mongoose.createConnection(config.get("dbKEY"), {
+const conn = mongoose.createConnection(process.env.dbKEY, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -60,7 +57,7 @@ const { check, validationResult } = require("express-validator");
 //Mailing System
 const mailgun = require("mailgun-js");
 const DOMAIN = "sandbox186fa978175a44d0863ae4d3f6763326.mailgun.org";
-const mg = mailgun({ apiKey: config.get("MAILGUN_APIKEY"), domain: DOMAIN });
+const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
 
 const app = express({ extended: false });
 app.use(express.static("picture"));
@@ -85,7 +82,7 @@ app.listen(port, () => console.log(`Server started on port ${port}.`));
 //Image config stars
 ////////////////////
 
-// const conn = mongoose.createConnection(config.get("dbKEY"), {
+// const conn = mongoose.createConnection(process.env.dbKEY, {
 //   useNewUrlParser: true,
 //   useUnifiedTopology: true,
 // });
@@ -111,7 +108,7 @@ app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 ///////////////////////////////////////////////////////////////////////////////
 // const storage = new GridFsStorage({
-//   url: config.get("dbKEY"),
+//   url: process.env.dbKEY,
 //   cache: true,
 //   options: { useNewUrlParser: true, useUnifiedTopology: true },
 //   file: (req, file) => {
@@ -262,7 +259,7 @@ app.post("/testregister", async (req, res) => {
 
     jwt.sign(
       payload,
-      config.get("jwtSecret"),
+      process.env.jwtSecret,
       { expiresIn: 31556926 },
       (err, token) => {
         if (err) throw err;
@@ -394,7 +391,7 @@ app.post(
           perceivingValue,
           characterType,
         },
-        config.get("jwtSecret"),
+        process.env.jwtSecret,
         { expiresIn: 12000 } //12000
       );
 
@@ -434,7 +431,7 @@ app.post("/activate", async (req, res) => {
   if (token) {
     jwt.verify(
       token,
-      config.get("jwtSecret"),
+      process.env.jwtSecret,
       async function (err, decodedToken) {
         if (err) {
           return res.status(400).json({ error: "Incorrect or Expired Link." });
@@ -537,7 +534,7 @@ app.put("/forgot-password", async (req, res) => {
     }
     const token = jwt.sign(
       { _id: user._id },
-      config.get("RESET_PASSWORD_KEY"),
+      process.env.RESET_PASSWORD_KEY,
       { expiresIn: 1200 }
     );
     const data = {
@@ -572,7 +569,7 @@ app.put("/reset-password", async (req, res) => {
   if (resetLink) {
     jwt.verify(
       resetLink,
-      config.get("RESET_PASSWORD_KEY"),
+      process.env.RESET_PASSWORD_KEY,
       async function (error, decodedData) {
         if (error) {
           return res.status(401).json({
@@ -647,7 +644,7 @@ app.post(
 
       jwt.sign(
         payload,
-        config.get("jwtSecret"),
+        process.env.jwtSecret,
         { expiresIn: 31556926 },
         (err, token) => {
           if (err) throw err;

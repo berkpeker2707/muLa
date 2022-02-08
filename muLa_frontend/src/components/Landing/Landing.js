@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import landingImage1 from "./landingImage1.jpg";
 import landingImage2 from "./landingImage2.jpg";
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 const Landing = () => {
   
 
-  // const {isAuthenticated} = useSelector((state) => state?.users);
+  const {isAuthenticated} = useSelector((state) => state?.users);
   // const user = useSelector((state) => state.auth.user);
 
   // const dispatch = useDispatch();
@@ -62,9 +62,9 @@ const Landing = () => {
   const classes = useStyles();
 
   
-  // if (isAuthenticated) {
-  //   return <Redirect to="/dashboard" />;
-  // }
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
+  }
   return (
     <div className="LandingComponent">
       <div className={classes.root}>

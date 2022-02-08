@@ -1,7 +1,7 @@
 // login(email, password);
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { loginUser } from "../../../state/slices/usersSlices";
 import "../../../App.css";
 import "../Register/logo2.png"
@@ -9,9 +9,11 @@ import Swal from 'sweetalert2';
 import Logo2 from "../Register/logo2.png";
 
 const Login = () => {
-
+    const history = useNavigate();
     const dispatch = useDispatch();
-    const {users, isAuthenticated} = useSelector(state => state?.users);
+    const store = useSelector((state) => state?.users);
+    const {isAuthenticated, users}= store;
+    // const {users} = useSelector(state => state?.users);
     // console.log(store);
 
     const [errorState, setErrorState]= useState([]);
@@ -45,6 +47,7 @@ const Login = () => {
         e.preventDefault();
         dispatch(loginUser(formData))
     }
+    useNavigate("/dashboard");
     // useEffect(() => {
     //         if(error.status === 400){
     //             Toast.fire({
@@ -64,7 +67,7 @@ const Login = () => {
     }, [isAuthenticated])
     
 
-    //Redirect if authenticated
+    // Redirect if authenticated
     if (isAuthenticated) {
         return <Navigate to="/dashboard" />
     }
