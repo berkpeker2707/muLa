@@ -5,13 +5,13 @@ import { Link, Navigate } from "react-router-dom";
 import landingImage1 from "./landingImage1.jpg";
 import landingImage2 from "./landingImage2.jpg";
 
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
-import Paper from '@material-ui/core/Paper';
+import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Radio from "@material-ui/core/Radio";
+import Paper from "@material-ui/core/Paper";
 
 import { getUsers } from "../../state/slices/usersSlices";
 
@@ -23,29 +23,26 @@ import { actionCreators } from "../../state/index";
 
 import { registerUser } from "../../state/slices/usersSlices";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
 }));
 
 const Landing = () => {
-  
-
-  const {isAuthenticated} = useSelector((state) => state?.users);
+  const { isAuthenticated } = useSelector((state) => state?.users);
   // const user = useSelector((state) => state.auth.user);
 
   // const dispatch = useDispatch();
 
   // const {getUsers} = bindActionCreators(actionCreators, dispatch)
   // console.log(loadUser);
-// console.log(getUsers())
+  // console.log(getUsers())
 
   // useEffect(() => {
   //   // dispatch(loadUser());
@@ -61,7 +58,6 @@ const Landing = () => {
 
   const classes = useStyles();
 
-  
   if (isAuthenticated) {
     return <Navigate to="/dashboard" />;
   }
@@ -77,53 +73,58 @@ const Landing = () => {
           <Grid item xs={3}></Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}> <h5>What do we offer?</h5>
-            <p>
-              Friendship app focuses constructive ways to find and build
-              compatible relationship.
-              <br />
-              By using well-known Myers-Briggs Testing, we want our users to
-              feel satisfied and feel{" "}
-            </p></Paper>
+            <Paper className={classes.paper}>
+              {" "}
+              <h5>What do we offer?</h5>
+              <p>
+                muLa app focuses constructive ways to find and build compatible
+                relationship.
+                <br />
+                By using well-known Myers-Briggs testing, we aim your
+                satisfaction for finding compatible relationship.{" "}
+              </p>
+            </Paper>
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.paper}>
-            <h4>Why muLa?</h4>
-            <p>
-              We all desire that unreachable tasty red apple, yet in reality, it
-              is not the case. Relationships seek compatible souls, and deeper
-              understanding. Deep down we all want something familiar, someone
-              who can understand our core. Here MuLa kicks in, we find people
-              who are familiar for you to have stable and constructive
-              relationship.
-            </p>
+              <h4>Why muLa?</h4>
+              <p>
+                Relationships seek compatible souls, minds and deeper
+                understanding. Deep down we all want someone familiar, someone
+                who can understand our core. That click we can get from someone.
+                There muLa kicks in, our goal is to find people who are familiar
+                in core.
+              </p>
             </Paper>
           </Grid>
         </Grid>
         <Grid container spacing={3} className="LandingSection1">
-        <Grid item xs={3}></Grid>
+          <Grid item xs={3}></Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={3}>
-            <Paper className={classes.paper}> <h5>What do we offer?</h5>
-            <p>
-              Friendship app focuses constructive ways to find and build
-              compatible relationship.
-              <br />
-              By using well-known Myers-Briggs Testing, we want our users to
-              feel satisfied and feel{" "}
-            </p></Paper>
+            <Paper className={classes.paper}>
+              {" "}
+              <h5>What do we offer?</h5>
+              <p>
+                Friendship app focuses constructive ways to find and build
+                compatible relationship.
+                <br />
+                By using well-known Myers-Briggs Testing, we want our users to
+                feel satisfied and feel{" "}
+              </p>
+            </Paper>
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.paper}>
-            <h4>Why muLa?</h4>
-            <p>
-              We all desire that unreachable tasty red apple, yet in reality, it
-              is not the case. Relationships seek compatible souls, and deeper
-              understanding. Deep down we all want something familiar, someone
-              who can understand our core. Here MuLa kicks in, we find people
-              who are familiar for you to have stable and constructive
-              relationship.
-            </p>
+              <h4>Why muLa?</h4>
+              <p>
+                We all desire that unreachable tasty red apple, yet in reality,
+                it is not the case. Relationships seek compatible souls, and
+                deeper understanding. Deep down we all want something familiar,
+                someone who can understand our core. Here MuLa kicks in, we find
+                people who are familiar for you to have stable and constructive
+                relationship.
+              </p>
             </Paper>
           </Grid>
         </Grid>
@@ -131,7 +132,7 @@ const Landing = () => {
 
       <Container fluid="xxl">
         {/* <Row className="LandingSection1"> */}
-          {/* <Col className="landingP">
+        {/* <Col className="landingP">
             <h5>What do we offer?</h5>
             <p>
               Friendship app focuses constructive ways to find and build
@@ -141,7 +142,7 @@ const Landing = () => {
               feel satisfied and feel{" "}
             </p>
           </Col> */}
-          {/* <Col className="landingImage1" src={landingImage1}></Col>
+        {/* <Col className="landingImage1" src={landingImage1}></Col>
         </Row> */}
 
         <Row>

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const randomatic = require("randomatic");
+const crypto = require("crypto");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -23,9 +25,7 @@ const UserSchema = new mongoose.Schema(
     accountVerificationToken: {
       type: String,
     },
-    accountVerificationTokenExpires: {
-      Date,
-    },
+    accountVerificationTokenExpires: Date,
     viewedBy: {
       type: [
         {
@@ -95,7 +95,6 @@ const UserSchema = new mongoose.Schema(
     smoking: {
       type: String,
     },
-    pictures: {},
     picture: {
       type: String,
       default: "defaultProfilePicture.png",
@@ -167,6 +166,18 @@ UserSchema.pre("save", async function (next) {
 //matching password
 UserSchema.methods.isPasswordMatched = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+//account verification
+UserSchema.methods.createAccountVerificationToken = async function () {
+  // create token
+  const verificationToken = randomatic("Aa0!", 32).toString("hex");
+  this.accountVerificationToken = crypto
+  .createHash("sha256")
+  .update(verificationToken)
+  .digest("hex");
+  this.accountVerificationTokenExpires = Date.now() + 3600 * 1000 * 24; //24 hour
+  return verificationToken;
 };
 
 module.exports = User = mongoose.model("user", UserSchema);

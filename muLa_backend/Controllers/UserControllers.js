@@ -2,6 +2,18 @@ const User = require("../models/User");
 const expressAsyncHandler = require("express-async-handler");
 const generateToken = require("../config/token");
 
+//Mailing System
+const mailgun = require("mailgun-js");
+const DOMAIN = "sandbox186fa978175a44d0863ae4d3f6763326.mailgun.org";
+const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
+
+// hashing token
+const crypto = require("crypto");
+
+const fs = require("fs");
+// cloudinary
+const cloudinaryUploadImg = require("../config/cloudinary");
+
 //register user controller
 const userRegisterController = expressAsyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email: req?.body?.email });
@@ -103,7 +115,6 @@ const getUserController = expressAsyncHandler(async (req, res) => {
 
 //get users
 const getUsersController = expressAsyncHandler(async (req, res) => {
-  console.log(req.headers);
   try {
     const users = await User.find({});
     res.json(users);
@@ -151,6 +162,79 @@ const updateUserPasswordController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//generate email verification token
+const generateVerificationController = expressAsyncHandler(async (req, res) => {
+  const loginUserId = req.user.id;
+  // const userEmail = req.user.email;
+
+  const user = await User.findById(loginUserId);
+  try {
+    //generate token
+    const verificationToken = await user.createAccountVerificationToken();
+
+    //save the user
+    await user.save();
+
+    //create a mail
+    const data = {
+      from: "noreply@muLa.com",
+      to: "berkolatto@gmail.com",
+      subject: "Reset Password Link",
+      html: `<h2>Please click the link to activate your account within a day.</h2>
+    <a href=${process.env.CLIENT_URL}/verify-account/${verificationToken}>Click to Verify</a>`,
+    };
+    mg.messages().send(data, function (error, body) {
+      if (error) {
+        return res.json({
+          error: error.message,
+        });
+      }
+      return res.json(data.html);
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+
+//verify (update) account
+const verifyAccount = expressAsyncHandler(async (req, res) => {
+  const { token } = req.body;
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  //find this user by token
+  const userFound = await User.findOne({
+    accountVerificationToken: hashedToken,
+    accountVerificationTokenExpires: { $gt: new Date() },
+  });
+  if (!userFound) throw new Error("Token expired, try again later");
+  //update isAccountVerified to true
+  userFound.accountVerified = true;
+  userFound.accountVerificationToken = undefined;
+  userFound.accountVerificationTokenExpires = undefined;
+  await userFound.save();
+  res.json(userFound);
+});
+
+//photo upload
+const photoUploadController = expressAsyncHandler(async (req, res) => {
+  // Find the logged in user
+  const { _id } = req.user;
+  //1. Get the oath to img
+  const localPath = `public/images/profile/${req.file.filename}`;
+  //2.Upload to cloudinary
+  const imgUploaded = await cloudinaryUploadImg(localPath);
+
+  const foundUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      profilePhoto: imgUploaded?.url,
+    },
+    { new: true }
+  );
+  //remove the saved img
+  fs.unlinkSync(localPath);
+  res.json(imgUploaded);
+});
+
 module.exports = {
   userRegisterController,
   userLoginController,
@@ -158,4 +242,7 @@ module.exports = {
   getUsersController,
   updateUserController,
   updateUserPasswordController,
+  generateVerificationController,
+  verifyAccount,
+  photoUploadController,
 };

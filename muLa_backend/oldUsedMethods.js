@@ -1,6 +1,13 @@
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
+
+//Mailing System
+const mailgun = require("mailgun-js");
+const DOMAIN = "sandbox186fa978175a44d0863ae4d3f6763326.mailgun.org";
+const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
+
+
 //////////Register without activation stars//////////
 app.post("/testregister", async (req, res) => {
   const errors = validationResult(req);
@@ -107,7 +114,7 @@ app.post("/testregister", async (req, res) => {
 
 //Register with recieving mailing
 app.post(
-  "/api/user/register",
+  "/register",
   [
     check("email", "Email is required.").isEmail(),
     check("password", "Password is required.").isLength({ min: 4 }),
@@ -488,233 +495,50 @@ app.post(
   }
 );
 
-//Activation mail
-app.post("/activate", async (req, res) => {
-  const { token } = req.body;
-  if (token) {
-    jwt.verify(
-      token,
-      process.env.jwtSecret,
-      async function (err, decodedToken) {
-        if (err) {
-          return res.status(400).json({ error: "Incorrect or Expired Link." });
-        }
-        const {
-          email,
-          password,
-          firstname,
-          lastname,
-          age,
-          gender,
-          job,
-          description,
-
-          userLatitude,
-          userLongitude,
-
-          language,
-          belief,
-          politics,
-          diet,
-          alcohol,
-          smoking,
-
-          extraversionValue,
-          introversionValue,
-          sensingValue,
-          intuitionValue,
-          thinkingValue,
-          feelingValue,
-          judgingValue,
-          perceivingValue,
-          characterType,
-        } = decodedToken;
-
-        try {
-          //checking user exists
-          let user = await User.findOne({ email });
-          if (user) {
-            return res.status(400).json({ errors: "User Already Exists!" });
-          }
-
-          user = new User({
-            email,
-            password,
-            firstname,
-            lastname,
-            age,
-            gender,
-            job,
-            description,
-
-            userLatitude,
-            userLongitude,
-
-            language,
-            belief,
-            politics,
-            diet,
-            alcohol,
-            smoking,
-
-            extraversionValue,
-            introversionValue,
-            sensingValue,
-            intuitionValue,
-            thinkingValue,
-            feelingValue,
-            judgingValue,
-            perceivingValue,
-            characterType,
-          });
-          //encrypt password
-          const salt = bcrypt.genSaltSync(10);
-          user.password = await bcrypt.hash(password, salt);
-          await user.save();
-
-          res.json({ message: "User activated & registered!" });
-        } catch (err) {
-          console.error(err.message);
-          res.status(500).send("Server Error");
-        }
-      }
-    );
-  } else {
-    return res.json({ error: "Something went obviously wrong." });
-  }
-});
-
-//Reset password
-app.put("/forgot-password", async (req, res) => {
-  const { email } = req.body;
+//Get all users all information except current user
+app.get("/users",  async (req, res) => {
   try {
-    let user = await User.findOne({ email });
+    const users = await User.find({
+      _id: { $ne: req.user.id },
+    }).select([
+      "email",
+      "firstname",
+      "lastname",
+      "age",
+      "gender",
+      "job",
+      "description",
 
-    if (!user) {
-      return res
-        .status(400)
-        .json({ error: "User with this email does not exist." });
-    }
-    const token = jwt.sign({ _id: user._id }, process.env.RESET_PASSWORD_KEY, {
-      expiresIn: 1200,
-    });
-    const data = {
-      from: "noreply@appmail.com",
-      to: email,
-      subject: "Reset Password Link",
-      html: `<h2>Please click on the link to reset your password.</h2>
-        <p>${process.env.CLIENT_URL}/reset-password${token}</p>`,
-    };
+      "userLatitude",
+      "userLongitude",
 
-    return user.updateOne({ resetLink: token }, function (err, success) {
-      mg.messages().send(data, function (error, body) {
-        if (error) {
-          return res.json({
-            error: err.message,
-          });
-        }
-        return res.json({
-          message: `Email sent, please follow instruction.`,
-        });
-      });
-    });
+      "language",
+      "belief",
+      "politics",
+      "diet",
+      "alcohol",
+      "smoking",
+
+      "picture",
+
+      "extraversionValue",
+      "introversionValue",
+      "sensingValue",
+      "intuitionValue",
+      "thinkingValue",
+      "feelingValue",
+      "judgingValue",
+      "perceivingValue",
+      "characterType",
+
+      "liked",
+      "likedBy",
+      "matched"
+    ]);
+
+    res.json(users);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send("Servor Error");
   }
 });
-
-//Accept reset link
-app.put("/reset-password", async (req, res) => {
-  const { resetLink, newPass } = req.body;
-  if (resetLink) {
-    jwt.verify(
-      resetLink,
-      process.env.RESET_PASSWORD_KEY,
-      async function (error, decodedData) {
-        if (error) {
-          return res.status(401).json({
-            error: "Incorrect or Expired Link.",
-          });
-        }
-        try {
-          let user = await User.findOne({ resetLink });
-          if (!user) {
-            return res
-              .status(400)
-              .json({ error: "User with authentication does not exist.." });
-          }
-          //encrypt password
-          const salt = bcrypt.genSaltSync(10);
-          const newPassHashed = await bcrypt.hash(newPass, salt);
-          const obj = {
-            password: newPassHashed,
-            resetLink: "",
-          };
-
-          user = await _.extend(user, obj);
-          await user.save();
-
-          return res
-            .status(200)
-            .json({ message: "Your password has been changed." });
-        } catch (err) {
-          console.error(err.message);
-          res.status(500).send("Server Error");
-        }
-      }
-    );
-  } else {
-    return res.status(401).json({ error: "Access Denied." });
-  }
-});
-
-//Login
-app.post(
-  "/login",
-  [
-    check("password", "Password is required.").exists(),
-    check("email", "Email is required.").isEmail(),
-  ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { password, email } = req.body;
-
-    try {
-      //checking user exists
-      let user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ errors: [{ msg: "Invalid Entry!" }] });
-      }
-
-      //comparing with bcrypt
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ errors: [{ msg: "Invalid Entry!" }] });
-      }
-      //return jsonwebtoken
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        process.env.jwtSecret,
-        { expiresIn: 31556926 },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token, user });
-        }
-      );
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server Error");
-    }
-  }
-);

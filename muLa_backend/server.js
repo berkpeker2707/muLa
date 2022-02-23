@@ -403,54 +403,6 @@ app.put(
 //UNDER CONSTRUCTION IMAGE STUFF
 //UNDER CONSTRUCTION IMAGE STUFF
 
-//Get all users all information except current user
-app.get("/users",  async (req, res) => {
-  try {
-    const users = await User.find({
-      _id: { $ne: req.user.id },
-    }).select([
-      "email",
-      "firstname",
-      "lastname",
-      "age",
-      "gender",
-      "job",
-      "description",
-
-      "userLatitude",
-      "userLongitude",
-
-      "language",
-      "belief",
-      "politics",
-      "diet",
-      "alcohol",
-      "smoking",
-
-      "picture",
-
-      "extraversionValue",
-      "introversionValue",
-      "sensingValue",
-      "intuitionValue",
-      "thinkingValue",
-      "feelingValue",
-      "judgingValue",
-      "perceivingValue",
-      "characterType",
-
-      "liked",
-      "likedBy",
-      "matched"
-    ]);
-
-    res.json(users);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Servor Error");
-  }
-});
-
 //Update user
 app.put(
   "/me-update",
