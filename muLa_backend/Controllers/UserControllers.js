@@ -127,12 +127,66 @@ const getUsersController = expressAsyncHandler(async (req, res) => {
 const updateUserController = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   try {
+    let modifications = {};
+
+    if (req?.body?.firstname)
+      modifications.firstname = await req?.body?.firstname;
+    if (req?.body?.lastname) modifications.lastname = await req?.body?.lastname;
+    if (req?.body?.age) modifications.age = await req?.body?.age;
+    if (req?.body?.gender) modifications.gender = await req?.body?.gender;
+    if (req?.body?.job) modifications.job = await req?.body?.job;
+    if (req?.body?.description)
+      modifications.description = await req?.body?.description;
+
+    if (req?.body?.language) modifications.language = await req?.body?.language;
+    if (req?.body?.belief) modifications.belief = await req?.body?.belief;
+    if (req?.body?.politics) modifications.politics = await req?.body?.politics;
+    if (req?.body?.diet) modifications.diet = await req?.body?.diet;
+    if (req?.body?.alcohol) modifications.alcohol = await req?.body?.alcohol;
+    if (req?.body?.smoking) modifications.smoking = await req?.body?.smoking;
+
     const user = await User.findByIdAndUpdate(
       _id,
+      { $set: modifications },
       {
-        firstname: req?.body?.firstname,
-        lastname: req?.body?.lastname,
-      },
+        new: true,
+        runValidator: true,
+      }
+    );
+    res.json(user);
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//update logged in user's test
+const updateUsersTestController = expressAsyncHandler(async (req, res) => {
+  const { _id } = req?.user;
+  try {
+    let modifications = {};
+
+    if (req.body.extraversionValue)
+      modifications.extraversionValue = await req.body.extraversionValue;
+    if (req.body.introversionValue)
+      modifications.introversionValue = await req.body.introversionValue;
+    if (req.body.sensingValue)
+      modifications.sensingValue = await req.body.sensingValue;
+    if (req.body.intuitionValue)
+      modifications.intuitionValue = await req.body.intuitionValue;
+    if (req.body.thinkingValue)
+      modifications.thinkingValue = await req.body.thinkingValue;
+    if (req.body.feelingValue)
+      modifications.feelingValue = await req.body.feelingValue;
+    if (req.body.judgingValue)
+      modifications.judgingValue = await req.body.judgingValue;
+    if (req.body.perceivingValue)
+      modifications.perceivingValue = await req.body.perceivingValue;
+    if (req.body.characterType)
+      modifications.characterType = await req.body.characterType;
+  
+    const user = await User.findByIdAndUpdate(
+      _id,
+      { $set: modifications },
       {
         new: true,
         runValidator: true,
@@ -235,12 +289,15 @@ const photoUploadController = expressAsyncHandler(async (req, res) => {
   res.json(imgUploaded);
 });
 
+
+
 module.exports = {
   userRegisterController,
   userLoginController,
   getUserController,
   getUsersController,
   updateUserController,
+  updateUsersTestController,
   updateUserPasswordController,
   generateVerificationController,
   verifyAccount,

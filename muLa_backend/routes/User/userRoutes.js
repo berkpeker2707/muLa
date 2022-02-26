@@ -10,6 +10,7 @@ const {
   getUsersController,
   getUserController,
   updateUserController,
+  updateUsersTestController,
   updateUserPasswordController,
   generateVerificationController,
   verifyAccount,
@@ -31,6 +32,9 @@ userRoutes.get("/users", auth, getUsersController);
 
 //update logged in user
 userRoutes.put("/me/update", auth, updateUserController);
+
+//update logged in user
+userRoutes.put("/me/update/test", auth, updateUsersTestController);
 
 //update logged in users password
 userRoutes.put("/me/update/password", auth, updateUserPasswordController);

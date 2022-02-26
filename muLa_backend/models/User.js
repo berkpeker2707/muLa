@@ -95,7 +95,7 @@ const UserSchema = new mongoose.Schema(
     smoking: {
       type: String,
     },
-    picture: {
+    profilePhoto: {
       type: String,
       default: "defaultProfilePicture.png",
     },
