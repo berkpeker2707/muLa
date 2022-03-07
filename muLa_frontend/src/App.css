@@ -1,39 +1,13 @@
 body {
   text-align: center !important;
   background-color: #f5f0e1 !important;
-  /* color: #f5f0e1 !important; */
-  margin: 0 !important;
+  color: #f5f0e1 !important;
   font-family: RobotoCustom !important;
 }
 
 .nav-link.active {
   color: #303c6c !important;
 }
-
-/* .letstalkbutton,.mehbutton{
-  margin: auto !important;
-} */
-
-/* .letstalkbutton:hover > svg {
-  color: green;
-}
-
-.letstalkbutton:active > svg {
-  color: darkgreen;
-} */
-
-/* .mehbutton:hover > svg {
-  color: red;
-}
-
-.mehbutton:active > svg {
-  color: darkred;
-} */
-
-/* .letstalkbutton h6,
-.mehbutton h6 {
-  color: #1e3d59;
-} */
 
 .chatCol1,
 .chatCol2 {
@@ -52,29 +26,89 @@ body {
   color: #e2d3a8 !important;
 }
 
-.LandingComponent {
+/**********************/
+/* LANDING CSS STARTS */
+/**********************/
+
+.LandingSection1 {
   background-color: #1e3d59;
-  overflow-x: hidden;
-  color: #f5f0e1;
+  background-image: linear-gradient(
+    43deg,
+    #1e3d59 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+
+  align-items: center;
+  text-align: center;
+
+  height: 120vh;
 }
 
-.LandingSection1{
-position: relative;
+.LandingSection2 {
+  background-color: #1e3d59;
+  background-image: linear-gradient(
+    43deg,
+    #1e3d59 0%,
+    #c850c0 46%,
+    #ffcc70 100%
+  );
+
+  align-items: center;
+  text-align: center;
+
+
+  -webkit-animation: polygonWavingAnimationTop 5s infinite; /* Safari 4+ */
+  -moz-animation: polygonWavingAnimationTop 5s infinite; /* Fx 5+ */
+  -o-animation: polygonWavingAnimationTop 5s infinite; /* Opera 12+ */
+  animation: polygonWavingAnimationTop 5s infinite; /* IE 10+, Fx 29+ */
 }
 
-.LandingSection1>.landingP{
-position: absolute;
-z-index: 1;
-padding: 5vh;
-background-color: #1e3d59a8;
-box-shadow: 0px 0px 10px 10px #1e3d59a8;
-left:0;
-right:0;
-margin-left:auto;
-margin-right:auto;
-width: fit-content;
-margin-top: 12vh;
+.LandingSection3 {
+  clip-path: polygon(0 0, 100% 50px, 100% 100%, 0 100%);
+  margin-top: -50px;
 
+  -webkit-animation: polygonWavingAnimationBottom 5s infinite; /* Safari 4+ */
+  -moz-animation: polygonWavingAnimationBottom 5s infinite; /* Fx 5+ */
+  -o-animation: polygonWavingAnimationBottom 5s infinite; /* Opera 12+ */
+  animation: polygonWavingAnimationBottom 5s infinite; /* IE 10+, Fx 29+ */
+}
+
+@keyframes polygonWavingAnimationTop {
+  0%,
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 50px));
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 50px), 0 100%);
+  }
+}
+
+@keyframes polygonWavingAnimationBottom {
+  0%,
+  100% {
+    clip-path: polygon(0 0, 100% 50px, 100% 100%, 0 100%);
+  }
+  50% {
+    clip-path: polygon(0 50px, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.LandingSection1 .muLaIcon {
+  width: 50vh;
+  height: 50vh;
+}
+
+.muLaIntro {
+  text-shadow: -1px 1px #1e3d59, -2px 2px #1e3d59, -3px 3px #1e3d59, -4px 4px #1e3d59,
+    -5px 5px #1e3d59, -6px 6px #1e3d59, -7px 7px #1e3d59, -8px 8px #1e3d59;
+    letter-spacing: 4px;
+    -webkit-text-stroke: 1px;
+}
+
+.LandingSection1 .mobilePhone {
+  width: 70vh;
+  height: 70vh;
 }
 
 /* .landingImage1Inner{
@@ -85,7 +119,7 @@ margin-top: 12vh;
 
 } */
 
-.landingImage1{
+/* .landingImage1{
   position: absolute;
   background-image: url(./components/Landing/landingImage1.jpg);
   background-repeat: no-repeat;
@@ -95,26 +129,17 @@ margin-top: 12vh;
   filter: blur(5px);
   top:-7px;
   overflow-y: hidden;
-}
+} */
 
-.LandingSection2{
-  display: flex;
-  align-items: center;
-  text-align: center;
-}
+/********************/
+/* LANDING CSS ENDS */
+/********************/
 
-.LandingSection3{
-
-}
-
-.FooterComponent {
+.Footer {
   background-color: #1e3d59;
   font-weight: bolder;
   position: relative;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  color:#f5f0e1;
+  color: #f5f0e1;
 }
 
 .FooterIcons {
@@ -140,8 +165,6 @@ margin-top: 12vh;
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-
-
 .login-component {
   color: white;
   width: fit-content;
@@ -158,14 +181,6 @@ margin-top: 12vh;
   font-family: monospace;
   background-color: unset;
 }
-
-
-
-
-
-
-
-
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
@@ -191,22 +206,22 @@ margin-top: 12vh;
   word-wrap: break-word;
 }
 
-.register-component.confirmPage{
+.register-component.confirmPage {
   width: min-content;
 }
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-.dashboardCard{
+.dashboardCard {
   background-color: #1e3d59 !important;
   width: 24rem;
 }
 
-.dashboardNavPills{
+.dashboardNavPills {
   margin: auto !important;
 }
 
-.tabPaneRow{
+.tabPaneRow {
   padding: 10px;
 }
 
@@ -214,15 +229,14 @@ margin-top: 12vh;
   padding: 10px !important;
 } */
 
-.userProfilePhoto{
+.userProfilePhoto {
   max-width: 100%;
-    max-height: 100%;
+  max-height: 100%;
 }
-
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-.progressbarCharacterType{
+.progressbarCharacterType {
   height: 15px;
   background: yellow !important;
 }
@@ -290,45 +304,47 @@ hr {
   width: 100%;
 }
 
-.profilePhoto{
+.profilePhoto {
   vertical-align: middle;
-    width: 200px!important;
-    height: 200px;
-    border-radius: 50%!important;
+  width: 200px !important;
+  height: 200px;
+  border-radius: 50% !important;
 }
 
-.alreadyHaveAccountButton{
-  color: white
+.alreadyHaveAccountButton {
+  color: white;
 }
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
-.chatbox{
+.chatbox {
   padding: 15px;
   position: relative;
 }
-.chatCol1,.chatCol3{
+.chatCol1,
+.chatCol3 {
   background-color: #1e3d59;
 }
-.chatCol2{
+.chatCol2 {
   background-color: #f5f0e1;
 }
 
-.chatbox3{
-height: 80%;
-overflow-y: scroll;
-padding-left: 10px;
+.chatbox3 {
+  height: 80%;
+  overflow-y: scroll;
+  padding-left: 10px;
 }
 
-.conversation, .conversationLoading{
+.conversation,
+.conversationLoading {
   display: flex;
   align-items: center;
-  padding:10px;
+  padding: 10px;
   cursor: pointer;
   margin-top: 20px;
 }
 
-.conversationImage{
+.conversationImage {
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -336,31 +352,31 @@ padding-left: 10px;
   margin-right: 20px;
 }
 
-.conversationName{
+.conversationName {
   font-weight: 500px;
 }
 
-.conversation:hover{
+.conversation:hover {
   background-color: lightslategray;
 }
 
-.activeConversation{
+.activeConversation {
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   margin-top: 20px;
 }
 
-.activeConversationTop{
+.activeConversationTop {
   display: flex;
 }
 
-.activeConversationBottom{
+.activeConversationBottom {
   display: flex;
   font-size: 12px;
   margin-top: 10px;
 }
 
-.activeConversationImage{
+.activeConversationImage {
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -368,69 +384,69 @@ padding-left: 10px;
   margin-right: 10px;
 }
 
-.activeConversationText{
+.activeConversationText {
   background-color: #1e3d59;
   border-radius: 20px;
   padding: 10px;
   max-width: 300px;
 }
 
-.activeConversationTime{
-  color:#1e3d59;
+.activeConversationTime {
+  color: #1e3d59;
 }
 
-.activeConversation.own{
+.activeConversation.own {
   align-items: flex-end;
 }
 
-.messageInputOuter{
+.messageInputOuter {
   display: flex;
   margin-top: 5px;
   align-items: center;
   justify-content: space-between;
 }
 
-.messageInput{
+.messageInput {
   width: 80%;
   height: 90px;
   padding: 10px;
 }
 
-.messageInputButton{
+.messageInputButton {
   width: 70px;
   height: 40px;
   border: none;
   border-radius: 5px;
 }
 
-.messageInputButton:hover{
+.messageInputButton:hover {
   background-color: lightslategray;
   cursor: pointer;
 }
 
-.matchedUser{
+.matchedUser {
   display: flex;
   align-items: center;
   font-weight: 500;
   cursor: pointer;
-  padding:10px;
+  padding: 10px;
   margin-top: 20px;
 }
 
-.matchedUser:hover{
+.matchedUser:hover {
   background-color: lightsteelblue;
 }
 
-.matchedUserImage{
+.matchedUserImage {
   width: 40px;
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
 }
 
-.noCurrentConversation{
+.noCurrentConversation {
   position: absolute;
-  top:10%;
+  top: 10%;
   font-size: 50px;
   color: #1e3d59;
   display: flex;

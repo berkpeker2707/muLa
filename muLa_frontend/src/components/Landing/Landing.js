@@ -1,17 +1,23 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
-import { Container, Row, Col } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
-import landingImage1 from "./landingImage1.jpg";
-import landingImage2 from "./landingImage2.jpg";
 
+//images
+import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-TextWithShadow-white.png";
+import mobilePhone from "../images/LandingImages/mobilePhone.png";
+import coupleVector from "../images/LandingImages/coupleVector.png";
+
+// import landingImage1 from "../../../public/images/LandingImages/landingImage1.jpg";
+// import landingImage2 from "../../../public/images/LandingImages/landingImage2.jpg";
+
+//material
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 
 import { getUsers } from "../../state/slices/usersSlices";
 
@@ -31,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-  },
+  }
 }));
 
 const Landing = () => {
@@ -62,172 +68,136 @@ const Landing = () => {
     return <Navigate to="/dashboard" />;
   }
   return (
-    <div className="LandingComponent">
-      <div className={classes.root}>
-        <Grid container spacing={3} className="LandingSection1">
-          <Grid item xs={12}>
-            <Paper className={classes.paper}>xs=12</Paper>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} className="LandingSection1">
-          <Grid item xs={3}></Grid>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              {" "}
-              <h5>What do we offer?</h5>
-              <p>
-                muLa app focuses constructive ways to find and build compatible
-                relationship.
-                <br />
-                By using well-known Myers-Briggs testing, we aim your
-                satisfaction for finding compatible relationship.{" "}
-              </p>
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              <h4>Why muLa?</h4>
-              <p>
-                Relationships seek compatible souls, minds and deeper
-                understanding. Deep down we all want someone familiar, someone
-                who can understand our core. That click we can get from someone.
-                There muLa kicks in, our goal is to find people who are familiar
-                in core.
-              </p>
-            </Paper>
-          </Grid>
-        </Grid>
-        <Grid container spacing={3} className="LandingSection1">
-          <Grid item xs={3}></Grid>
-          <Grid item xs={3}></Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              {" "}
-              <h5>What do we offer?</h5>
-              <p>
-                Friendship app focuses constructive ways to find and build
-                compatible relationship.
-                <br />
-                By using well-known Myers-Briggs Testing, we want our users to
-                feel satisfied and feel{" "}
-              </p>
-            </Paper>
-          </Grid>
-          <Grid item xs={3}>
-            <Paper className={classes.paper}>
-              <h4>Why muLa?</h4>
-              <p>
-                We all desire that unreachable tasty red apple, yet in reality,
-                it is not the case. Relationships seek compatible souls, and
-                deeper understanding. Deep down we all want something familiar,
-                someone who can understand our core. Here MuLa kicks in, we find
-                people who are familiar for you to have stable and constructive
-                relationship.
-              </p>
-            </Paper>
-          </Grid>
-        </Grid>
-      </div>
-
-      <Container fluid="xxl">
-        {/* <Row className="LandingSection1"> */}
-        {/* <Col className="landingP">
-            <h5>What do we offer?</h5>
-            <p>
-              Friendship app focuses constructive ways to find and build
-              compatible relationship.
-              <br />
-              By using well-known Myers-Briggs Testing, we want our users to
-              feel satisfied and feel{" "}
-            </p>
-          </Col> */}
-        {/* <Col className="landingImage1" src={landingImage1}></Col>
-        </Row> */}
-
-        <Row>
-          <Col></Col>
-        </Row>
-
-        <Row className="LandingSection2">
-          <Col>
-            <h4>Already signed up?</h4>
-          </Col>
-          <Col>
-            <Link to="/register">Register</Link>
-          </Col>
-          <Col>
-            <Link to="/login">Login</Link>
-          </Col>
-        </Row>
-
-        {/* <Row
-          className="LandingSection2"
-          style={{ paddingLeft: "15px", paddingRight: "15px" }}
-          md={4}
+    <div className={classes.root}>
+      <Grid
+        container
+        maxWidth="sm"
+        // m={2}
+        // pt={3}
+        // style={{
+        //   backgroundImage: `url(${coupleVector})`,
+        //   backgroundPosition: "center",
+        //   backgroundSize: "cover",
+        //   backgroundRepeat: "no-repeat",
+        //   paddingLeft: "0",
+        //   paddingRight: "0",
+        // }}
+      >
+        {/* <div
+            className="blurImage"
+            style={{
+              // background: 'rgba(255, 255, 255, 0.1)',// Make sure this color has an opacity of less than 1
+              backdropFilter: "blur(4px)", // This be the blur
+            }}
+          > */}
+        <Grid
+          className="LandingSection1"
+          container
+          spacing={0.5}
+          style={{
+            direction: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <Col md={5}>
-            <h4>Why muLa?</h4>
-          </Col>
-          <Col xs={7}>
-            <p>
-              We all desire that unreachable tasty red apple, yet in reality, it
-              is not the case. Relationships seek compatible souls, and deeper
-              understanding. Deep down we all want something familiar, someone
-              who can understand our core. Here MuLa kicks in, we find people
-              who are familiar for you to have stable and constructive
-              relationship.
+          <Grid item xs={12} md={6}>
+            <img className="muLaIcon" src={muLaIcon} />
+            <p className="muLaIntro">
+              An app for finding people based on their Myers Briggs character
+              types & aims for higher compatibility and suitable relationships.
             </p>
-          </Col>
-        </Row> */}
-        <br />
-        <Row className="LandingSection2">
-          <Col md={5}>
-            <h4>How Does It Work?</h4>
-          </Col>
-          <Col xs={7}>
-            <p>
-              MuLa uses MBTI character types & encourages you to complete your
-              character type test. Once your character classification is done,
-              we encourage you to find people whom you can form deep bonds &
-              interested in talk to.
-            </p>
-          </Col>
-        </Row>
-        <br />
-        <Row className="LandingSection2">
-          <Col md={5}>
-            <h4>What We Don't Do?</h4>
-          </Col>
-          <Col xs={7}>
-            <p>
-              In this fast consumerist age, we highly discourage shallow
-              relationships. Instead, we want you to discover each other and
-              form friendships & deep bonds.
-            </p>
-          </Col>
-        </Row>
-        <br />
-        {/* <Row className="LandingSection3">
-          <Col md="5">
-            <h4>Another Section</h4>
-          </Col>
-          <Col xs={7}>
-            <p>Another section information</p>
-          </Col>
-        </Row> */}
-      </Container>
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <img className="mobilePhone" src={mobilePhone} />
+          </Grid>
+        </Grid>
+
+        {/* THERE THE PARTITION STARTS */}
+        {/* THERE THE PARTITION STARTS */}
+        {/* THERE THE PARTITION STARTS */}
+        {/* THERE THE PARTITION STARTS */}
+        {/* THERE THE PARTITION STARTS */}
+        <Grid
+          className="Footer"
+          px={{ xs: 3, sm: 10 }}
+          py={{ xs: 5, sm: 10 }}
+          container
+          spacing={0.5}
+            style={{
+              direction: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+        >
+          <Grid container item xs={12} sm={12}>
+            <Grid item xs={12} sm={4}>
+              <Grid item borderBottom={1}>
+                Help
+              </Grid>
+              <Grid item>
+                <Link to="/" color="inherit">
+                  Contact
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/" color="inherit">
+                  Support
+                </Link>
+              </Grid>
+              <Grid item>
+                <Link to="/" color="inherit">
+                  Privacy
+                </Link>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <Grid borderBottom={1}>Account</Grid>
+              <Grid>
+                <Link to="/" color="inherit">
+                  Login
+                </Link>
+              </Grid>
+              <Grid>
+                <Link to="/" color="inherit">
+                  Register
+                </Link>
+              </Grid>
+            </Grid>
+
+            <Grid item xs={12} sm={4}>
+              <Grid borderBottom={1}>About</Grid>
+              <Grid>
+                <Link to="/" color="inherit">
+                  F.A.Q.
+                </Link>
+              </Grid>
+              <Grid>
+                <Link to="/" color="inherit">
+                  History
+                </Link>
+              </Grid>
+              <Grid>
+                <Link to="/" color="inherit">
+                  Roll
+                </Link>
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
+            muLa &reg; {new Date().getFullYear()}
+          </Grid>
+        </Grid>
+
+        {/* THERE THE PARTITION ENDS */}
+        {/* THERE THE PARTITION ENDS */}
+        {/* THERE THE PARTITION ENDS */}
+        {/* THERE THE PARTITION ENDS */}
+        {/* THERE THE PARTITION ENDS */}
+      </Grid>
     </div>
   );
 };
 
-// const mapStateToProps = (state) => ({
-//   isAuthenticated: state.auth.isAuthenticated,
-// });
-
-// Landing.propTypes = {
-//   isAuthenticated: PropTypes.bool,
-// };
-
-// export default connect(mapStateToProps, {})(Landing);
 export default Landing;
