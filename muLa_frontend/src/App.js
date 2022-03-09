@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.css";
-import Footer from "./components/Footer/Footer.js";
+// import Footer from "./components/Footer/Footer.js";
 import FAQ from "./components/Footer/FAQ.js";
 import Landing from "./components/Landing/Landing.js";
 import Register from "./components/Landing/Register/Register.js";
@@ -62,7 +62,7 @@ const App = () => {
           {/* <Route path="/chatroom" element={<ChatRoom/>} /> */}
           {/*  <Route path="/chat" element={Messenger} />*/}
           <Route path="/faq" element={<FAQ />} />
-        <Route element={<Footer />} />
+        {/* <Route element={<Footer />} /> */}
       </Routes>
     </Router>
   );

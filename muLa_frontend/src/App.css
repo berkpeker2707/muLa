@@ -1,29 +1,8 @@
 body {
-  text-align: center !important;
+  /* text-align: center !important; */
   background-color: #f5f0e1 !important;
-  color: #f5f0e1 !important;
+  /* color: #f5f0e1 !important; */
   font-family: RobotoCustom !important;
-}
-
-.nav-link.active {
-  color: #303c6c !important;
-}
-
-.chatCol1,
-.chatCol2 {
-  height: 600px;
-}
-
-.HeaderComponent {
-  background-color: #1e3d59;
-}
-
-.HeaderNavLink {
-  color: #f5f0e1 !important;
-}
-
-.HeaderNavLink:hover {
-  color: #e2d3a8 !important;
 }
 
 /**********************/
@@ -31,32 +10,13 @@ body {
 /**********************/
 
 .LandingSection1 {
-  background-color: #1e3d59;
-  background-image: linear-gradient(
-    43deg,
-    #1e3d59 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  );
-
-  align-items: center;
+  background-color: #f5f0e1;
+  color: #1e3d59;
   text-align: center;
-
-  height: 120vh;
 }
 
 .LandingSection2 {
-  background-color: #1e3d59;
-  background-image: linear-gradient(
-    43deg,
-    #1e3d59 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  );
-
-  align-items: center;
-  text-align: center;
-
+  background-color: #f5f0e1;
 
   -webkit-animation: polygonWavingAnimationTop 5s infinite; /* Safari 4+ */
   -moz-animation: polygonWavingAnimationTop 5s infinite; /* Fx 5+ */
@@ -72,6 +32,20 @@ body {
   -moz-animation: polygonWavingAnimationBottom 5s infinite; /* Fx 5+ */
   -o-animation: polygonWavingAnimationBottom 5s infinite; /* Opera 12+ */
   animation: polygonWavingAnimationBottom 5s infinite; /* IE 10+, Fx 29+ */
+}
+
+.LandingSection1 .muLaIcon {
+  width: 30vh;
+  height: 30vh;
+}
+
+.muLaIntro {
+  letter-spacing: 4px;
+  -webkit-text-stroke: 1px;
+}
+
+.LandingSection1 .mobilePhone {
+  height: 70vh;
 }
 
 @keyframes polygonWavingAnimationTop {
@@ -92,23 +66,6 @@ body {
   50% {
     clip-path: polygon(0 50px, 100% 0, 100% 100%, 0 100%);
   }
-}
-
-.LandingSection1 .muLaIcon {
-  width: 50vh;
-  height: 50vh;
-}
-
-.muLaIntro {
-  text-shadow: -1px 1px #1e3d59, -2px 2px #1e3d59, -3px 3px #1e3d59, -4px 4px #1e3d59,
-    -5px 5px #1e3d59, -6px 6px #1e3d59, -7px 7px #1e3d59, -8px 8px #1e3d59;
-    letter-spacing: 4px;
-    -webkit-text-stroke: 1px;
-}
-
-.LandingSection1 .mobilePhone {
-  width: 70vh;
-  height: 70vh;
 }
 
 /* .landingImage1Inner{
@@ -135,32 +92,57 @@ body {
 /* LANDING CSS ENDS */
 /********************/
 
+/*********************/
+/* FOOTER CSS STARTS */
+/*********************/
+
 .Footer {
   background-color: #1e3d59;
   font-weight: bolder;
-  position: relative;
+  text-align: center;
+  color: #f5f0e1;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+}
+
+.FooterIcon {
+  padding: 10px;
+}
+
+.FooterIcon .FooterIconLink {
   color: #f5f0e1;
 }
 
-.FooterIcons {
-  padding: 10px;
-}
-
-.FooterLinks {
-  padding: 10px;
-}
-
-.FooterLinkCol > *:hover {
+.FooterIcon .FooterIconLink:hover {
   text-decoration: none;
+  color: #ff6e40;
 }
 
-.FooterIconCol > *:hover {
-  text-decoration: none;
+/*******************/
+/* FOOTER CSS ENDS */
+/*******************/
+
+.nav-link.active {
+  color: #303c6c !important;
 }
 
-.FooterIconCol,
-.FooterLinkCol {
-  padding: 10px;
+.chatCol1,
+.chatCol2 {
+  height: 600px;
+}
+
+.HeaderComponent {
+  background-color: #1e3d59;
+}
+
+.HeaderNavLink {
+  color: #f5f0e1 !important;
+}
+
+.HeaderNavLink:hover {
+  color: #e2d3a8 !important;
 }
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/

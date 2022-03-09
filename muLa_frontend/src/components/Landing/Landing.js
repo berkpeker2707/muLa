@@ -2,8 +2,11 @@ import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
 import { Link, Navigate } from "react-router-dom";
 
+//component
+import Footer from "./Footer/Footer.js"
+
 //images
-import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-TextWithShadow-white.png";
+import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
 import mobilePhone from "../images/LandingImages/mobilePhone.png";
 import coupleVector from "../images/LandingImages/coupleVector.png";
 
@@ -37,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-  }
+  },
 }));
 
 const Landing = () => {
@@ -69,132 +72,33 @@ const Landing = () => {
   }
   return (
     <div className={classes.root}>
-      <Grid
-        container
-        maxWidth="sm"
-        // m={2}
-        // pt={3}
-        // style={{
-        //   backgroundImage: `url(${coupleVector})`,
-        //   backgroundPosition: "center",
-        //   backgroundSize: "cover",
-        //   backgroundRepeat: "no-repeat",
-        //   paddingLeft: "0",
-        //   paddingRight: "0",
-        // }}
-      >
-        {/* <div
-            className="blurImage"
-            style={{
-              // background: 'rgba(255, 255, 255, 0.1)',// Make sure this color has an opacity of less than 1
-              backdropFilter: "blur(4px)", // This be the blur
-            }}
-          > */}
+      <Grid>
+        {/* Landing Starts */}
         <Grid
           className="LandingSection1"
-          container
-          spacing={0.5}
-          style={{
-            direction: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+          container 
         >
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={12}>
             <img className="muLaIcon" src={muLaIcon} />
-            <p className="muLaIntro">
-              An app for finding people based on their Myers Briggs character
-              types & aims for higher compatibility and suitable relationships.
-            </p>
           </Grid>
-          <Grid item xs={12} md={3}>
-            <img className="mobilePhone" src={mobilePhone} />
+
+          <Grid container>
+            <Grid item xs={6} md={5} style={{ margin: "auto" }}>
+              <p className="muLaIntro">
+                An app for finding people based on their Myers Briggs character
+                types & aims for higher compatibility and suitable
+                relationships.
+              </p>
+            </Grid>
+
+            <Grid item xs={6} md={5} style={{ margin: "auto" }}>
+              <img className="mobilePhone" src={mobilePhone} />
+            </Grid>
           </Grid>
         </Grid>
+        {/* Landing Ends */}
 
-        {/* THERE THE PARTITION STARTS */}
-        {/* THERE THE PARTITION STARTS */}
-        {/* THERE THE PARTITION STARTS */}
-        {/* THERE THE PARTITION STARTS */}
-        {/* THERE THE PARTITION STARTS */}
-        <Grid
-          className="Footer"
-          px={{ xs: 3, sm: 10 }}
-          py={{ xs: 5, sm: 10 }}
-          container
-          spacing={0.5}
-            style={{
-              direction: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-        >
-          <Grid container item xs={12} sm={12}>
-            <Grid item xs={12} sm={4}>
-              <Grid item borderBottom={1}>
-                Help
-              </Grid>
-              <Grid item>
-                <Link to="/" color="inherit">
-                  Contact
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/" color="inherit">
-                  Support
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link to="/" color="inherit">
-                  Privacy
-                </Link>
-              </Grid>
-            </Grid>
-
-            <Grid item xs={12} sm={4}>
-              <Grid borderBottom={1}>Account</Grid>
-              <Grid>
-                <Link to="/" color="inherit">
-                  Login
-                </Link>
-              </Grid>
-              <Grid>
-                <Link to="/" color="inherit">
-                  Register
-                </Link>
-              </Grid>
-            </Grid>
-
-            <Grid item xs={12} sm={4}>
-              <Grid borderBottom={1}>About</Grid>
-              <Grid>
-                <Link to="/" color="inherit">
-                  F.A.Q.
-                </Link>
-              </Grid>
-              <Grid>
-                <Link to="/" color="inherit">
-                  History
-                </Link>
-              </Grid>
-              <Grid>
-                <Link to="/" color="inherit">
-                  Roll
-                </Link>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid textAlign="center" pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
-            muLa &reg; {new Date().getFullYear()}
-          </Grid>
-        </Grid>
-
-        {/* THERE THE PARTITION ENDS */}
-        {/* THERE THE PARTITION ENDS */}
-        {/* THERE THE PARTITION ENDS */}
-        {/* THERE THE PARTITION ENDS */}
-        {/* THERE THE PARTITION ENDS */}
+       <Footer />
       </Grid>
     </div>
   );
