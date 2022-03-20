@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../../utils/setAuthToken";
 
 //register user action
 export const registerUser = createAsyncThunk(
@@ -120,7 +120,7 @@ export const getUsers = createAsyncThunk(
     //get user token
     const user = getState()?.users;
     try {
-      const { data } = await axios.get("/users");
+      const { data } = await axios.get("api/users");
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -164,12 +164,12 @@ const usersSlices = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isAuthenticated = true;
-      state.token = action?.payload?.token;
-      state.user = action?.payload?.user;
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
+      state.isAuthenticated = true;
+      state.token = action?.payload?.token;
+      state.user = action?.payload?.user;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.isLoading = false;
@@ -184,15 +184,14 @@ const usersSlices = createSlice({
     });
     builder.addCase(getUsers.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.users = action?.payload?.users;
       state.appErr = undefined;
       state.serverErr = undefined;
+      state.users = action.payload.users;
     });
     builder.addCase(getUsers.rejected, (state, action) => {
-      console.log(action.payload);
       state.isLoading = false;
-      state.appErr = action?.payload?.message;
-      state.serverErr = action?.error?.message;
+      state.appErr = action.payload.message;
+      state.serverErr = action.error.message;
     });
   },
 });

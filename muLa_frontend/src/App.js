@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.css";
 // import Footer from "./components/Footer/Footer.js";
-import FAQ from "./components/Footer/FAQ.js";
+import FAQ from "./components/Landing/Footer/FAQ.js";
 import Landing from "./components/Landing/Landing.js";
 import Register from "./components/Landing/Register/Register.js";
 import ConfirmPage from "./components/Landing/Register/ConfirmPage.js";
@@ -28,6 +28,13 @@ import ReTakeTest from "./components/Profile/ReTakeTest/ReTakeTest";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/Landing/ResetPassword";
 import Uploadfiletest from "./components/Profile/Uploadfiletest";
+import About from "./components/Landing/Footer/About";
+
+import { 
+  ThemeProvider, createTheme
+} from '@material-ui/core/styles';
+import { purple, green } from '@mui/material/colors';
+
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -44,7 +51,19 @@ const App = () => {
   //   store.dispatch(loadUser());
   // }, []); //last [] is for run once
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#1e3d59",
+      },
+      secondary: {
+        main: "#ff6e40",
+      },
+    },
+  });
+
   return (
+    <ThemeProvider theme={theme}>
     <Router>
       <Routes>
         <Route path="/" exact element={<Landing />} />
@@ -62,9 +81,11 @@ const App = () => {
           {/* <Route path="/chatroom" element={<ChatRoom/>} /> */}
           {/*  <Route path="/chat" element={Messenger} />*/}
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/about" element={<About />} />
         {/* <Route element={<Footer />} /> */}
       </Routes>
     </Router>
+    </ThemeProvider>
   );
 };
 

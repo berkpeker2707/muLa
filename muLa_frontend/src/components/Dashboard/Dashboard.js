@@ -53,7 +53,7 @@ import store from "../../state/store";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { actionCreators } from "../../state/index";
-import { getUsers } from "../../state/slices/usersSlices";
+import { getUsers } from "../../state/slices/authSlices";
 
 const Dashboard = () => {
 
@@ -68,11 +68,14 @@ const Dashboard = () => {
   // console.log(loadUser);
 // console.log(getUsers())
 
-useEffect(() => {
-  dispatch(getUsers());
-}, [dispatch]);
+// useEffect(() => {
+//   dispatch(getUsers());
+// }, [dispatch]);
 
- console.log(getUsers())
+  //fetch all users
+  useEffect(() => {
+    dispatch(getUsers());
+  });
 
 console.log(users)
 

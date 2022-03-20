@@ -1,26 +1,17 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
 import { Link, Navigate } from "react-router-dom";
+import { FaRegHandPointRight } from "react-icons/fa";
 
-//component
-import Footer from "./Footer/Footer.js"
+import Footer from "./Footer/Footer.js";
 
-//images
-import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
+import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon.png";
+// import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
 import mobilePhone from "../images/LandingImages/mobilePhone.png";
-import coupleVector from "../images/LandingImages/coupleVector.png";
 
-// import landingImage1 from "../../../public/images/LandingImages/landingImage1.jpg";
-// import landingImage2 from "../../../public/images/LandingImages/landingImage2.jpg";
-
-//material
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
 
 import { getUsers } from "../../state/slices/usersSlices";
 
@@ -32,19 +23,9 @@ import { actionCreators } from "../../state/index";
 
 import { registerUser } from "../../state/slices/usersSlices";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  },
-}));
-
 const Landing = () => {
   const { isAuthenticated } = useSelector((state) => state?.users);
+
   // const user = useSelector((state) => state.auth.user);
 
   // const dispatch = useDispatch();
@@ -65,6 +46,17 @@ const Landing = () => {
   // console.log(loadUser);
   // console.log(auth);
 
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: "center",
+      color: theme.palette.text.secondary,
+    },
+  }));
+
   const classes = useStyles();
 
   if (isAuthenticated) {
@@ -73,32 +65,49 @@ const Landing = () => {
   return (
     <div className={classes.root}>
       <Grid>
-        {/* Landing Starts */}
-        <Grid
-          className="LandingSection1"
-          container 
-        >
-          <Grid item xs={12} md={12}>
-            <img className="muLaIcon" src={muLaIcon} />
-          </Grid>
-
+        <Grid className="LandingSection1" container>
           <Grid container>
-            <Grid item xs={6} md={5} style={{ margin: "auto" }}>
+            <Grid className="muLaIntroContainer" item xs={12} md={5}>
+              <img className="muLaIcon" src={muLaIcon} />
               <p className="muLaIntro">
                 An app for finding people based on their Myers Briggs character
                 types & aims for higher compatibility and suitable
                 relationships.
               </p>
+              <Grid className="LandingButtonGroup" container xs={12} md={12}>
+                <Grid className="LandingButtonInner1" xs={12} md={12}>
+                  <Link to={"/login"}>
+                    <Button
+                      className="LandingLoginButton"
+                      variant="text"
+                      size="medium"
+                      color="primary"
+                    >
+                      Already have an account?
+                      <br />
+                      Login
+                    </Button>
+                  </Link>
+                  <Link to={"/register"}>
+                    <Button
+                      className="LandingRegisterButton"
+                      variant="contained"
+                      size="large"
+                      color="primary"
+                    >
+                      <FaRegHandPointRight style={{ fontSize: "24px" }} />
+                      Join muLa
+                    </Button>
+                  </Link>
+                </Grid>
+              </Grid>
             </Grid>
-
-            <Grid item xs={6} md={5} style={{ margin: "auto" }}>
+            <Grid className="mobilePhoneContainer" item xs={12} md={5}>
               <img className="mobilePhone" src={mobilePhone} />
             </Grid>
           </Grid>
         </Grid>
-        {/* Landing Ends */}
-
-       <Footer />
+        <Footer />
       </Grid>
     </div>
   );

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { loginUser } from "../../../state/slices/usersSlices";
+import { loginUser } from "../../../state/slices/authSlices";
 import "../../../App.css";
 import "../Register/logo2.png"
 import Swal from 'sweetalert2';

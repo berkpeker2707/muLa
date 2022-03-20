@@ -3,6 +3,7 @@ body {
   background-color: #f5f0e1 !important;
   /* color: #f5f0e1 !important; */
   font-family: RobotoCustom !important;
+  /* font-family: ArchitectsDaughter !important; */
 }
 
 /**********************/
@@ -15,28 +16,10 @@ body {
   text-align: center;
 }
 
-.LandingSection2 {
-  background-color: #f5f0e1;
-
-  -webkit-animation: polygonWavingAnimationTop 5s infinite; /* Safari 4+ */
-  -moz-animation: polygonWavingAnimationTop 5s infinite; /* Fx 5+ */
-  -o-animation: polygonWavingAnimationTop 5s infinite; /* Opera 12+ */
-  animation: polygonWavingAnimationTop 5s infinite; /* IE 10+, Fx 29+ */
-}
-
-.LandingSection3 {
-  clip-path: polygon(0 0, 100% 50px, 100% 100%, 0 100%);
-  margin-top: -50px;
-
-  -webkit-animation: polygonWavingAnimationBottom 5s infinite; /* Safari 4+ */
-  -moz-animation: polygonWavingAnimationBottom 5s infinite; /* Fx 5+ */
-  -o-animation: polygonWavingAnimationBottom 5s infinite; /* Opera 12+ */
-  animation: polygonWavingAnimationBottom 5s infinite; /* IE 10+, Fx 29+ */
-}
-
 .LandingSection1 .muLaIcon {
-  width: 30vh;
-  height: 30vh;
+  width: 50vh;
+  /* height: 50vh; */
+  margin-bottom: 2vh;
 }
 
 .muLaIntro {
@@ -45,28 +28,38 @@ body {
 }
 
 .LandingSection1 .mobilePhone {
-  height: 70vh;
+  height: 100vh;
 }
 
-@keyframes polygonWavingAnimationTop {
+.muLaIntroContainer{
+  margin: auto !important;
+  text-align: end;
+}
+
+.mobilePhoneContainer{
+  margin-right: auto !important;
+  text-align: left;
+}
+
+/* @keyframes polygonWavingAnimationTop {
   0%,
   100% {
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 50px));
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 30px));
   }
   50% {
-    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 50px), 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), 0 100%);
   }
 }
 
 @keyframes polygonWavingAnimationBottom {
   0%,
   100% {
-    clip-path: polygon(0 0, 100% 50px, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, 100% 30px, 100% 100%, 0 100%);
   }
   50% {
-    clip-path: polygon(0 50px, 100% 0, 100% 100%, 0 100%);
+    clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%);
   }
-}
+} */
 
 /* .landingImage1Inner{
   position: absolute;
@@ -88,9 +81,80 @@ body {
   overflow-y: hidden;
 } */
 
+@media screen and (max-width: 900px) {
+  p {
+color: lightgreen;
+  }
+}
+
 /********************/
 /* LANDING CSS ENDS */
 /********************/
+
+/********************/
+/* ABOUT CSS STARTS */
+/********************/
+
+.AboutContainer{
+
+}
+
+.AboutInnerContainer{
+margin:10vh;
+}
+
+.muLaIconTextSuperiorContainer{
+  margin: auto !important;
+}
+
+.muLaIconTextSuperior{
+  width: 60vh;
+  /* height: 70vh; */
+}
+
+.AboutSection1 {
+  background-color: #f5f0e1;
+
+  -webkit-animation: polygonWavingAnimationTop 5s infinite; /* Safari 4+ */
+  -moz-animation: polygonWavingAnimationTop 5s infinite; /* Fx 5+ */
+  -o-animation: polygonWavingAnimationTop 5s infinite; /* Opera 12+ */
+  animation: polygonWavingAnimationTop 5s infinite; /* IE 10+, Fx 29+ */
+
+  padding-inline: 1vh;
+}
+
+.AboutSection1Inner2{
+
+}
+
+.AboutSection2 {
+  /* clip-path: polygon(0 0, 100% 50px, 100% 100%, 0 100%); */
+  /* margin-top: -50px; */
+
+  -webkit-animation: polygonWavingAnimationBottom 5s infinite; /* Safari 4+ */
+  -moz-animation: polygonWavingAnimationBottom 5s infinite; /* Fx 5+ */
+  -o-animation: polygonWavingAnimationBottom 5s infinite; /* Opera 12+ */
+  animation: polygonWavingAnimationBottom 5s infinite; /* IE 10+, Fx 29+ */
+}
+
+.AboutSection2Inner1{
+    margin-top: 5vh;
+    padding-inline: 1vh;
+    padding-bottom: 1vh;
+}
+
+.AboutSection2Inner1Child1{
+}
+
+.AboutSection2Inner2{
+  padding-top: 1vh; 
+  padding-inline: 1vh;
+  padding-bottom: 1vh;
+}
+
+/******************/
+/* ABOUT CSS ENDS */
+/******************/
 
 /*********************/
 /* FOOTER CSS STARTS */
@@ -123,6 +187,8 @@ body {
 /*******************/
 /* FOOTER CSS ENDS */
 /*******************/
+
+
 
 .nav-link.active {
   color: #303c6c !important;
