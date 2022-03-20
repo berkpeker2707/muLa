@@ -1,10 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import "../../App.css";
 import { FaBriefcase, FaPersonBooth, FaBeer, FaSmoking, FaVenusMars, FaLanguage, FaPrayingHands, FaUtensils, FaBirthdayCake } from 'react-icons/fa';
-import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import { loadUser } from "../../state/actions/authActions"
-import { loadUserAvatar} from "../../state/actions/authActions"
 import LoadingGif from "../Dashboard/LoadingGif";
 import ProfileActions from './ProfileActions';
 import ReTakeTestAction from './ReTakeTest/ReTakeTestAction';
@@ -182,19 +178,4 @@ const Profile = ({ loadUser, loadUserAvatar, auth, user, isAuthenticated }) => {
     </Fragment >
 }
 
-Profile.propTypes = {
-    loadUser: PropTypes.func.isRequired,
-    loadUserAvatar: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool
-}
-
-const mapStateToProps = state => ({
-    auth: state.auth,
-    user: state.auth,
-    isAuthenticated: state.auth.isAuthenticated,
-})
-
-
-export default connect(mapStateToProps, { loadUser, loadUserAvatar })(Profile)
+export default Profile

@@ -13,14 +13,6 @@ import ForgotPassword from "./components/Landing/ForgotPassword";
 import PrivateRoute from "./components/Routing/PrivateRoute";
 
 //redux
-// import store from "./state/store";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "./state/index";
-
-import { loadUser } from "./state/actions/authActions";
-import setAuthToken from "./state/utils/setAuthToken";
-
 import Profile from "./components/Profile/Profile";
 import ProfileUpdate from "./components/Profile/ProfileUpdate";
 import ReTakeTest from "./components/Profile/ReTakeTest/ReTakeTest";
@@ -33,23 +25,8 @@ import About from "./components/Landing/Footer/About";
 import { 
   ThemeProvider, createTheme
 } from '@material-ui/core/styles';
-import { purple, green } from '@mui/material/colors';
-
-
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
 
 const App = () => {
-  // const state = useSelector((state) => state);
-  // const dispatch = useDispatch();
-  // console.log(state);
-
-  // const AC = bindActionCreators(actionCreators, dispatch);
-
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []); //last [] is for run once
 
   const theme = createTheme({
     palette: {

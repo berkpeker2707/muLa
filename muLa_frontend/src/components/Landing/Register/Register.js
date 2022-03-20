@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import "../../../App.css";
 import swal from "@sweetalert/with-react";
 
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../../state/actions/authActions";
 import { Link } from "react-router-dom";
 import Logo2 from "./logo2.png";
 import { Row, Col, Modal, Button } from "react-bootstrap";
@@ -1389,15 +1386,4 @@ const Register = ({ registerUser }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-  location: PropTypes.object,
-  error: PropTypes.string,
-};
-
-export default connect(mapStateToProps, { registerUser })(Register);
+export default Register;

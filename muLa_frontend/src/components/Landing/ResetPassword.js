@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import { Navigate, useParams } from "react-router-dom";
 import "../../App.css";
-import { resetPasswordActions } from "../../state/actions/resetPasswordActions";
 
 const ResetPassword = ({ isAuthenticated, resetPasswordActions }) => {
 
@@ -61,13 +58,4 @@ const ResetPassword = ({ isAuthenticated, resetPasswordActions }) => {
     );
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    resetPasswordActions: PropTypes.func.isRequired
-})
-
-ResetPassword.propTypes = {
-    isAuthenticated: PropTypes.bool,
-}
-
-export default connect(mapStateToProps, { resetPasswordActions })(ResetPassword);
+export default ResetPassword;

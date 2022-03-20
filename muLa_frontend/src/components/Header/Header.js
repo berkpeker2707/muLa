@@ -2,9 +2,6 @@ import React, { Fragment } from 'react'
 import { Navbar, Nav } from 'react-bootstrap';
 import { Link } from "react-router-dom"
 import "../../App.css";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { logout } from "../../state/actions/authActions";
 
 const Header = ({ auth: { isAuthenticated, isLoading }, logout }) => {
 
@@ -47,13 +44,4 @@ const Header = ({ auth: { isAuthenticated, isLoading }, logout }) => {
   )
 }
 
-const mapStateToProps = state => ({
-  auth: state.auth
-})
-
-Header.propTypes = {
-  logout: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-}
-
-export default connect(mapStateToProps, { logout })(Header);
+export default Header;

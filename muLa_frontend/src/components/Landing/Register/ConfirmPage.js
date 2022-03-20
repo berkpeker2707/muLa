@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { confirmTokenAction } from "../../../state/actions/authActions"
 import "../../../App.css";
 import swal from "@sweetalert/with-react";
 
@@ -52,9 +49,4 @@ const ConfirmPage = ({ confirmTokenAction }) => {
     );
 }
 
-ConfirmPage.propTypes = {
-    confirmTokenAction: PropTypes.func.isRequired,
-}
-
-
-export default connect(null, { confirmTokenAction })(ConfirmPage);
+export default ConfirmPage

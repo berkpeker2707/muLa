@@ -2,11 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import "../../App.css";
 import { Link } from "react-router-dom";
 import { FaBriefcase, FaPersonBooth, FaBeer, FaSmoking, FaVenusMars, FaLanguage, FaPrayingHands, FaUtensils, FaBirthdayCake } from 'react-icons/fa';
-import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import { getCurrentUser } from "../../state/actions/currentUserAction"
-import { getCurrentUserAvatar} from "../../state/actions/userAvatarAction"
-import { updateProfile } from "../../state/actions/updateProfileActions";
 import LoadingGif from "../Dashboard/LoadingGif";
 
 import { useForm } from "react-hook-form"
@@ -619,18 +614,4 @@ const ProfileUpdate = ({ updateProfile, history, getCurrentUser,getCurrentUserAv
     )
 }
 
-ProfileUpdate.propTypes = {
-    getCurrentUser: PropTypes.func.isRequired,
-    getCurrentUserAvatar: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    updateProfile: PropTypes.func.isRequired
-}
-
-const mapStateToProps = state => ({
-    user: state.user,
-    error: PropTypes.string,
-})
-
-
-// export default connect(mapStateToProps, { getCurrentUser, getCurrentUserAvatar, updateProfile })(withRouter(ProfileUpdate))
 export default ProfileUpdate;
