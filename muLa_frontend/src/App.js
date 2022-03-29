@@ -44,15 +44,15 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" exact element={<Landing />} />
-        {/* <Route element={<Header/>} /> */}
+        <Route element={<Header/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/activate*" element={<ConfirmPage />} />
           <Route path="/login" element={<Login />} />
           {/* <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/reset-password*" element={<ResetPassword/>} /> */}
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/profile" element={<Profile/>} />
-        <Route path="/profile-update" element={<ProfileUpdate/>} />
+          <Route path="/profile" element={<Profile/>} />
+        {/* <Route path="/profile-update" element={<ProfileUpdate/>} />
         <Route path="/uploadtest" element={<Uploadfiletest/>} />
         <Route path="/test-update" element={<ReTakeTest/>} /> */}
           {/* <Route path="/chatroom" element={<ChatRoom/>} /> */}

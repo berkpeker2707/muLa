@@ -1,15 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 // import "../../App.css";
 import defaultProfilePicture from "../Profile/defaultProfilePicture.png";
+import def from "../Profile/defaultProfilePicture.png"
 import {
-  Row,
-  Col,
-  Container,
   Button,
   Card as CardB,
-  Nav,
-  Tab,
-  Fade,
 } from "react-bootstrap";
 import {
   FaComments,
@@ -49,60 +44,36 @@ import Grid from '@mui/material/Grid';
 import { typography } from "@mui/system";
 
 //redux
-import store from "../../state/store";
 import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state/index";
-import { getUsers } from "../../state/slices/authSlices";
+import { getUsersAction } from "../../state/slices/authSlices";
 
 const Dashboard = () => {
 
   const dispatch = useDispatch();
-  const users = useSelector((state) => state?.users?.users);
-  const user = useSelector((state) => state?.users?.user);
-  const auth = useSelector((state) => state?.users?.isAuthenticated);
-  // const {isAuthenticated} = useSelector((state) => state?.users);
 
+  const user = useSelector((state) => state?.auth?.userAuth);
+  
+  const users = useSelector((state) => state?.auth?.users);
 
-  // const {getUsers} = bindActionCreators(actionCreators, dispatch)
-  // console.log(loadUser);
-// console.log(getUsers())
-
-// useEffect(() => {
-//   dispatch(getUsers());
-// }, [dispatch]);
-
-  //fetch all users
   useEffect(() => {
-    dispatch(getUsers());
-  });
+    dispatch(getUsersAction())
+  },[dispatch])
 
-console.log(users)
-
-
-  const [currentUser, setCurrentUser] = useState(null);
-  const [currentDisplayedUser, setCurrentDisplayedUser] = useState(null);
   const [currentIndexNumber, setCurrentIndexNumber] = useState(0);
   const [unlikedUserState, setUnlikedUserState] = useState(null);
 
-
   useEffect(() => {
-    setCurrentUser(user);
-  }, [user]);
-
-  useEffect(() => {
-    if (currentDisplayedUser) {
-      setCurrentDisplayedUser(showFilteredUsers[currentIndexNumber]);
-    } else {
+    if (currentIndexNumber === undefined || currentIndexNumber >= users?.length) {
       setCurrentIndexNumber(0);
-      setCurrentDisplayedUser(showFilteredUsers[currentIndexNumber]);
     }
-  }, [users, currentDisplayedUser, currentIndexNumber]);
+  }, [currentIndexNumber]);
 
-  // console.log(user);
-  // console.log(users);
-  // console.log(currentUser);
-  console.log(currentDisplayedUser);
+  console.log({users, currentIndexNumber})
+
+
+    // var showFilteredUsers = getFilteredUsers(users);
+
+    // console.log(showFilteredUsers)
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Distance Calculation Based on Lat & Lon
@@ -151,14 +122,13 @@ console.log(users)
   //   showFilteredUsers.userLongitude
   // )
 
-  function getFilteredUsers(filterByThis) {
-    return filterByThis.filter((filteredObj, index) => {
-      // return index < 1 && filteredObj.age > 27;
-      // return filteredObj.gender !== currentUser?.gender && !(filteredObj.likedBy.includes(currentUser?._id));
-      return filteredObj.gender !== currentUser?.gender && !currentUser?.liked.includes(filteredObj._id);
-    });
-  }
-  var showFilteredUsers = getFilteredUsers(users);
+  // function getFilteredUsers(filterByThis) {
+  //   return filterByThis.filter((filteredObj, index) => {
+  //     // return index < 1 && filteredObj.age > 27;
+  //     // return filteredObj.gender !== user?.gender && !(filteredObj.likedBy.includes(user?._id));
+  //     return filteredObj.gender !== user?.gender && !user?.liked.includes(filteredObj._id);
+  //   });
+  // }
 
   // function sortDist(di) {
   //   return di
@@ -172,15 +142,6 @@ console.log(users)
   // })
 
   // console.log(filteredUsers);
-
-  // const axios = require('axios');
-  // const [axiosGetMe, setAxiosGetMe] = useState(null);
-  // React.useEffect(() => {
-  //   axios.get("/me").then((response) => {
-  //     setAxiosGetMe(response.data);
-  //   });
-  // }, []);
-  // console.log(axiosGetMe)
 
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -224,23 +185,24 @@ console.log(users)
   
   return (
     <Fragment>
-      {auth.isLoading === true ? (
+      {!users ? (
         <LoadingGif />
       ) : (
         <Fragment>
-          {auth.user ||
-          currentDisplayedUser !== null ||
-          currentDisplayedUser !== undefined ||
-          currentDisplayedUser !== {} ||
-          currentUser !== null ||
-          currentUser !== undefined ||
-          currentUser !== {}
+          {user 
+          ||
+          users !== null ||
+          users !== undefined ||
+          users !== {} ||
+          user !== null ||
+          user !== undefined ||
+          user !== {}
           ? (
             <Fragment>
-              {showFilteredUsers.length > 0 ? (
-                showFilteredUsers.slice(0, 1).map((showFilteredUsers, i) => (
+              {users.length > 0 ? (
+                users?.slice(currentIndexNumber, currentIndexNumber + 1).map((users, i) => (
                   // <Container fluid key={showFilteredUsers._id}>
-                  <ThemeProvider theme={theme} key={showFilteredUsers._id}>
+                  <ThemeProvider theme={theme} key={users._id}>
                     <Card sx={{ maxWidth: 400, boxShadow: 10, mx: "auto" }}>
                       <CardHeader
                         avatar={
@@ -249,8 +211,8 @@ console.log(users)
                             variant="rounded"
                             aria-label="recipe"
                           >
-                            {currentDisplayedUser &&
-                              currentDisplayedUser.characterType}
+                            {users &&
+                              users.characterType}
                           </Avatar>
                         }
                         action={
@@ -259,35 +221,37 @@ console.log(users)
                           </IconButton>
                         }
                         title={
-                          currentDisplayedUser &&
-                          currentDisplayedUser.firstname +
+                          users &&
+                          users.firstname +
                             " " +
-                            currentDisplayedUser.lastname
+                            users.lastname
                         }
                         subheader={
-                          currentDisplayedUser &&
-                          "Age: " + currentDisplayedUser.age
+                          users &&
+                          "Age: " + users.age
                         }
                       />
-                      {currentDisplayedUser.picture ? (
+                      {users.profilePhoto !== undefined ? (
                         <CardMedia
                           component="img"
                           className="picture userProfilePhoto"
-                          src={`/me/avatar/${currentDisplayedUser.picture.filename}`}
+                          src={users.profilePhoto}
                         />
                       ) : (
                         <CardMedia
                           component="img"
                           className="picture userProfilePhoto"
-                          src={defaultProfilePicture}
+                          src={def}
                         />
                       )}
+
+                      {console.log(users.profilePhoto)}
                       <CardContent>
-                        {currentDisplayedUser &&
-                        currentDisplayedUser.description ? (
+                        {users &&
+                        users.description ? (
                           <Typography variant="body1">
-                            {currentDisplayedUser &&
-                              currentDisplayedUser.description}
+                            {users &&
+                              users.description}
                           </Typography>
                         ) : (
                           <Typography
@@ -304,48 +268,48 @@ console.log(users)
                               <Item>
                                 <FaBirthdayCake />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.age}
+                                {users &&
+                                  users.age}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaVenusMars />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.gender}
+                                {users &&
+                                  users.gender}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaBriefcase />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.job}
+                                {users &&
+                                  users.job}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaLanguage />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.language}
+                                {users &&
+                                  users.language}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaPray />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.belief}
+                                {users &&
+                                  users.belief}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaFlag />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.politics}
+                                {users &&
+                                  users.politics}
                               </Item>
                             </Grid>
                           </Grid>
@@ -356,24 +320,24 @@ console.log(users)
                               <Item>
                                 <FaUtensils />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.diet}
+                                {users &&
+                                  users.diet}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaBeer />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.alcohol}
+                                {users &&
+                                  users.alcohol}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaSmoking />
                                 <br />
-                                {currentDisplayedUser &&
-                                  currentDisplayedUser.smoking}
+                                {users &&
+                                  users.smoking}
                               </Item>
                             </Grid>
                           </Grid>
@@ -388,7 +352,7 @@ console.log(users)
                           aria-label="add to favorites"
                           // className="letstalkbutton"
                           // onClick={() => {
-                          //   likeUser(currentDisplayedUser?._id);
+                          //   likeUser(users?._id);
                           //   setCurrentIndexNumber(currentIndexNumber + 1);
                           // }}
                           sx={{ mx: "auto" }}
@@ -400,8 +364,8 @@ console.log(users)
                           aria-label="add to meh"
                           // className="mehbutton"
                           onClick={() => {
-                            setUnlikedUserState(currentDisplayedUser?._id);
-                            // unlikeUser(currentDisplayedUser?._id);
+                            setUnlikedUserState(users?._id);
+                            // unlikeUser(users?._id);
                             setCurrentIndexNumber(currentIndexNumber + 1);
                           }}
                           sx={{ mx: "auto" }}

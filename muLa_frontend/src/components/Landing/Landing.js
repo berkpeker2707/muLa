@@ -19,12 +19,12 @@ import { getUsers } from "../../state/slices/usersSlices";
 import store from "../../state/store";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { actionCreators } from "../../state/index";
+// import { actionCreators } from "../../state/index";
 
 import { registerUser } from "../../state/slices/usersSlices";
 
 const Landing = () => {
-  const { isAuthenticated } = useSelector((state) => state?.users);
+  // const { isAuthenticated } = useSelector((state) => state?.users);
 
   // const user = useSelector((state) => state.auth.user);
 
@@ -59,9 +59,9 @@ const Landing = () => {
 
   const classes = useStyles();
 
-  if (isAuthenticated) {
-    return <Navigate to="/dashboard" />;
-  }
+  // if (isAuthenticated) {
+  //   return <Navigate to="/dashboard" />;
+  // }
   return (
     <div className={classes.root}>
       <Grid>

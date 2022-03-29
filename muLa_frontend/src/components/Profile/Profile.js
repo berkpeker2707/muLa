@@ -6,19 +6,30 @@ import ProfileActions from './ProfileActions';
 import ReTakeTestAction from './ReTakeTest/ReTakeTestAction';
 import defaultProfilePicture from "./defaultProfilePicture.png";
 
+//redux
+import store from "../../state/store";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
+
 const Profile = ({ loadUser, loadUserAvatar, auth, user, isAuthenticated }) => {    
     // const [file, setFile] = useState(null);
 
-    useEffect(() => {
-        loadUser();
-        loadUserAvatar();
-        // setFile(user);
-    }, [])
+    const storeData = useSelector((store) => store?.auth);
+    const { isLoading, appErr, serverErr, registered } = storeData;
+    const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     loadUser();
+    //     loadUserAvatar();
+    //     // setFile(user);
+    // }, [])
+
+    console.log(storeData)
 
     return <Fragment>
         {
-            auth.isLoading === true ? <LoadingGif /> : <Fragment >
-                {isAuthenticated ? 
+            isLoading === true ? <LoadingGif /> : <Fragment >
+                {auth ? 
                     <div className="container">
                         <div className="main-body">
                             <div className="row gutters-sm">
@@ -178,4 +189,4 @@ const Profile = ({ loadUser, loadUserAvatar, auth, user, isAuthenticated }) => {
     </Fragment >
 }
 
-export default Profile
+export default Profile;
