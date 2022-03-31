@@ -1,11 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
-// import "../../App.css";
-import defaultProfilePicture from "../Profile/defaultProfilePicture.png";
-import def from "../Profile/defaultProfilePicture.png"
-import {
-  Button,
-  Card as CardB,
-} from "react-bootstrap";
+import "../../App.css";
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
+import LoadingGif from "./LoadingGif";
 import {
   FaComments,
   FaMehBlank,
@@ -14,66 +10,62 @@ import {
   FaVenusMars,
   FaLanguage,
   FaPray,
+  FaPrayingHands,
   FaFlag,
   FaUtensils,
   FaBirthdayCake,
   FaBriefcase,
+  FaPersonBooth,
 } from "react-icons/fa";
-import LoadingGif from "./LoadingGif";
 
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardMedia from '@mui/material/CardMedia';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import SentimentDissatisfiedIcon from '@material-ui/icons/SentimentDissatisfied';
-
-import { shadows } from '@mui/system';
-
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
-import { typography } from "@mui/system";
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersAction } from "../../state/slices/authSlices";
 
 const Dashboard = () => {
-
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state?.auth?.userAuth);
-  
+
   const users = useSelector((state) => state?.auth?.users);
 
   useEffect(() => {
-    dispatch(getUsersAction())
-  },[dispatch])
+    dispatch(getUsersAction());
+  }, [dispatch]);
 
   const [currentIndexNumber, setCurrentIndexNumber] = useState(0);
   const [unlikedUserState, setUnlikedUserState] = useState(null);
 
   useEffect(() => {
-    if (currentIndexNumber === undefined || currentIndexNumber >= users?.length) {
+    if (
+      currentIndexNumber === undefined ||
+      currentIndexNumber >= users?.length
+    ) {
       setCurrentIndexNumber(0);
     }
   }, [currentIndexNumber]);
 
-  console.log({users, currentIndexNumber})
+  // var showFilteredUsers = getFilteredUsers(users);
 
-
-    // var showFilteredUsers = getFilteredUsers(users);
-
-    // console.log(showFilteredUsers)
+  // console.log(showFilteredUsers)
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Distance Calculation Based on Lat & Lon
@@ -146,62 +138,53 @@ const Dashboard = () => {
   const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
+    textAlign: "center",
     color: "#ff6e40",
-    backgroundColor: '#f5f0e1'
+    backgroundColor: "#f5f0e1",
   }));
 
   const theme = createTheme({
     palette: {
-      type: 'light',
+      type: "light",
       primary: {
-        main: '#1e3d59',
+        main: "#1e3d59",
       },
       secondary: {
-        main: '#ffc13b',
+        main: "#ffc13b",
       },
       background: {
-        default: '#1e3d59',
-        paper: '#f5f0e1',
+        default: "#1e3d59",
+        paper: "#f5f0e1",
       },
       text: {
-        primary: '#ff6e40',
-        disabled: '#e16e40',
-        secondary: '#ff6e40',
-        hint: '#e16e40',
+        primary: "#ff6e40",
+        disabled: "#e16e40",
+        secondary: "#ff6e40",
+        hint: "#e16e40",
       },
     },
     typography: {
       body1: {
         fontWeight: 600,
-        letterSpacing: '0.1em',
+        letterSpacing: "0.1em",
       },
       body2: {
         fontWeight: 600,
       },
     },
-
   });
-  
+
   return (
     <Fragment>
       {!users ? (
         <LoadingGif />
       ) : (
         <Fragment>
-          {user 
-          ||
-          users !== null ||
-          users !== undefined ||
-          users !== {} ||
-          user !== null ||
-          user !== undefined ||
-          user !== {}
-          ? (
-            <Fragment>
-              {users.length > 0 ? (
-                users?.slice(currentIndexNumber, currentIndexNumber + 1).map((users, i) => (
-                  // <Container fluid key={showFilteredUsers._id}>
+          {users.length > 0 ? (
+            users
+              ?.slice(currentIndexNumber, currentIndexNumber + 1)
+              .map((users, i) => (
+                <Container fluid>
                   <ThemeProvider theme={theme} key={users._id}>
                     <Card sx={{ maxWidth: 400, boxShadow: 10, mx: "auto" }}>
                       <CardHeader
@@ -211,8 +194,7 @@ const Dashboard = () => {
                             variant="rounded"
                             aria-label="recipe"
                           >
-                            {users &&
-                              users.characterType}
+                            {users && users.characterType}
                           </Avatar>
                         }
                         action={
@@ -220,18 +202,10 @@ const Dashboard = () => {
                             <MoreVertIcon />
                           </IconButton>
                         }
-                        title={
-                          users &&
-                          users.firstname +
-                            " " +
-                            users.lastname
-                        }
-                        subheader={
-                          users &&
-                          "Age: " + users.age
-                        }
+                        title={users && users.firstname + " " + users.lastname}
+                        subheader={users && "Age: " + users.age}
                       />
-                      {users.profilePhoto !== undefined ? (
+                      {users.profilePhoto ? (
                         <CardMedia
                           component="img"
                           className="picture userProfilePhoto"
@@ -241,17 +215,15 @@ const Dashboard = () => {
                         <CardMedia
                           component="img"
                           className="picture userProfilePhoto"
-                          src={def}
+                          src={defaultProfilePicture}
                         />
                       )}
 
                       {console.log(users.profilePhoto)}
                       <CardContent>
-                        {users &&
-                        users.description ? (
+                        {users && users.description ? (
                           <Typography variant="body1">
-                            {users &&
-                              users.description}
+                            {users && users.description}
                           </Typography>
                         ) : (
                           <Typography
@@ -268,48 +240,42 @@ const Dashboard = () => {
                               <Item>
                                 <FaBirthdayCake />
                                 <br />
-                                {users &&
-                                  users.age}
+                                {users && users.age}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaVenusMars />
                                 <br />
-                                {users &&
-                                  users.gender}
+                                {users && users.gender}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaBriefcase />
                                 <br />
-                                {users &&
-                                  users.job}
+                                {users && users.job}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaLanguage />
                                 <br />
-                                {users &&
-                                  users.language}
+                                {users && users.language}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaPray />
                                 <br />
-                                {users &&
-                                  users.belief}
+                                {users && users.belief}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaFlag />
                                 <br />
-                                {users &&
-                                  users.politics}
+                                {users && users.politics}
                               </Item>
                             </Grid>
                           </Grid>
@@ -320,24 +286,21 @@ const Dashboard = () => {
                               <Item>
                                 <FaUtensils />
                                 <br />
-                                {users &&
-                                  users.diet}
+                                {users && users.diet}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaBeer />
                                 <br />
-                                {users &&
-                                  users.alcohol}
+                                {users && users.alcohol}
                               </Item>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <Item>
                                 <FaSmoking />
                                 <br />
-                                {users &&
-                                  users.smoking}
+                                {users && users.smoking}
                               </Item>
                             </Grid>
                           </Grid>
@@ -348,6 +311,7 @@ const Dashboard = () => {
                         sx={{ mx: "auto", justifyContent: "center" }}
                       >
                         <Button
+                          variant="outlined"
                           color="success"
                           aria-label="add to favorites"
                           // className="letstalkbutton"
@@ -361,6 +325,7 @@ const Dashboard = () => {
                           Like
                         </Button>
                         <Button
+                          variant="outlined"
                           aria-label="add to meh"
                           // className="mehbutton"
                           onClick={() => {
@@ -376,19 +341,15 @@ const Dashboard = () => {
                       </CardActions>
                     </Card>
                   </ThemeProvider>
-                  // </Container>
-                ))
-              ) : (
-                <Fragment>
-                  <h4>Oops... it seems you've run out of potential matches.</h4>
-                  <h4>
-                    Please try checking again later or change your preferences.
-                  </h4>
-                </Fragment>
-              )}
-            </Fragment>
+                </Container>
+              ))
           ) : (
-            <h4>Couldn't Retrieve Your Account</h4>
+            <Fragment>
+              <h4>Oops... it seems you've run out of potential matches.</h4>
+              <h4>
+                Please try checking again later or change your preferences.
+              </h4>
+            </Fragment>
           )}
         </Fragment>
       )}
@@ -397,7 +358,8 @@ const Dashboard = () => {
 };
 
 // Old test button for checking liked users
-{/* <Button
+{
+  /* <Button
   className="mehbutton"
   variant="primary"
   onClick={() => {
@@ -406,6 +368,7 @@ const Dashboard = () => {
   }}
 >
   <h6> Get Liked Users (Test Button)</h6>
-</Button>; */}
+</Button>; */
+}
 
 export default Dashboard;

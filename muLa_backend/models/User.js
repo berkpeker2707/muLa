@@ -97,7 +97,6 @@ const UserSchema = new mongoose.Schema(
     },
     profilePhoto: {
       type: String,
-      default: "defaultProfilePicture.png",
     },
     liked: {
       type: Array,

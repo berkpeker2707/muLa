@@ -13,7 +13,7 @@ import {
   FaBirthdayCake,
 } from "react-icons/fa";
 import LoadingGif from "../Dashboard/LoadingGif";
-import defaultProfilePicture from "./defaultProfilePicture.png";
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
 
 import { useForm } from "react-hook-form";
 import axios from "axios";

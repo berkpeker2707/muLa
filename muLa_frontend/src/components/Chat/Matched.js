@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../../App.css";
-import defaultProfilePicture from "../Profile/defaultProfilePicture.png";
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
 
 const Matched = ({ currentUser, setCurrentConversation }) => {
   const [matched, setMatched] = useState([]);

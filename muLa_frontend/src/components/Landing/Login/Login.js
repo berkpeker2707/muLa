@@ -76,7 +76,7 @@ const onSubmit = (data) => {
   const { userAuth, loading, serverErr, appErr} = store;
   // Redirect if authenticated
   if (userAuth) {
-      return <Navigate to="/profile" />
+      return <Navigate to="/dashboard" />
   }
 
   return (
