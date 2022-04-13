@@ -16,6 +16,7 @@ import {
   FaBirthdayCake,
   FaBriefcase,
   FaPersonBooth,
+  FaLocationArrow,
 } from "react-icons/fa";
 
 import Container from "@mui/material/Container";
@@ -65,7 +66,7 @@ const Dashboard = () => {
 
   // var showFilteredUsers = getFilteredUsers(users);
 
-  // console.log(showFilteredUsers)
+  console.log(users);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // Distance Calculation Based on Lat & Lon

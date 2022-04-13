@@ -3,8 +3,6 @@ import "../../App.css";
 import { Link, Navigate } from "react-router-dom";
 import { FaRegHandPointRight } from "react-icons/fa";
 
-import Footer from "./Footer/Footer.js";
-
 import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon.png";
 // import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
 import mobilePhone from "../images/LandingImages/mobilePhone.png";
@@ -107,7 +105,6 @@ const Landing = () => {
             </Grid>
           </Grid>
         </Grid>
-        <Footer />
       </Grid>
     </div>
   );

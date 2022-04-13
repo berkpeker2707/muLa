@@ -1,0 +1,4 @@
+NT = 886299 = https://colors.dopely.top/color-toner/886299-shades-24
+NF = 33A574 = https://colors.dopely.top/color-toner/33a574-shades-24
+SJ = 4298B4 = https://colors.dopely.top/color-toner/4298b4-shades-24
+SP = D8A537 = https://colors.dopely.top/color-toner/d8a537-shades-24

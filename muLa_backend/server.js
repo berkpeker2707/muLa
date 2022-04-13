@@ -19,7 +19,7 @@ const fs = require("fs");
 
 //image config starts
 //image uploading
-var multer = require('multer');
+var multer = require("multer");
 //using this for file (image) stream
 const Grid = require("gridfs-stream");
 //image for stream
@@ -35,14 +35,14 @@ conn.once("open", () => {
 
 //image config for multer
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + "-" + Date.now());
+  },
 });
-  
+
 var picture = multer({ storage: storage });
 //image config ends
 
@@ -93,7 +93,6 @@ app.listen(port, () => console.log(`Server started on port ${port}.`));
 //   gfs.collection("picture");
 // });
 
-
 // var storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
 //         cb(null, 'uploads')
@@ -102,9 +101,8 @@ app.listen(port, () => console.log(`Server started on port ${port}.`));
 //         cb(null, file.fieldname + '-' + Date.now())
 //     }
 // });
-  
-// var picture = multer({ storage: storage });
 
+// var picture = multer({ storage: storage });
 
 ///////////////////////////////////////////////////////////////////////////////
 // const storage = new GridFsStorage({
@@ -185,18 +183,16 @@ app.use(errorHandler);
 // ????????????????????????????????????????? //
 
 //like user by using it's id. update it to liked
-app.put("/like/:id",  async (req, res) => {
+app.put("/like/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const loggedUser = await User.findById(req.user.id).select("-password");
     //check if it is already liked
-    if (
-      user.likedBy.filter((like) => like === req.user.id).length > 0
-    ) {
+    if (user.likedBy.filter((like) => like === req.user.id).length > 0) {
       return res.status(400).json({ msg: "Already Liked" });
     } else {
-      await user.likedBy.unshift( req.user.id );
-      await loggedUser.liked.unshift(req.params.id );
+      await user.likedBy.unshift(req.user.id);
+      await loggedUser.liked.unshift(req.params.id);
       await user.save();
       await loggedUser.save();
 
@@ -214,10 +210,14 @@ app.put("/like/:id",  async (req, res) => {
 
         const filter = { members: [req.user.id, req.params.id] };
         const update = { members: [req.user.id, req.params.id] };
-        const newConversation = await Conversation.findOneAndUpdate(filter, update, {
-          new: true,
-          upsert: true,
-        });
+        const newConversation = await Conversation.findOneAndUpdate(
+          filter,
+          update,
+          {
+            new: true,
+            upsert: true,
+          }
+        );
         await newConversation.save();
 
         res.status(200).send("Liked & Matched!");
@@ -231,33 +231,25 @@ app.put("/like/:id",  async (req, res) => {
 });
 
 //unlike liked user
-app.put("/unlike/:id",  async (req, res) => {
+app.put("/unlike/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const loggedUser = await User.findById(req.user.id).select("-password");
     //check if it is already liked
-    if (
-      user.likedBy.filter((like) => like === req.user.id)
-        .length === 0
-    ) {
+    if (user.likedBy.filter((like) => like === req.user.id).length === 0) {
       return res.status(400).json({ msg: "User already unliked" });
     }
 
     //finding location index
-    const removeIndex = await user.likedBy
-      .indexOf(req.user.id);
+    const removeIndex = await user.likedBy.indexOf(req.user.id);
 
     //finding location index
-    const removeIndex2 = await loggedUser.liked
-      .indexOf(req.user.id);
+    const removeIndex2 = await loggedUser.liked.indexOf(req.user.id);
 
-
-    const removeIndex3 = await user.matched
-      .indexOf(req.user.id);
+    const removeIndex3 = await user.matched.indexOf(req.user.id);
 
     //finding location index
-    const removeIndex4 = await loggedUser.matched
-      .indexOf(req.user.id);
+    const removeIndex4 = await loggedUser.matched.indexOf(req.user.id);
 
     //removing element according to index
     await loggedUser.liked.splice(removeIndex2, 1);
@@ -269,7 +261,6 @@ app.put("/unlike/:id",  async (req, res) => {
     await user.save();
     await loggedUser.save();
 
-
     //res.json(user.liked);
     res.status(200).send("Unliked");
   } catch (err) {
@@ -279,7 +270,7 @@ app.put("/unlike/:id",  async (req, res) => {
 });
 
 //get user's matched
-app.get("/matched/:id",  async (req, res) => {
+app.get("/matched/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const matchedUsers = await Promise.all(
@@ -292,25 +283,23 @@ app.get("/matched/:id",  async (req, res) => {
       const { _id, firstname, picture } = matchedUser;
       matchedList.push({ _id, firstname, picture });
     });
-    res.status(200).json(matchedList)
+    res.status(200).json(matchedList);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 //dislike user by using it's id. update it to disliked
-app.put("/dislike/:id",  async (req, res) => {
+app.put("/dislike/:id", async (req, res) => {
   try {
     // const user = await User.findById(req.params.id);
     const loggedUser = await User.findById(req.user.id).select("-password");
     //check if it is already liked
-    if (
-      loggedUser.disliked.filter((dis) => dis === req.params.id).length > 0
-    ) {
+    if (loggedUser.disliked.filter((dis) => dis === req.params.id).length > 0) {
       return res.status(400).json({ msg: "Already Disliked" });
     } else {
       // await user.likedBy.unshift( req.user.id );
-      await loggedUser.disliked.unshift(req.params.id );
+      await loggedUser.disliked.unshift(req.params.id);
       // await user.save();
       await loggedUser.save();
 
@@ -319,32 +308,30 @@ app.put("/dislike/:id",  async (req, res) => {
       // const value2 = await user.liked.includes(req.user.id);
       // const value2 = await user.liked[0].user;
 
-        // await user.matched.unshift(req.user.id);
-        // await loggedUser.matched.unshift(req.params.id);
-        // await user.save();
-        // await loggedUser.save();
-        //if matched, create a new conversation
+      // await user.matched.unshift(req.user.id);
+      // await loggedUser.matched.unshift(req.params.id);
+      // await user.save();
+      // await loggedUser.save();
+      //if matched, create a new conversation
 
-        // const filter = { members: [req.user.id, req.params.id] };
-        // const update = { members: [req.user.id, req.params.id] };
-        // const newConversation = await Conversation.findOneAndUpdate(filter, update, {
-        //   new: true,
-        //   upsert: true,
-        // });
-        // await newConversation.save();
-        
-        res.status(200).send("Disliked");
+      // const filter = { members: [req.user.id, req.params.id] };
+      // const update = { members: [req.user.id, req.params.id] };
+      // const newConversation = await Conversation.findOneAndUpdate(filter, update, {
+      //   new: true,
+      //   upsert: true,
+      // });
+      // await newConversation.save();
+
+      res.status(200).send("Disliked");
     }
   } catch (err) {
     res.status(500).send("Server Error");
   }
 });
 
-app.get("/liked",  async (req, res) => {
+app.get("/liked", async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select([
-      "liked"
-    ]);
+    const user = await User.findById(req.user.id).select(["liked"]);
     res.json(user);
   } catch (err) {
     console.error(err.message);
@@ -357,7 +344,7 @@ app.get("/liked",  async (req, res) => {
 /////////////////////////////////
 
 //post a conversation
-app.post("/conversation",  async (req, res) => {
+app.post("/conversation", async (req, res) => {
   try {
     //const loggedUser = await User.findById(req.user.id).select(["_id"]);
     //const user = await User.findById(req.params.id);
@@ -373,7 +360,7 @@ app.post("/conversation",  async (req, res) => {
 });
 
 //get conversations
-app.get("/conversations/:userId",  async (req, res) => {
+app.get("/conversations/:userId", async (req, res) => {
   try {
     const conversation = await Conversation.find({
       members: { $in: [req.params.userId] },
@@ -385,7 +372,7 @@ app.get("/conversations/:userId",  async (req, res) => {
 });
 
 //post a messages
-app.post("/message",  async (req, res) => {
+app.post("/message", async (req, res) => {
   try {
     const newMesssage = new Message(req.body);
     const savedMessage = await newMesssage.save();
@@ -396,24 +383,24 @@ app.post("/message",  async (req, res) => {
 });
 
 //get messages
-app.get("/messages/:conversationId",  async (req, res) => {
+app.get("/messages/:conversationId", async (req, res) => {
   try {
     const messages = await Message.find({
-      conversationId:req.params.conversationId
+      conversationId: req.params.conversationId,
     });
-    res.status(200).json(messages)
+    res.status(200).json(messages);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
 // get conv includes two userId
-app.get("/conversations/find/:firstUserId/:secondUserId",  async (req, res) => {
+app.get("/conversations/find/:firstUserId/:secondUserId", async (req, res) => {
   try {
     const conversation = await Conversation.findOne({
       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
     });
-    res.status(200).json(conversation)
+    res.status(200).json(conversation);
   } catch (err) {
     res.status(500).json(err);
   }

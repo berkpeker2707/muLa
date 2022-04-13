@@ -16,6 +16,7 @@ import {
   FaBirthdayCake,
   FaBriefcase,
   FaPersonBooth,
+  FaLocationArrow,
 } from "react-icons/fa";
 
 import Container from "@mui/material/Container";
@@ -34,6 +35,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
+
 import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 //redux
@@ -41,6 +46,20 @@ import { useSelector } from "react-redux";
 
 import ProfileActions from "./ProfileActions";
 import ReTakeTestAction from "./ReTakeTest/ReTakeTestAction";
+
+function checkCharacterType(characterType) {
+  if (characterType === "NT") {
+    console.log("NT");
+  } else if (characterType === "NF") {
+    console.log("NF");
+  } else if (characterType === "SJ") {
+    console.log("SJ");
+  } else if (characterType === "SP") {
+    console.log("SP");
+  } else {
+    console.log("WAIT.. WHA?");
+  }
+}
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -58,6 +77,12 @@ const theme = createTheme({
     },
     secondary: {
       main: "#ffc13b",
+    },
+    tertiary: {
+      main: "#ff6e40",
+    },
+    quaternary: {
+      main: "#40fff9",
     },
     background: {
       default: "#1e3d59",
@@ -84,6 +109,15 @@ const theme = createTheme({
 const Profile = () => {
   const user = useSelector((state) => state?.auth?.userAuth);
 
+  ////////////////
+  // CHECK HERE //
+  console.log(user && user.characterType);
+  var varCharacter = user && user.characterType;
+  const substring = "NF";
+  console.log(varCharacter.includes(substring)); // true
+  checkCharacterType(substring);
+  ////////////////
+
   return (
     <Fragment>
       {!user ? (
@@ -91,254 +125,244 @@ const Profile = () => {
       ) : (
         <Fragment>
           <Container fluid>
-            <ThemeProvider theme={theme} key={user._id}>
-              <div className="main-body">
-                <div className="row gutters-sm">
-                  <div className="col-md-6">
-                    <div className="card">
-                      <div className="card-body">
-                        <div className="d-flex flex-column align-items-center text-center">
-                          {user.profilePhoto ? (
-                            <CardMedia
-                              component="img"
-                              src={`/me/avatar/${user.profilePhoto}`}
-                              className="picture profilePhoto"
-                              draggable="false"
-                            />
-                          ) : (
-                            <CardMedia
-                              component="img"
-                              src={defaultProfilePicture}
-                              className="picture profilePhoto"
-                              draggable="false"
-                            />
-                          )}
-                          <div className="mt-3">
-                            <h4>
-                              {user.firstname} {user.lastname}
-                            </h4>
-                            <hr />
-                            <p className="font-size-sm">Current Location</p>
-                            <button className="btn btn-outline-primary">
-                              Like
-                            </button>{" "}
-                            <button className="btn btn-outline-primary">
-                              Message
-                            </button>
-                            <hr />
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaVenusMars />
-                            </div>
-                            <div className="col-sm-12">{user.gender}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div
-                              className="col-sm-12"
-                              data-toggle="tooltip"
-                              data-placement="top"
-                              title="Tooltip on top"
-                            >
-                              <FaBirthdayCake />
-                            </div>
-                            <div className="col-sm-12">{user.age}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaLanguage />
-                            </div>
-                            <div className="col-sm-12">{user.language}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaBriefcase />
-                            </div>
-                            <div className="col-sm-12">{user.job}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaPrayingHands />
-                            </div>
-                            <div className="col-sm-12">{user.belief}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaPersonBooth />
-                            </div>
-                            <div className="col-sm-12">{user.politics}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaUtensils />
-                            </div>
-                            <div className="col-sm-12">{user.diet}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaBeer />
-                            </div>
-                            <div className="col-sm-12">{user.alcohol}</div>
-                          </div>
-                          <hr />
-                          <div className="row">
-                            <div className="col-sm-12">
-                              <FaSmoking />
-                            </div>
-                            <div className="col-sm-12">{user.smoking}</div>
-                          </div>
-                          <hr />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-6">
-                    <div className="row gutters-sm">
-                      <div className="col-sm-12 mb-3">
-                        <div className="card h-100">
-                          <div className="card-body">
-                            <h6 className="d-flex align-items-center mb-3">
-                              <i className="material-icons text-info mr-2">
-                                Character Type:
-                              </i>
-                              {user.characterType}
-                            </h6>
-                            <small>Extraversion - Introversion</small>
-                            <div
-                              className="progress mb-3"
-                              style={{ height: "15px", background: "#dc3545" }}
-                            >
-                              <div
-                                className="progress-bar progress-bar-striped bg-success"
-                                role="progressbar"
-                                style={{ width: `${user.extraversionValue}%` }}
-                                aria-valuenow={user.extraversionValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.extraversionValue}%
-                              </div>
-                              <div
-                                className="progress-bar progress-bar-striped bg-danger"
-                                role="progressbar"
-                                style={{ width: `${user.introversionValue}%` }}
-                                aria-valuenow={user.introversionValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.introversionValue}%
-                              </div>
-                            </div>
-                            <small>Sensing - Intuition</small>
-                            <div
-                              className="progress mb-3"
-                              style={{ height: "15px", background: "#dc3545" }}
-                            >
-                              <div
-                                className="progress-bar progress-bar-striped bg-success"
-                                role="progressbar"
-                                style={{ width: `${user.sensingValue}%` }}
-                                aria-valuenow={user.sensingValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.sensingValue}%
-                              </div>
-                              <div
-                                className="progress-bar progress-bar-striped bg-danger"
-                                role="progressbar"
-                                style={{ width: `${user.intuitionValue}%` }}
-                                aria-valuenow={user.intuitionValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.intuitionValue}%
-                              </div>
-                            </div>
-                            <small>Thinking - Feeling</small>
-                            <div
-                              className="progress mb-3"
-                              style={{ height: "15px", background: "#dc3545" }}
-                            >
-                              <div
-                                className="progress-bar progress-bar-striped bg-success"
-                                role="progressbar"
-                                style={{ width: `${user.thinkingValue}%` }}
-                                aria-valuenow={user.thinkingValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.thinkingValue}%
-                              </div>
-                              <div
-                                className="progress-bar progress-bar-striped bg-danger"
-                                role="progressbar"
-                                style={{ width: `${user.feelingValue}%` }}
-                                aria-valuenow={user.feelingValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.feelingValue}%
-                              </div>
-                            </div>
-                            <small>Judging - Perceiving</small>
-                            <div
-                              className="progress mb-3"
-                              style={{ height: "15px", background: "#dc3545" }}
-                            >
-                              <div
-                                className="progress-bar progress-bar-striped bg-success"
-                                role="progressbar"
-                                style={{ width: `${user.judgingValue}%` }}
-                                aria-valuenow={user.judgingValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.judgingValue}%
-                              </div>
-                              <div
-                                className="progress-bar progress-bar-striped bg-danger"
-                                role="progressbar"
-                                style={{ width: `${user.perceivingValue}%` }}
-                                aria-valuenow={user.perceivingValue}
-                                aria-valuemin="0"
-                                aria-valuemax="100"
-                              >
-                                {user.perceivingValue}%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+            {user && user.characterType === "INFP" ? (
+              <ThemeProvider theme={theme} key={user && user._id}>
+                <Grid container spacing={2}>
+                  <Grid item xs={6} md={6}>
+                    <Card style={{ textAlign: "center" }}>
+                      <CardContent>
+                        {/* <div className="d-flex flex-column align-items-center text-center"> */}
+                        {user && user.profilePhoto ? (
+                          <CardMedia
+                            component="img"
+                            src={`/me/avatar/${user && user.profilePhoto}`}
+                            className="picture profilePhoto"
+                            style={{ margin: "auto" }}
+                            draggable="false"
+                          />
+                        ) : (
+                          <CardMedia
+                            component="img"
+                            src={defaultProfilePicture}
+                            className="picture profilePhoto"
+                            style={{ margin: "auto" }}
+                            draggable="false"
+                          />
+                        )}
 
-                    <div className="row gutters-sm">
-                      <div className="col-sm-12 mb-3">
-                        <div className="card h-100">
-                          <div className="card-body">
-                            <h6 className="d-flex align-items-center mb-3">
-                              <i className="material-icons text-info mr-2">
-                                Description:
-                              </i>
-                            </h6>
-                            <p>{user.description}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <ProfileActions /> <ReTakeTestAction />
-              </div>
-            </ThemeProvider>
+                        <CardContent>
+                          <Typography variant="h4">
+                            {user && user.firstname} {user && user.lastname}
+                          </Typography>
+                          <hr />
+                          <Typography>
+                            <FaLocationArrow />
+                            <br />
+                            "Location"
+                          </Typography>
+                        </CardContent>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaVenusMars />
+                          <br />
+                          {user && user.gender}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaBirthdayCake />
+                          <br />
+                          {user && user.age}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaLanguage />
+                          <br />
+                          {user && user.language}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaBriefcase />
+                          <br />
+                          {user && user.job}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaPrayingHands />
+                          <br />
+                          {user && user.belief}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaPersonBooth />
+                          <br />
+                          {user && user.politics}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaUtensils />
+                          <br />
+                          {user && user.diet}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaBeer />
+                          <br />
+                          {user && user.alcohol}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaSmoking />
+                          <br />
+                          {user && user.smoking}
+                        </Grid>
+                        <hr />
+                        {/* </div> */}
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={6} md={6}>
+                    <Grid container>
+                      <Grid item xs={12} md={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h6">
+                              Character Type:
+                            </Typography>
+                            <Typography className="material-icons text-info mr-2">
+                              {user && user.characterType}
+                            </Typography>
+                            <small>Extraversion - Introversion</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.extraversionValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.introversionValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                            <small>Sensing - Intuition</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.sensingValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.intuitionValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                            <small>Thinking - Feeling</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.thinkingValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.feelingValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                            <small>Judging - Perceiving</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.judgingValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.perceivingValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                    <Grid container>
+                      <Grid item xs={12} md={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h6" aria-label="italic">
+                              Description:
+                            </Typography>
+                            <Typography>{user && user.description}</Typography>
+                          </CardContent>
+                        </Card>
+                        <ProfileActions /> <ReTakeTestAction />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </ThemeProvider>
+            ) : (
+              <></>
+            )}
           </Container>
         </Fragment>
       )}
