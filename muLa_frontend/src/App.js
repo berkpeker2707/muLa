@@ -40,6 +40,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <Header />
         <Routes>
           <Route path="/" exact element={<Landing />} />
           {/* <Route element={<Header />} /> */}
