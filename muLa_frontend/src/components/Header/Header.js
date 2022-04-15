@@ -1,6 +1,9 @@
+import { Navbar, Nav } from "react-bootstrap";
+
 import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import "../../App.css";
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
+import LoadingGif from "./LoadingGif";
 import {
   FaComments,
   FaMehBlank,
@@ -39,8 +42,6 @@ import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 //redux
 import { useSelector, useDispatch } from "react-redux";
 import { getUsersAction } from "../../state/slices/authSlices";
-
-import { Navbar, Nav } from "react-bootstrap";
 
 const Header = ({ auth: { isAuthenticated, isLoading }, logout }) => {
   const authLinks = (
