@@ -5,9 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "muLa_backend": "nodemon server.js",
-    "muLa_frontend": "cd .. && cd muLa_frontend && npm start",
-    "dev": "concurrently \"npm run muLa_backend\" \"npm run muLa_frontend\""
+    "api": "nodemon server.js",
+    "client": "cd .. && cd client && npm start",
+    "dev": "concurrently \"npm run api\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",

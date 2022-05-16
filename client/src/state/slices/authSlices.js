@@ -17,8 +17,7 @@ import setAuthToken from "../../utils/setAuthToken";
 //register user action
 export const registerUserAction = createAsyncThunk(
   "user/register",
-  async (
-    user, { rejectWithValue, getState, dispatch }) => {
+  async (user, { rejectWithValue, getState, dispatch }) => {
     try {
       //http call
       //Header
@@ -51,11 +50,7 @@ export const loginUserAction = createAsyncThunk(
     //Request body
     // const body = JSON.stringify({ email, password });
     try {
-      const { data } = await axios.post(
-        "/api/user/login",
-        userData,
-        config
-        );
+      const { data } = await axios.post("/api/user/login", userData, config);
       //save user to local storage
       // if (localStorage.token) {
       //   await setAuthToken(localStorage.token);
@@ -127,44 +122,44 @@ const authSlices = createSlice({
 
   //object notation is used instead of map notation
   extraReducers: (builder) => {
-      //register
-      builder.addCase(registerUserAction.pending, (state) => {
-        state.isLoading = true;
-        state.appErr = undefined;
-        state.serverErr = undefined;
-      });
-      builder.addCase(registerUserAction.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.appErr = undefined;
-        state.serverErr = undefined;
-        state.registered = action?.payload;
-      });
-      builder.addCase(registerUserAction.rejected, (state, action) => {
-        state.isLoading = false;
-        state.appErr = action?.payload?.message;
-        state.serverErr = action?.error?.message;
-      });
+    //register
+    builder.addCase(registerUserAction.pending, (state) => {
+      state.isLoading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(registerUserAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+      state.registered = action?.payload;
+    });
+    builder.addCase(registerUserAction.rejected, (state, action) => {
+      state.isLoading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
 
-      //login
-      builder.addCase(loginUserAction.pending, (state) => {
-        state.isLoading = true;
-        state.appErr = undefined;
-        state.serverErr = undefined;
-      });
-      builder.addCase(loginUserAction.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.appErr = undefined;
-        state.serverErr = undefined;
-        state.userAuth = action?.payload;
-      });
-      builder.addCase(loginUserAction.rejected, (state, action) => {
-        state.isLoading = false;
-        state.appErr = action?.payload?.message;
-        state.serverErr = action?.error?.message;
-      });
+    //login
+    builder.addCase(loginUserAction.pending, (state) => {
+      state.isLoading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(loginUserAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+      state.userAuth = action?.payload;
+    });
+    builder.addCase(loginUserAction.rejected, (state, action) => {
+      state.isLoading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
 
-      //logout
-      builder.addCase(logoutAction.pending, (state, action) => {
+    //logout
+    builder.addCase(logoutAction.pending, (state, action) => {
       state.loading = false;
     });
     builder.addCase(logoutAction.fulfilled, (state, action) => {
@@ -198,7 +193,6 @@ const authSlices = createSlice({
       state.serverErr = action?.error?.message;
     });
 
-
     //update avatar
 
     //forgot password
@@ -226,78 +220,6 @@ const authSlices = createSlice({
 });
 
 export default authSlices.reducer;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // //Redirect action
 // const resetUserAction = createAction("user/profile/reset");
@@ -546,7 +468,6 @@ export default authSlices.reducer;
 //   }
 // );
 
-
 // //Upload Profile Photo
 // export const uploadProfilePhototAction = createAsyncThunk(
 //   "user/profile-photo",
@@ -630,7 +551,6 @@ export default authSlices.reducer;
 //     }
 //   }
 // );
-
 
 // //slices
 // const usersSlices = createSlice({

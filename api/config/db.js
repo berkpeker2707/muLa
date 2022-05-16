@@ -3,8 +3,7 @@ const mongoose = require("mongoose");
 // console.log(dotenv.config());
 // console.log(process.env)
 
-
-mongoose.set('useFindAndModify', false);
+mongoose.set("useFindAndModify", false);
 
 const connectDatabase = async () => {
   try {
