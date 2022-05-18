@@ -1,15 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
+
+//dotenv config
+require("dotenv").config();
+
 //connection for db
 const connectDatabase = require("./config/db");
 
 //models
-const User = require("./models/User");
-const Conversation = require("./models/Conversation");
-const Message = require("./models/Message");
+const Conversation = require("./models/conversation");
+const Message = require("./models/message");
+const User = require("./models/user");
 
-//dotenv config
-require("dotenv").config();
+//routes
+const authRoutes = require("./routes/authRoutes");
+const conversationRoutes = require("./routes/conversationRoutes");
+const messageRoutes = require("./routes/messageRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 //using this in password reset
 const _ = require("lodash");
@@ -50,14 +57,7 @@ var picture = multer({ storage: storage });
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
-
-//Mailing System
-const mailgun = require("mailgun-js");
-const { userRegisterController } = require("./Controllers/UserControllers");
-const userRoutes = require("./routes/User/userRoutes");
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
-const DOMAIN = "sandbox186fa978175a44d0863ae4d3f6763326.mailgun.org";
-const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
 
 const app = express({ extended: false });
 app.use(express.static("picture"));
@@ -72,103 +72,10 @@ app.use(express.json({ extended: false }));
 const port = process.env.PORT || 1000;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-//////////////////////////////////////////////////
-
-////////////////////
-//Image config stars
-////////////////////
-
-// const conn = mongoose.createConnection(process.env.dbKEY, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-// conn.once("open", () => {
-//   //Init Stream
-//   gfs = Grid(conn.db, mongoose.mongo);
-//   gfs.collection("picture");
-// });
-
-// var storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'uploads')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// });
-
-// var picture = multer({ storage: storage });
-
-///////////////////////////////////////////////////////////////////////////////
-// const storage = new GridFsStorage({
-//   url: process.env.dbKEY,
-//   cache: true,
-//   options: { useNewUrlParser: true, useUnifiedTopology: true },
-//   file: (req, file) => {
-
-//     const match = ["image/png", "image/jpeg"];
-
-//     return new Promise((resolve, reject) => {
-//       crypto.randomBytes(16, (err, buf) => {
-//         if (err) {
-//           return reject(err);
-//         }
-//         const filename = buf.toString("hex") + path.extname(file.originalname);
-//         const fileInfo = {
-//           filename: filename,
-//           bucketName: "picture",
-//         };
-//         resolve(fileInfo);
-//       });
-//     });
-//   },
-// });
-// const picture = multer({ storage });
-
-// const store = multer({
-//   storage,
-//   limits: {
-//     fileSize: 20000000,
-//     fileFilter: (req,file,cb) => {
-//       checkFileType(file,cb)
-//     }
-//   },
-// });
-
-// function checkFileType(file,cb) {
-//   const filetypes = /jpeg|jgp|png/;
-//   const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-//   const mimetype = filetypes.test(file.mimetype);
-//   if(mimetype && extname) return cb(null,true);
-//   cb("filetype")
-// }
-
-// const uploadMiddleware = (req,res,next) =>{
-//   const upload = store.single("picture")
-// upload(req,res,function(err) {
-//   if(err instanceof multer.MulterError){
-//     return res.status(400).send("File too large");
-//   } else if(err){
-//     if(err === "filetype") return res.status(400).send("Image files only.");
-//     return res.sendStatus(500)
-//   }
-//   next();
-// })
-// }
-
-/////////////////////
-//Image config ends
-////////////////////
-
-//Controllers
-//Routes
-
-//User Routes
+//routes
+app.use("/api/auth", authRoutes);
+app.use("/api/conversation", conversationRoutes);
+app.use("/api/message", messageRoutes);
 app.use("/api/user", userRoutes);
 
 //Error Handler
@@ -409,3 +316,9 @@ app.get("/conversations/find/:firstUserId/:secondUserId", async (req, res) => {
 ///////////////////////////////
 // Conversation Section Ends //
 ///////////////////////////////
+
+// ????????????????????????????????????????? //
+// ????????????????????????????????????????? //
+// ????????????????????????????????????????? //
+// ????????????????????????????????????????? //
+// ????????????????????????????????????????? //

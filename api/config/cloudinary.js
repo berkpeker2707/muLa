@@ -8,15 +8,38 @@ cloudinary.config({
 
 const cloudinaryUploadImg = async (fileToUpload) => {
   try {
-    const data = await cloudinary.uploader.upload(fileToUpload, {
+    const data = await cloudinary.v2.uploader.upload(fileToUpload, {
       resource_type: "auto",
+      folder: "muLa/profilePhotos",
+      tags: "profilePhoto",
     });
+
     return {
-      url: data?.secure_url,
+      data,
     };
   } catch (error) {
     return error;
   }
 };
 
-module.exports = cloudinaryUploadImg;
+const cloudinaryDeleteImg = async (public_id) => {
+  try {
+    var imagePath = "muLa/profilePhotos/" + public_id;
+
+    console.log(imagePath);
+    const data = await cloudinary.v2.uploader.destroy(
+      imagePath,
+      (error, result) => {
+        console.log(result);
+      }
+    );
+
+    return {
+      data,
+    };
+  } catch (error) {
+    return error;
+  }
+};
+
+module.exports = { cloudinaryUploadImg, cloudinaryDeleteImg };

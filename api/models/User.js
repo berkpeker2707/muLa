@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const randomatic = require("randomatic");
 const crypto = require("crypto");
 
-const UserSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -98,6 +98,10 @@ const UserSchema = new mongoose.Schema(
     profilePhoto: {
       type: String,
     },
+    pictures: {
+      type: Array,
+      default: [],
+    },
     liked: {
       type: Array,
       default: [],
@@ -153,7 +157,7 @@ const UserSchema = new mongoose.Schema(
 );
 
 //password encryption
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();
   }
@@ -163,20 +167,21 @@ UserSchema.pre("save", async function (next) {
 });
 
 //matching password
-UserSchema.methods.isPasswordMatched = async function (enteredPassword) {
+userSchema.methods.isPasswordMatched = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 //account verification
-UserSchema.methods.createAccountVerificationToken = async function () {
+userSchema.methods.createAccountVerificationToken = async function () {
   // create token
   const verificationToken = randomatic("Aa0!", 32).toString("hex");
+  console.log(verificationToken);
   this.accountVerificationToken = crypto
-  .createHash("sha256")
-  .update(verificationToken)
-  .digest("hex");
+    .createHash("sha256")
+    .update(verificationToken)
+    .digest("hex");
   this.accountVerificationTokenExpires = Date.now() + 3600 * 1000 * 24; //24 hour
   return verificationToken;
 };
 
-module.exports = User = mongoose.model("user", UserSchema);
+module.exports = User = mongoose.model("user", userSchema);

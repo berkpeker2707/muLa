@@ -1,12 +1,15 @@
 const { check, validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
+//dotenv config
+require("dotenv").config();
 
 //Mailing System
-const mailgun = require("mailgun-js");
-const DOMAIN = "sandbox186fa978175a44d0863ae4d3f6763326.mailgun.org";
-const mg = mailgun({ apiKey: process.env.MAILGUN_APIKEY, domain: DOMAIN });
-
+// const mailgun = require("mailgun-js");
+// const mg = mailgun({
+//   apiKey: process.env.MAILGUN_APIKEY,
+//   domain: process.env.MAILGUN_DOMAIN,
+// });
 
 //////////Register without activation stars//////////
 app.post("/testregister", async (req, res) => {
@@ -268,14 +271,49 @@ app.post(
 app.post("/activate", async (req, res) => {
   const { token } = req.body;
   if (token) {
-    jwt.verify(
-      token,
-      process.env.JWT_KEY,
-      async function (err, decodedToken) {
-        if (err) {
-          return res.status(400).json({ error: "Incorrect or Expired Link." });
+    jwt.verify(token, process.env.JWT_KEY, async function (err, decodedToken) {
+      if (err) {
+        return res.status(400).json({ error: "Incorrect or Expired Link." });
+      }
+      const {
+        email,
+        password,
+        firstname,
+        lastname,
+        age,
+        gender,
+        job,
+        description,
+
+        userLatitude,
+        userLongitude,
+
+        language,
+        belief,
+        politics,
+        diet,
+        alcohol,
+        smoking,
+
+        extraversionValue,
+        introversionValue,
+        sensingValue,
+        intuitionValue,
+        thinkingValue,
+        feelingValue,
+        judgingValue,
+        perceivingValue,
+        characterType,
+      } = decodedToken;
+
+      try {
+        //checking user exists
+        let user = await User.findOne({ email });
+        if (user) {
+          return res.status(400).json({ errors: "User Already Exists!" });
         }
-        const {
+
+        user = new User({
           email,
           password,
           firstname,
@@ -304,57 +342,18 @@ app.post("/activate", async (req, res) => {
           judgingValue,
           perceivingValue,
           characterType,
-        } = decodedToken;
+        });
+        //encrypt password
+        const salt = bcrypt.genSaltSync(10);
+        user.password = await bcrypt.hash(password, salt);
+        await user.save();
 
-        try {
-          //checking user exists
-          let user = await User.findOne({ email });
-          if (user) {
-            return res.status(400).json({ errors: "User Already Exists!" });
-          }
-
-          user = new User({
-            email,
-            password,
-            firstname,
-            lastname,
-            age,
-            gender,
-            job,
-            description,
-
-            userLatitude,
-            userLongitude,
-
-            language,
-            belief,
-            politics,
-            diet,
-            alcohol,
-            smoking,
-
-            extraversionValue,
-            introversionValue,
-            sensingValue,
-            intuitionValue,
-            thinkingValue,
-            feelingValue,
-            judgingValue,
-            perceivingValue,
-            characterType,
-          });
-          //encrypt password
-          const salt = bcrypt.genSaltSync(10);
-          user.password = await bcrypt.hash(password, salt);
-          await user.save();
-
-          res.json({ message: "User activated & registered!" });
-        } catch (err) {
-          console.error(err.message);
-          res.status(500).send("Server Error");
-        }
+        res.json({ message: "User activated & registered!" });
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
       }
-    );
+    });
   } else {
     return res.json({ error: "Something went obviously wrong." });
   }
@@ -496,7 +495,7 @@ app.post(
 );
 
 //Get user picture by id
-app.get("/user/picture/:id",  async (req, res) => {
+app.get("/user/picture/:id", async (req, res) => {
   try {
     const friendUser = await User.findById(req.params.id).select([
       "firstname",
@@ -509,38 +508,41 @@ app.get("/user/picture/:id",  async (req, res) => {
 });
 
 //Get specific media file route
-app.get("/file/:filename",  async (req, res) => {
+app.get("/file/:filename", async (req, res) => {
   try {
-      const file = await gfs.files.findOne({ filename: req.params.filename });
-      const readStream = gfs.createReadStream(file.filename);
-      readStream.pipe(res);
+    const file = await gfs.files.findOne({ filename: req.params.filename });
+    const readStream = gfs.createReadStream(file.filename);
+    readStream.pipe(res);
   } catch (error) {
-      res.send("not found");
+    res.send("not found");
   }
 });
 
 //get all images for logged user and filename
-app.get("/me/avatar",  async (req,res) =>{
-  gfs.files.find().toArray((err,files) =>{
-if(err){
-  console.log(err);
-}
-else{
-    // if(!files || files.length === 0){
-    //   res.send("no pictures", {files:false});
-    // } else{
-      files.map(file => {
-        if(file.contentType === "image/jpeg" || file.contentType === "image/jpg" || file.contentType === "image/png"){
+app.get("/me/avatar", async (req, res) => {
+  gfs.files.find().toArray((err, files) => {
+    if (err) {
+      console.log(err);
+    } else {
+      // if(!files || files.length === 0){
+      //   res.send("no pictures", {files:false});
+      // } else{
+      files.map((file) => {
+        if (
+          file.contentType === "image/jpeg" ||
+          file.contentType === "image/jpg" ||
+          file.contentType === "image/png"
+        ) {
           file.isImage = true;
-        } else{
+        } else {
           file.isImage = false;
         }
       });
-      res.send({files:files});
-    // }
-  }
+      res.send({ files: files });
+      // }
+    }
   });
-})
+});
 
 //get the image of logged user and filename
 app.get("/me/avatar/:filename", (req, res) => {
@@ -571,19 +573,20 @@ app.put(
   "/me/update/avatar",
   picture.single("picture"),
   [
-    
     // [check("password").exists()]
   ],
   async (req, res) => {
     console.log("file", req.file);
     console.log("file", req.body);
-    
+
     fs.access("./assests/pictures/", (err) => {
-      if(err){
-      fs.mkdirSync("./assests/pictures");
+      if (err) {
+        fs.mkdirSync("./assests/pictures");
       }
     });
-    await sharp(req.file.buffer).resize({width:390, height: 350}).toFile("./assests/pictures/" +  req.file.originalname);
+    await sharp(req.file.buffer)
+      .resize({ width: 390, height: 350 })
+      .toFile("./assests/pictures/" + req.file.originalname);
     // get the .file property from req that was added by the upload middleware
     const { file } = req;
     // and the id of that new image file
@@ -619,7 +622,7 @@ app.put(
 );
 
 //Get all users all information except current user
-app.get("/users",  async (req, res) => {
+app.get("/users", async (req, res) => {
   try {
     const users = await User.find({
       _id: { $ne: req.user.id },
@@ -656,7 +659,7 @@ app.get("/users",  async (req, res) => {
 
       "liked",
       "likedBy",
-      "matched"
+      "matched",
     ]);
 
     res.json(users);
@@ -670,7 +673,7 @@ app.get("/users",  async (req, res) => {
 app.put(
   "/me-update",
   // picture.single("picture"),
-  [ [check("password").exists()]],
+  [[check("password").exists()]],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -720,7 +723,7 @@ app.put(
 );
 
 //Get current user
-app.get("/me",  async (req, res) => {
+app.get("/me", async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select([
       "email",
@@ -759,7 +762,7 @@ app.get("/me",  async (req, res) => {
       "matched",
       "blocked",
 
-      "disliked"
+      "disliked",
     ]);
     res.status(200).json(user);
   } catch (err) {
@@ -769,7 +772,7 @@ app.get("/me",  async (req, res) => {
 });
 
 //Get user by id
-app.get("/user/:id",  async (req, res) => {
+app.get("/user/:id", async (req, res) => {
   try {
     const friendUser = await User.findById(req.params.id).select([
       "email",
@@ -810,7 +813,7 @@ app.get("/user/:id",  async (req, res) => {
 });
 
 //Update user's test
-app.put("/test-update",  async (req, res) => {
+app.put("/test-update", async (req, res) => {
   let modifications = {};
 
   if (req.body.extraversionValue)

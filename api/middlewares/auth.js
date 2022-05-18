@@ -1,7 +1,7 @@
 //auth middleware for token checking in header
 const expressAsyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/user");
 
 const auth = expressAsyncHandler(async (req, res, next) => {
   let token;
@@ -21,8 +21,8 @@ const auth = expressAsyncHandler(async (req, res, next) => {
     } catch (error) {
       throw new Error("Not authorized.");
     }
-  } else{
-    throw new Error("Not authorized.")
+  } else {
+    throw new Error("Not authorized.");
   }
 });
 
