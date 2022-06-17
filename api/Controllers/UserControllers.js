@@ -23,7 +23,7 @@ const fs = require("fs");
 const {
   cloudinaryUploadImg,
   cloudinaryDeleteImg,
-} = require("../config/cloudinary");
+} = require("../middlewares/cloudinary");
 
 //get specific user controller
 const getUserController = expressAsyncHandler(async (req, res) => {
