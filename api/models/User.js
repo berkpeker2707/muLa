@@ -174,7 +174,7 @@ userSchema.methods.isPasswordMatched = async function (enteredPassword) {
 //account verification
 userSchema.methods.createAccountVerificationToken = async function () {
   // create token
-  const verificationToken = randomatic("Aa0!", 32).toString("hex");
+  const verificationToken = randomatic("Aa0", 32).toString("hex");
   console.log(verificationToken);
   this.accountVerificationToken = crypto
     .createHash("sha256")

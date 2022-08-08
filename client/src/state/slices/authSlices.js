@@ -37,6 +37,45 @@ export const registerUserAction = createAsyncThunk(
   }
 );
 
+////////
+//validate user action
+export const validateUserAction = createAsyncThunk(
+  "user/validate",
+  async (token, { rejectWithValue, getState, dispatch }) => {
+    console.log(`token`);
+    console.log(token);
+    console.log(`token`);
+    //Headers
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    //Request body
+    // const body = JSON.stringify({ email, password });
+
+    try {
+      const { data } = await axios.put(
+        `/api/user/verify-account`,
+        token,
+        config
+      );
+      //save user to local storage
+      // if (localStorage.token) {
+      //   await setAuthToken(localStorage.token);
+      // }
+      // localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+////////
+
 //login user action
 export const loginUserAction = createAsyncThunk(
   "user/login",
@@ -135,6 +174,24 @@ const authSlices = createSlice({
       state.registered = action?.payload;
     });
     builder.addCase(registerUserAction.rejected, (state, action) => {
+      state.isLoading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+
+    //validate
+    builder.addCase(validateUserAction.pending, (state) => {
+      state.isLoading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(validateUserAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+      state.validated = action?.payload;
+    });
+    builder.addCase(validateUserAction.rejected, (state, action) => {
       state.isLoading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

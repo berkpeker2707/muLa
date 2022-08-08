@@ -60,7 +60,7 @@ import {
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsersAction } from "../../state/slices/authSlices";
+// import { getUsersAction } from "../../state/slices/authSlices";
 
 const Header = ({ logout }) => {
   const dispatch = useDispatch();
@@ -69,9 +69,9 @@ const Header = ({ logout }) => {
 
   const users = useSelector((state) => state?.auth?.users);
 
-  useEffect(() => {
-    dispatch(getUsersAction());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getUsersAction());
+  // }, [dispatch]);
 
   /* 
       ////////////////////////////////////
@@ -230,7 +230,7 @@ const Header = ({ logout }) => {
       ////////////////////////////////////
       ////////////////////////////////////
       //////////////////////////////////// */}
-      <Box sx={{ flexGrow: 1 }}>
+      {/* <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
             <IconButton
@@ -299,7 +299,7 @@ const Header = ({ logout }) => {
         </AppBar>
         {renderMobileMenu}
         {renderMenu}
-      </Box>
+      </Box> */}
       {/* 
       ////////////////////////////////////
       ////////////////////////////////////

@@ -5,6 +5,7 @@ const {
   profilePhotoResize,
 } = require("../middlewares/photoUpload");
 const {
+  getLoggedInUser,
   getUsersController,
   getUserController,
   updateUserController,
@@ -18,6 +19,9 @@ const {
   photoDeleteController,
 } = require("../controllers/userControllers");
 const userRoutes = express.Router();
+
+//get logged in user
+userRoutes.get("/me", auth, getLoggedInUser);
 
 //get all users
 userRoutes.get("/users", auth, getUsersController);
@@ -38,7 +42,11 @@ userRoutes.put("/update/password", auth, updateUserPasswordController);
 userRoutes.post("/generate-verification", auth, generateVerificationController);
 
 //verify account
-userRoutes.put("/verify-account", auth, verifyAccount);
+userRoutes.put(
+  "/verify-account",
+  // auth,
+  verifyAccount
+);
 
 //upload profile image
 userRoutes.post(

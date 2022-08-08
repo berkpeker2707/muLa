@@ -25,7 +25,19 @@ const {
   cloudinaryDeleteImg,
 } = require("../middlewares/cloudinary");
 
-//get specific user controller
+//get logged in user *
+const getLoggedInUser = expressAsyncHandler(async (req, res) => {
+  const id = req.user.id;
+  try {
+    const user = await User.findById(id);
+
+    res.json(user);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+//get specific user controller *
 const getUserController = expressAsyncHandler(async (req, res) => {
   const { id } = req.params;
   try {
@@ -36,7 +48,7 @@ const getUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//get users controller
+//get users controller *
 const getUsersController = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.find({});
@@ -46,7 +58,7 @@ const getUsersController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update logged in user controller
+//update logged in user controller *
 const updateUserController = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   try {
@@ -82,7 +94,7 @@ const updateUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update logged in user's test controller
+//update logged in user's test controller *
 const updateUsersTestController = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   try {
@@ -121,19 +133,21 @@ const updateUsersTestController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update logged in user's password controller
+//update logged in user's password controller *
 const updateUserPasswordController = expressAsyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const { password } = req.body;
-
+  const { password, newPassword } = req.body;
   try {
     const user = await User.findById(_id);
-    if (password) {
-      user.password = password;
+    if (newPassword && (await user.isPasswordMatched(password))) {
+      user.password = newPassword;
       const updatedUser = await user.save();
       res.json(updatedUser);
+    } else {
+      res.status(401);
+      throw new Error("Invalid Entry!");
     }
-    res.json(user);
+    // res.json(user);
   } catch (error) {
     res.json(error);
   }
@@ -163,7 +177,6 @@ const generateVerificationController = expressAsyncHandler(async (req, res) => {
     };
     client.messages.create(process.env.MAILGUN_USER, messageData);
 
-    console.log(verificationToken);
     return res.json("Verification Mail Sent!");
   } catch (error) {
     throw new Error(error);
@@ -207,7 +220,7 @@ const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
   res.json(imgUploaded);
 });
 
-//prpfile photo delete controller
+//profile photo delete controller
 const profilePhotoDeleteController = expressAsyncHandler(async (req, res) => {
   const { _id } = req?.user;
   const { profilePhoto } = req?.body;
@@ -281,6 +294,7 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
 });
 
 module.exports = {
+  getLoggedInUser,
   getUserController,
   getUsersController,
   updateUserController,
