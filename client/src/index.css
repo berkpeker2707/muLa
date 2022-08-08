@@ -1,5 +1,10 @@
 @font-face {
-    font-family: 'RobotoCustom';
-    src: local('Roboto'), url(./fonts/RobotoMono-Medium.ttf) format('truetype');
-    font-weight: normal;
-  }
+  font-family: 'RobotoCustom';
+  src: local('Roboto'), url(./fonts/RobotoMono-Medium.ttf) format('truetype');
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'ArchitectsDaughter';
+  src: local('ArchitectsDaughter'), url(./fonts/ArchitectsDaughter-Regular.ttf) format('truetype');
+  font-weight: normal;
+}

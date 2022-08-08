@@ -32,13 +32,11 @@ const Uploadfiletest = ({
     formState: { errors, isValid },
   } = useForm({ mode: "all" });
 
-  
   const [file, setFile] = useState(null);
   const [inputContainsFile, setInputContainsFile] = useState(false);
   const [currentlyUploading, setCurrentlyUploading] = useState(false);
   const [imageId, setImageId] = useState(null);
   const [progress, setProgress] = useState(null);
-
 
   useEffect(() => {
     getCurrentUser();
@@ -50,9 +48,9 @@ const Uploadfiletest = ({
     setInputContainsFile(true);
   };
 
-const fileUploadHandler = () => {
+  const fileUploadHandler = () => {
     const fd = new FormData();
-    fd.append('picture', file, file.name);
+    fd.append("picture", file, file.name);
     axios
       .put(`/me/update/avatar`, fd)
       .then(({ data }) => {
@@ -70,16 +68,16 @@ const fileUploadHandler = () => {
             alert(errMsg);
           }
         } else if (err.response.status === 500) {
-          console.log('db error');
-          alert('db error');
+          console.log("db error");
+          alert("db error");
         } else {
-          console.log('other error: ', err);
+          console.log("other error: ", err);
         }
         setInputContainsFile(false);
         setCurrentlyUploading(false);
       });
   };
-    
+
   const handleClick = () => {
     if (inputContainsFile) {
       setCurrentlyUploading(true);
@@ -93,7 +91,11 @@ const fileUploadHandler = () => {
         <LoadingGif />
       ) : (
         <Fragment>
-          <form method="PUT" action="/me/update/avatar" encType="multipart/form-data">
+          <form
+            method="PUT"
+            action="/me/update/avatar"
+            encType="multipart/form-data"
+          >
             {user.user.length !== null || undefined ? (
               <div className="container" key={user.user._id}>
                 <div className="main-body">
@@ -103,13 +105,23 @@ const fileUploadHandler = () => {
                         <div className="card-body">
                           <div className="d-flex flex-column align-items-center text-center">
                             <div className="mt-3">
-                            {user.user.picture === undefined ?
-                                                <img src={defaultProfilePicture} name="picture" className="profilePhoto" draggable="false"/>
-                                                : 
-                                                <img src={`/me/avatar/${user.user.picture.filename}`} name="picture" className="profilePhoto" draggable="false"/>
-                                                }
+                              {user.user.picture === undefined ? (
+                                <img
+                                  src={defaultProfilePicture}
+                                  name="picture"
+                                  className="profilePhoto"
+                                  draggable="false"
+                                />
+                              ) : (
+                                <img
+                                  src={`/me/avatar/${user.user.picture.filename}`}
+                                  name="picture"
+                                  className="profilePhoto"
+                                  draggable="false"
+                                />
+                              )}
                               <br />
-                              <br/>
+                              <br />
                               <input
                                 type="file"
                                 className="form-control"
@@ -136,13 +148,13 @@ const fileUploadHandler = () => {
                               />
                             </div> */}
                             <div className="mt-3">
-                                <button
-                                  type="submit"
-                                  className="btn btn-primary"
-                                  onClick={handleClick}
-                                >
-                                  Update Picture
-                                </button>
+                              <button
+                                type="submit"
+                                className="btn btn-primary"
+                                onClick={handleClick}
+                              >
+                                Update Picture
+                              </button>
                             </div>
                           </div>
                         </div>

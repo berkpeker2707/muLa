@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.css";
-import Footer from "./components/Footer/Footer.js";
-import FAQ from "./components/Footer/FAQ.js";
+import Footer from "./components/Landing/Footer/Footer.js";
+
+import FAQ from "./components/Landing/Footer/FAQ.js";
 import Landing from "./components/Landing/Landing.js";
 import Register from "./components/Landing/Register/Register.js";
 import ConfirmPage from "./components/Landing/Register/ConfirmPage.js";
@@ -13,75 +14,55 @@ import ForgotPassword from "./components/Landing/ForgotPassword";
 import PrivateRoute from "./components/Routing/PrivateRoute";
 
 //redux
-// import store from "./state/store";
-import { useSelector, useDispatch } from "react-redux";
-import { bindActionCreators } from "redux";
-import { actionCreators } from "./state/index";
-
-import { loadUser } from "./state/actions/authActions";
-import setAuthToken from "./state/utils/setAuthToken";
-
 import Profile from "./components/Profile/Profile";
 import ProfileUpdate from "./components/Profile/ProfileUpdate";
 import ReTakeTest from "./components/Profile/ReTakeTest/ReTakeTest";
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/Landing/ResetPassword";
 import Uploadfiletest from "./components/Profile/Uploadfiletest";
+import About from "./components/Landing/Footer/About";
 
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 
 const App = () => {
-
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch();
-  // console.log(state);
-
-  const AC = bindActionCreators(actionCreators, dispatch);
-
-  // useEffect(() => {
-  //   store.dispatch(loadUser());
-  // }, []); //last [] is for run once
-
-  const LandingContainer = () => (
-    <div className="landingContainer">
-      <Route path="/" exact component={Landing} />
-    </div>
-  );
-
-  const loggedInContainer = () => (
-    <div>
-      <Header component={Header} />
-      <br />
-      <div className="loggedInContainer">
-        <Route path="/register" component={Register} />
-        <Route path="/activate*" component={ConfirmPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/forgot-password" component={ForgotPassword} />
-        <Route path="/reset-password*" component={ResetPassword} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
-        <PrivateRoute path="/profile" component={Profile} />
-        <PrivateRoute path="/profile-update" component={ProfileUpdate} />
-        <PrivateRoute path="/uploadtest" component={Uploadfiletest} />
-        <PrivateRoute path="/test-update" component={ReTakeTest} />
-        <PrivateRoute path="/chatroom" component={ChatRoom} />
-        {/*  <Route path="/chat" component={Messenger} />*/}
-        <Route path="/faq" component={FAQ} />
-      </div>
-      <br />
-      <Footer component={Footer} />
-    </div>
-  );
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#1e3d59",
+      },
+      secondary: {
+        main: "#ff6e40",
+      },
+    },
+  });
 
   return (
-      <Router>
-        <Switch>
-          <Route exact path="/" component={LandingContainer} />
-          <Route component={loggedInContainer} />
-        </Switch>
-      </Router>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/" exact element={<Landing />} />
+          {/* <Route element={<Header />} /> */}
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-account/:token" element={<ConfirmPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/*" element={<ResetPassword />} />
+          <Route element={<Header />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile-update" element={<ProfileUpdate />} />
+          <Route path="/uploadtest" element={<Uploadfiletest />} />
+          <Route path="/test-update" element={<ReTakeTest />} />
+          <Route path="/chatroom" element={<ChatRoom />} />
+          {/* <Route path="/chat" element={Messenger} /> */}
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 };
 

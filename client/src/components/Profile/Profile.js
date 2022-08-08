@@ -1,200 +1,373 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from "react";
 import "../../App.css";
-import { FaBriefcase, FaPersonBooth, FaBeer, FaSmoking, FaVenusMars, FaLanguage, FaPrayingHands, FaUtensils, FaBirthdayCake } from 'react-icons/fa';
-import PropTypes from 'prop-types';
-import { connect } from "react-redux";
-import { loadUser } from "../../state/actions/authActions"
-import { loadUserAvatar} from "../../state/actions/authActions"
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
 import LoadingGif from "../Dashboard/LoadingGif";
-import ProfileActions from './ProfileActions';
-import ReTakeTestAction from './ReTakeTest/ReTakeTestAction';
-import defaultProfilePicture from "./defaultProfilePicture.png";
+import {
+  FaComments,
+  FaMehBlank,
+  FaBeer,
+  FaSmoking,
+  FaVenusMars,
+  FaLanguage,
+  FaPray,
+  FaPrayingHands,
+  FaFlag,
+  FaUtensils,
+  FaBirthdayCake,
+  FaBriefcase,
+  FaPersonBooth,
+  FaLocationArrow,
+} from "react-icons/fa";
 
-const Profile = ({ loadUser, loadUserAvatar, auth, user, isAuthenticated }) => {    
-    // const [file, setFile] = useState(null);
+import Container from "@mui/material/Container";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import CardActions from "@mui/material/CardActions";
+import Typography from "@mui/material/Typography";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 
-    useEffect(() => {
-        loadUser();
-        loadUserAvatar();
-        // setFile(user);
-    }, [])
+import LinearProgress, {
+  linearProgressClasses,
+} from "@mui/material/LinearProgress";
 
-    return <Fragment>
-        {
-            auth.isLoading === true ? <LoadingGif /> : <Fragment >
-                {isAuthenticated ? 
-                    <div className="container">
-                        <div className="main-body">
-                            <div className="row gutters-sm">
-                                <div className="col-md-6">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <div className="d-flex flex-column align-items-center text-center">
-                                                {user.user.picture === undefined ?
-                                                <img src={defaultProfilePicture} className="picture profilePhoto" draggable="false"/>
-                                                : 
-                                                <img src={`/me/avatar/${user.user.picture.filename}`} className="picture profilePhoto" draggable="false"/>
-                                                }
-                                                <div className="mt-3">
-                                                    <h4>{user.user.firstname}{" "}{user.user.lastname}</h4>
-                                                    <hr />
-                                                    <p className="font-size-sm">Current Location</p>
-                                                    <button className="btn btn-outline-primary">Like</button> {" "}
-                                                    <button className="btn btn-outline-primary">Message</button>
-                                                    <hr />
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaVenusMars />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.gender}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
-                                                        <FaBirthdayCake />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.age}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaLanguage />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.language}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaBriefcase />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.job}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaPrayingHands />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.belief}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaPersonBooth />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.politics}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaUtensils />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.diet}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaBeer />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.alcohol}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                                <div className="row">
-                                                    <div className="col-sm-12">
-                                                        <FaSmoking />
-                                                    </div>
-                                                    <div className="col-sm-12">
-                                                        {user.user.smoking}
-                                                    </div>
-                                                </div>
-                                                <hr />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="row gutters-sm">
-                                        <div className="col-sm-12 mb-3">
-                                            <div className="card h-100">
-                                                <div className="card-body">
-                                                    <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">Character Type:</i>{user.user.characterType}</h6>
-                                                    <small>Extraversion - Introversion</small>
-                                                    <div className="progress mb-3" style={{ height: "15px", background: "#dc3545" }}>
-                                                        <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{ width: `${user.user.extraversionValue}%` }} aria-valuenow={user.user.extraversionValue} aria-valuemin="0" aria-valuemax="100">{user.user.extraversionValue}%</div>
-                                                        <div className="progress-bar progress-bar-striped bg-danger" role="progressbar" style={{ width: `${user.user.introversionValue}%` }} aria-valuenow={user.user.introversionValue} aria-valuemin="0" aria-valuemax="100">{user.user.introversionValue}%</div>
-                                                    </div>
-                                                    <small>Sensing - Intuition</small>
-                                                    <div className="progress mb-3" style={{ height: "15px", background: "#dc3545" }}>
-                                                        <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{ width: `${user.user.sensingValue}%` }} aria-valuenow={user.user.sensingValue} aria-valuemin="0" aria-valuemax="100">{user.user.sensingValue}%</div>
-                                                        <div className="progress-bar progress-bar-striped bg-danger" role="progressbar" style={{ width: `${user.user.intuitionValue}%` }} aria-valuenow={user.user.intuitionValue} aria-valuemin="0" aria-valuemax="100">{user.user.intuitionValue}%</div>
-                                                    </div>
-                                                    <small>Thinking - Feeling</small>
-                                                    <div className="progress mb-3" style={{ height: "15px", background: "#dc3545" }}>
-                                                        <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{ width: `${user.user.thinkingValue}%` }} aria-valuenow={user.user.thinkingValue} aria-valuemin="0" aria-valuemax="100">{user.user.thinkingValue}%</div>
-                                                        <div className="progress-bar progress-bar-striped bg-danger" role="progressbar" style={{ width: `${user.user.feelingValue}%` }} aria-valuenow={user.user.feelingValue} aria-valuemin="0" aria-valuemax="100">{user.user.feelingValue}%</div>
-                                                    </div>
-                                                    <small>Judging - Perceiving</small>
-                                                    <div className="progress mb-3" style={{ height: "15px", background: "#dc3545" }}>
-                                                        <div className="progress-bar progress-bar-striped bg-success" role="progressbar" style={{ width: `${user.user.judgingValue}%` }} aria-valuenow={user.user.judgingValue} aria-valuemin="0" aria-valuemax="100">{user.user.judgingValue}%</div>
-                                                        <div className="progress-bar progress-bar-striped bg-danger" role="progressbar" style={{ width: `${user.user.perceivingValue}%` }} aria-valuenow={user.user.perceivingValue} aria-valuemin="0" aria-valuemax="100">{user.user.perceivingValue}%</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
-                                    <div className="row gutters-sm">
-                                        <div className="col-sm-12 mb-3">
-                                            <div className="card h-100">
-                                                <div className="card-body">
-                                                    <h6 className="d-flex align-items-center mb-3"><i className="material-icons text-info mr-2">Description:</i></h6>
-                                                    <p>{user.user.description}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+//redux
+import { useSelector } from "react-redux";
 
+import ProfileActions from "./ProfileActions";
+import ReTakeTestAction from "./ReTakeTest/ReTakeTestAction";
 
-                            </div>
-                            <ProfileActions /> {" "} <ReTakeTestAction />
-                        </div>
-                    </div> : <h4>Couldn't Retrieve Your Account</h4>}
-            </Fragment>
-        }
-    </Fragment >
+function checkCharacterType(characterType) {
+  if (characterType === "NT") {
+    console.log("NT");
+  } else if (characterType === "NF") {
+    console.log("NF");
+  } else if (characterType === "SJ") {
+    console.log("SJ");
+  } else if (characterType === "SP") {
+    console.log("SP");
+  } else {
+    console.log("WAIT.. WHA?");
+  }
 }
 
-Profile.propTypes = {
-    loadUser: PropTypes.func.isRequired,
-    loadUserAvatar: PropTypes.func.isRequired,
-    auth: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    isAuthenticated: PropTypes.bool
-}
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: "#ff6e40",
+  backgroundColor: "#f5f0e1",
+}));
 
-const mapStateToProps = state => ({
-    auth: state.auth,
-    user: state.auth,
-    isAuthenticated: state.auth.isAuthenticated,
-})
+const theme = createTheme({
+  palette: {
+    type: "light",
+    primary: {
+      main: "#1e3d59",
+    },
+    secondary: {
+      main: "#ffc13b",
+    },
+    tertiary: {
+      main: "#ff6e40",
+    },
+    quaternary: {
+      main: "#40fff9",
+    },
+    background: {
+      default: "#1e3d59",
+      paper: "#f5f0e1",
+    },
+    text: {
+      primary: "#ff6e40",
+      disabled: "#e16e40",
+      secondary: "#ff6e40",
+      hint: "#e16e40",
+    },
+  },
+  typography: {
+    body1: {
+      fontWeight: 600,
+      letterSpacing: "0.1em",
+    },
+    body2: {
+      fontWeight: 600,
+    },
+  },
+});
 
+const Profile = () => {
+  const user = useSelector((state) => state?.auth?.userAuth);
 
-export default connect(mapStateToProps, { loadUser, loadUserAvatar })(Profile)
+  ////////////////
+  // CHECK HERE //
+  console.log(user && user.characterType);
+  var varCharacter = user && user.characterType;
+  const substring = "NF";
+  console.log(varCharacter.includes(substring)); // true
+  checkCharacterType(substring);
+  ////////////////
+
+  return (
+    <Fragment>
+      {!user ? (
+        <LoadingGif />
+      ) : (
+        <Fragment>
+          <Container fluid>
+            {user && user.characterType === "INFP" ? (
+              <ThemeProvider theme={theme} key={user && user._id}>
+                <Grid container spacing={2}>
+                  <Grid item xs={6} md={6}>
+                    <Card style={{ textAlign: "center" }}>
+                      <CardContent>
+                        {/* <div className="d-flex flex-column align-items-center text-center"> */}
+                        {user && user.profilePhoto ? (
+                          <CardMedia
+                            component="img"
+                            src={`/me/avatar/${user && user.profilePhoto}`}
+                            className="picture profilePhoto"
+                            style={{ margin: "auto" }}
+                            draggable="false"
+                          />
+                        ) : (
+                          <CardMedia
+                            component="img"
+                            src={defaultProfilePicture}
+                            className="picture profilePhoto"
+                            style={{ margin: "auto" }}
+                            draggable="false"
+                          />
+                        )}
+
+                        <CardContent>
+                          <Typography variant="h4">
+                            {user && user.firstname} {user && user.lastname}
+                          </Typography>
+                          <hr />
+                          <Typography>
+                            <FaLocationArrow />
+                            <br />
+                            "Location"
+                          </Typography>
+                        </CardContent>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaVenusMars />
+                          <br />
+                          {user && user.gender}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaBirthdayCake />
+                          <br />
+                          {user && user.age}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaLanguage />
+                          <br />
+                          {user && user.language}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaBriefcase />
+                          <br />
+                          {user && user.job}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaPrayingHands />
+                          <br />
+                          {user && user.belief}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaPersonBooth />
+                          <br />
+                          {user && user.politics}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaUtensils />
+                          <br />
+                          {user && user.diet}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaBeer />
+                          <br />
+                          {user && user.alcohol}
+                        </Grid>
+                        <hr />
+                        <Grid item xs={12} md={12}>
+                          <FaSmoking />
+                          <br />
+                          {user && user.smoking}
+                        </Grid>
+                        <hr />
+                        {/* </div> */}
+                      </CardContent>
+                    </Card>
+                  </Grid>
+
+                  <Grid item xs={6} md={6}>
+                    <Grid container>
+                      <Grid item xs={12} md={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h6">
+                              Character Type:
+                            </Typography>
+                            <Typography className="material-icons text-info mr-2">
+                              {user && user.characterType}
+                            </Typography>
+                            <small>Extraversion - Introversion</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.extraversionValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.introversionValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                            <small>Sensing - Intuition</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.sensingValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.intuitionValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                            <small>Thinking - Feeling</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.thinkingValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.feelingValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                            <small>Judging - Perceiving</small>
+                            <Grid className="linearProgressContainer" container>
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="tertiary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "5px 0px 0px 5px",
+                                  width: `${user && user.judgingValue}%`,
+                                  backgroundColor: "yellow",
+                                }}
+                              />
+                              <LinearProgress
+                                className="linearProgressBar"
+                                variant="determinate"
+                                value={100}
+                                color="quaternary"
+                                style={{
+                                  height: "15px",
+                                  borderRadius: "0px 5px 5px 0px",
+                                  width: `${user && user.perceivingValue}%`,
+                                  backgroundColor: "red",
+                                }}
+                              />
+                            </Grid>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </Grid>
+                    <Grid container>
+                      <Grid item xs={12} md={12}>
+                        <Card>
+                          <CardContent>
+                            <Typography variant="h6" aria-label="italic">
+                              Description:
+                            </Typography>
+                            <Typography>{user && user.description}</Typography>
+                          </CardContent>
+                        </Card>
+                        <ProfileActions /> <ReTakeTestAction />
+                      </Grid>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </ThemeProvider>
+            ) : (
+              <></>
+            )}
+          </Container>
+        </Fragment>
+      )}
+    </Fragment>
+  );
+};
+
+export default Profile;

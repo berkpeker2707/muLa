@@ -1281,10 +1281,10 @@ const Register = ({ registerUser }) => {
                           not a convicted felon or sex offender.
                         </li>
                         <li>
-                          Your Account. If you use Facebook to access muLa,
-                          you must authorize us to access certain information
-                          from Facebook to use muLa. You agree to keep your
-                          account secure and confidential.
+                          Your Account. If you use Facebook to access muLa, you
+                          must authorize us to access certain information from
+                          Facebook to use muLa. You agree to keep your account
+                          secure and confidential.
                         </li>
                         <li>
                           Modifying the Services; Termination. We may modify the
@@ -1295,20 +1295,19 @@ const Register = ({ registerUser }) => {
                           Service to be inappropriate.
                         </li>
                         <li>
-                          Safety. muLa is not responsible for the actions of
-                          its users or your interactions with them, and we don’t
+                          Safety. muLa is not responsible for the actions of its
+                          users or your interactions with them, and we don’t
                           conduct background checks. Be careful and be sure to
                           read and follow our Safety Tips on interacting with
                           people on or off of muLa.
                         </li>
                         <li>
-                          Rights. muLa grants you the right to use our
-                          Service as authorized and permitted by this Agreement.
-                          See the Agreement for a full list of actions you agree
-                          not to take. You grant muLa the right to display
-                          your profile and Content for the limited purpose of
-                          muLa operating the Service and researching and
-                          developing new ones.
+                          Rights. muLa grants you the right to use our Service
+                          as authorized and permitted by this Agreement. See the
+                          Agreement for a full list of actions you agree not to
+                          take. You grant muLa the right to display your profile
+                          and Content for the limited purpose of muLa operating
+                          the Service and researching and developing new ones.
                         </li>
                         <li>
                           Rules. See the Agreement for a list of the rules you
@@ -1317,12 +1316,12 @@ const Register = ({ registerUser }) => {
                           users or using the Service for any illegal purposes.
                         </li>
                         <li>
-                          In App Purchases. muLa may offer services for
-                          purchase through mobile platforms such as iTunes and
-                          Google Play. Those purchases are governed by the terms
-                          of the platforms. Most purchases are not refundable
-                          and certain services only grant you a specified
-                          license, as further described in the Agreement.
+                          In App Purchases. muLa may offer services for purchase
+                          through mobile platforms such as iTunes and Google
+                          Play. Those purchases are governed by the terms of the
+                          platforms. Most purchases are not refundable and
+                          certain services only grant you a specified license,
+                          as further described in the Agreement.
                         </li>
                         <li>
                           Copyright. If you believe your work has been posted on

@@ -116,19 +116,17 @@ export default function About() {
                 backgroundSize: "cover",
                 backgroundRepeat: "no-repeat",
               }}
-            ><Paper
-            className={classes.paper}
-            style={{
-              background: "rgb(255, 255, 255)",
-              /* Fallback for older browsers without RGBA-support */
-              background: "rgba(255, 255, 255, 0)",
-              height: "100%"
-            }}
-
-          >
-
-              </Paper>
-              </Grid>
+            >
+              <Paper
+                className={classes.paper}
+                style={{
+                  background: "rgb(255, 255, 255)",
+                  /* Fallback for older browsers without RGBA-support */
+                  background: "rgba(255, 255, 255, 0)",
+                  height: "100%",
+                }}
+              ></Paper>
+            </Grid>
           </Grid>
 
           <Grid container className="AboutSection2Inner2">

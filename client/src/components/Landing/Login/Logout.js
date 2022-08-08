@@ -5,17 +5,17 @@ import PropTypes from "prop-types";
 import { Link, Redirect } from "react-router-dom";
 
 class Logout extends Component {
-    static propTypes = {
-        logout: PropTypes.func.isRequired,
-    };
-    render() {
-        return (
-            <div>
-                <Link onClick={this.props.logout}>Logout</Link>
-                <Redirect exact to="/" />;
-            </div>
-        );
-    }
+  static propTypes = {
+    logout: PropTypes.func.isRequired,
+  };
+  render() {
+    return (
+      <div>
+        <Link onClick={this.props.logout}>Logout</Link>
+        <Redirect exact to="/" />;
+      </div>
+    );
+  }
 }
 
 export default connect(null, { logout })(Logout);
