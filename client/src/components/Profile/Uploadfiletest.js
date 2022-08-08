@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   FaBriefcase,
   FaPersonBooth,
@@ -12,13 +12,8 @@ import {
   FaUtensils,
   FaBirthdayCake,
 } from "react-icons/fa";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentUser } from "../../state/actions/currentUserAction";
-import { getCurrentUserAvatar } from "../../state/actions/userAvatarAction";
-import { updateProfile } from "../../state/actions/updateProfileActions";
 import LoadingGif from "../Dashboard/LoadingGif";
-import defaultProfilePicture from "./defaultProfilePicture.png";
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
 
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -166,22 +161,4 @@ const fileUploadHandler = () => {
   );
 };
 
-Uploadfiletest.propTypes = {
-  getCurrentUser: PropTypes.func.isRequired,
-  getCurrentUserAvatar: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  updateProfile: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  user: state.user,
-  error: PropTypes.string,
-});
-
-export default connect(mapStateToProps, {
-  getCurrentUser,
-  getCurrentUserAvatar,
-  updateProfile,
-})(withRouter(Uploadfiletest));
+export default Uploadfiletest;

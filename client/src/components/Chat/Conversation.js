@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { Fragment, useEffect, useState } from "react";
-import defaultProfilePicture from "../Profile/defaultProfilePicture.png";
+import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
 import "../../App.css";
 import LoadingGif from "../Dashboard/LoadingGif";
 

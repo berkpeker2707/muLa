@@ -4,9 +4,6 @@ import "../../App.css";
 import Conversation from "./Conversation";
 import Message from "./Message";
 import Matched from "./Matched";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentUser } from "../../state/actions/currentUserAction";
 import LoadingGif from "../Dashboard/LoadingGif";
 import axios from "axios";
 import {io} from "socket.io-client";
@@ -176,15 +173,4 @@ const ChatRoom = ({ getCurrentUser, user }) => {
   );
 };
 
-ChatRoom.propTypes = {
-  getCurrentUser: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  user: state.user,
-});
-
-export default connect(mapStateToProps, { getCurrentUser })(ChatRoom);
+export default ChatRoom;

@@ -1,26 +1,28 @@
 import React, { useState, useEffect } from "react";
 import "../../../App.css";
-import swal from "@sweetalert/with-react";
-
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { registerUser } from "../../../state/actions/authActions";
-import { Link } from "react-router-dom";
 import Logo2 from "./logo2.png";
 import { Row, Col, Modal, Button } from "react-bootstrap";
-import { useForm } from "react-hook-form";
+import swal from "@sweetalert/with-react";
+
+import { Link, Navigate } from "react-router-dom";
+//redux
+import { useDispatch, useSelector } from "react-redux";
+import { registerUserAction } from "../../../state/slices/authSlices";
+
+import { set, useForm } from "react-hook-form";
+
+//geo
 import { usePosition } from "use-position";
 
 const Register = ({ registerUser }) => {
-  const onClickSubmit = () => {
-    swal({
-      title: "Submitted!",
-      text: "You'll recieve an activation email.",
-      icon: "success",
-    });
-  };
+  const dispatch = useDispatch();
+
+  //select state from setScore
+  const storeData = useSelector((store) => store?.auth);
 
   const [show, setShow] = useState(false);
+  const [errorHappened, setErrorHappened] = useState(false);
+  const [registeredState, setRegisteredState] = useState(false);
 
   const {
     register,
@@ -457,9 +459,37 @@ const Register = ({ registerUser }) => {
   };
 
   const onSubmit = (data) => {
-    //console.log(data)
-    registerUser(data);
+    // console.log(data);
+    dispatch(registerUserAction(data));
   };
+
+  const { isLoading, appErr, serverErr, registered } = storeData;
+
+  useEffect(() => {
+    setErrorHappened(appErr, serverErr);
+  }, [appErr, serverErr]);
+
+  const onClickSubmit = () => {
+    {
+      appErr || serverErr
+        ? swal({
+            title: `${serverErr}`,
+            text: `${appErr}`,
+            icon: "error",
+          })
+        : swal({
+            title: "Submitted!",
+            text: "You'll recieve an activation email.",
+            icon: "success",
+          });
+    }
+  };
+
+  // console.log(registered);
+
+  if (registered) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -469,7 +499,7 @@ const Register = ({ registerUser }) => {
         >
           <div className="register-component">
             <Link to="/" style={{ color: "rgb(217, 83, 79)" }}>
-              <img src={Logo2} alt="Logo2" />
+              {/* <img src={Logo2} alt="Logo2" /> */}
             </Link>
             <hr />
             <h1 style={{ fontSize: "40px" }}>Register Step 1</h1>
@@ -609,13 +639,18 @@ const Register = ({ registerUser }) => {
                   Next
                 </button>
               ) : (
-                  <div>
-                <button type="button" disabled className="btn btn-primary">
-                  Next
-                </button>
-                <br/>
-                <br/>
-                <p style={{color:"yellow"}}>*Please allow location access on your browser<br/>and refresh the page.</p></div>
+                <div>
+                  <button type="button" disabled className="btn btn-primary">
+                    Next
+                  </button>
+                  <br />
+                  <br />
+                  <p style={{ color: "yellow" }}>
+                    *Please allow location access on your browser
+                    <br />
+                    and refresh the page.
+                  </p>
+                </div>
               )}
             </div>
             <hr />
@@ -636,7 +671,7 @@ const Register = ({ registerUser }) => {
             <h1 style={{ fontSize: "40px" }}>
               Register Step 2 <br />
               <Link to="/" style={{ color: "rgb(217, 83, 79)" }}>
-                <img src={Logo2} alt="Logo2" />
+                {/* <img src={Logo2} alt="Logo2" /> */}
               </Link>
             </h1>
             <div className="form-group">
@@ -775,7 +810,7 @@ const Register = ({ registerUser }) => {
             <h1 style={{ fontSize: "40px" }}>
               Register Step 3 <br />
               <Link to="/" style={{ color: "rgb(217, 83, 79)" }}>
-                <img src={Logo2} alt="Logo2" />
+                {/* <img src={Logo2} alt="Logo2" /> */}
               </Link>
             </h1>
             <div className="form-group">
@@ -979,7 +1014,7 @@ const Register = ({ registerUser }) => {
             <h1 style={{ fontSize: "40px" }}>
               Register Step 4 <br />
               <Link to="/" style={{ color: "rgb(217, 83, 79)" }}>
-                <img src={Logo2} alt="Logo2" />
+                {/* <img src={Logo2} alt="Logo2" /> */}
               </Link>
             </h1>
             <div className="form-group">
@@ -1088,11 +1123,11 @@ const Register = ({ registerUser }) => {
               <h1 style={{ fontSize: "40px" }}>
                 Register Step 5 <br />
                 <Link to="/" style={{ color: "rgb(217, 83, 79)" }}>
-                  <img src={Logo2} alt="Logo2" />
+                  {/* <img src={Logo2} alt="Logo2" /> */}
                 </Link>
               </h1>
               <br />
-              <div style={{height:"0px"}}>
+              <div style={{ height: "0px" }}>
                 <input
                   type="hidden"
                   id="extraversionValue"
@@ -1230,7 +1265,7 @@ const Register = ({ registerUser }) => {
                         <li>
                           You must read and agree to our Terms of Use (the
                           “Agreement”) because it forms the binding contract
-                          between you and MERNAPP. However, we’ve provided this
+                          between you and muLa. However, we’ve provided this
                           short summary for your convenience (with capitalized
                           terms defined in the Agreement).
                         </li>
@@ -1246,9 +1281,9 @@ const Register = ({ registerUser }) => {
                           not a convicted felon or sex offender.
                         </li>
                         <li>
-                          Your Account. If you use Facebook to access MERNAPP,
+                          Your Account. If you use Facebook to access muLa,
                           you must authorize us to access certain information
-                          from Facebook to use MERNAPP. You agree to keep your
+                          from Facebook to use muLa. You agree to keep your
                           account secure and confidential.
                         </li>
                         <li>
@@ -1260,29 +1295,29 @@ const Register = ({ registerUser }) => {
                           Service to be inappropriate.
                         </li>
                         <li>
-                          Safety. MERNAPP is not responsible for the actions of
+                          Safety. muLa is not responsible for the actions of
                           its users or your interactions with them, and we don’t
                           conduct background checks. Be careful and be sure to
                           read and follow our Safety Tips on interacting with
-                          people on or off of MERNAPP.
+                          people on or off of muLa.
                         </li>
                         <li>
-                          Rights. MERNAPP grants you the right to use our
+                          Rights. muLa grants you the right to use our
                           Service as authorized and permitted by this Agreement.
                           See the Agreement for a full list of actions you agree
-                          not to take. You grant MERNAPP the right to display
+                          not to take. You grant muLa the right to display
                           your profile and Content for the limited purpose of
-                          MERNAPP operating the Service and researching and
+                          muLa operating the Service and researching and
                           developing new ones.
                         </li>
                         <li>
                           Rules. See the Agreement for a list of the rules you
-                          agree to abide by when you use MERNAPP, such as not
+                          agree to abide by when you use muLa, such as not
                           soliciting money from other users, harassing other
                           users or using the Service for any illegal purposes.
                         </li>
                         <li>
-                          In App Purchases. MERNAPP may offer services for
+                          In App Purchases. muLa may offer services for
                           purchase through mobile platforms such as iTunes and
                           Google Play. Those purchases are governed by the terms
                           of the platforms. Most purchases are not refundable
@@ -1389,15 +1424,4 @@ const Register = ({ registerUser }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-Register.propTypes = {
-  registerUser: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
-  location: PropTypes.object,
-  error: PropTypes.string,
-};
-
-export default connect(mapStateToProps, { registerUser })(Register);
+export default Register;

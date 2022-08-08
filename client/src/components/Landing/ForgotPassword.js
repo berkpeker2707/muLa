@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import "../../App.css";
-import { forgotPasswordActions } from "../../state/actions/forgotPasswordActions";
 
 const ForgotPassword = ({ isAuthenticated, forgotPasswordActions }) => {
 
@@ -21,7 +18,7 @@ const ForgotPassword = ({ isAuthenticated, forgotPasswordActions }) => {
 
     //Redirect if authenticated
     if (isAuthenticated) {
-        return <Redirect to="/dashboard" />
+        return <Navigate to="/dashboard" />
     }
 
     return (
@@ -65,13 +62,4 @@ const ForgotPassword = ({ isAuthenticated, forgotPasswordActions }) => {
     );
 }
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated,
-    forgotPasswordActions: PropTypes.func.isRequired
-})
-
-ForgotPassword.propTypes = {
-    isAuthenticated: PropTypes.bool,
-}
-
-export default connect(mapStateToProps, { forgotPasswordActions })(ForgotPassword);
+export default ForgotPassword;

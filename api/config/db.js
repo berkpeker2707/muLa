@@ -1,12 +1,13 @@
-const config = require("config");
-const db = config.get("dbKEY");
 const mongoose = require("mongoose");
+// const dotenv = require('dotenv');
+// console.log(dotenv.config());
+// console.log(process.env)
 
-mongoose.set('useFindAndModify', false);
+mongoose.set("useFindAndModify", false);
 
 const connectDatabase = async () => {
   try {
-    await mongoose.connect(db, {
+    await mongoose.connect(process.env.dbKEY, {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,

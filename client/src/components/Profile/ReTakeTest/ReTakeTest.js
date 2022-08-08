@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../../../App.css";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { reTakeTestUpdate } from "../../../state/actions/reTakeTestActions";
 import { Link } from "react-router-dom";
 import { Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form"
@@ -303,13 +300,4 @@ const ReTakeTest = ({ reTakeTestUpdate }) => {
 
 }
 
-ReTakeTest.propTypes = {
-
-}
-
-const mapStateToProps = state => ({
-    reTakeTestUpdate: PropTypes.func.isRequired
-})
-
-
-export default connect(mapStateToProps, { reTakeTestUpdate })(ReTakeTest);
+export default ReTakeTest;
