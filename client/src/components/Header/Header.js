@@ -36,7 +36,6 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import SentimentDissatisfiedIcon from "@material-ui/icons/SentimentDissatisfied";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";

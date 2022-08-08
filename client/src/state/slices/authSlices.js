@@ -26,7 +26,7 @@ export const registerUserAction = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post("api/user/register", user, config);
+      const { data } = await axios.post("api/auth/register", user, config);
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -89,7 +89,7 @@ export const loginUserAction = createAsyncThunk(
     //Request body
     // const body = JSON.stringify({ email, password });
     try {
-      const { data } = await axios.post("/api/user/login", userData, config);
+      const { data } = await axios.post("/api/auth/login", userData, config);
       //save user to local storage
       // if (localStorage.token) {
       //   await setAuthToken(localStorage.token);

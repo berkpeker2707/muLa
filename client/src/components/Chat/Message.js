@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../../App.css";
-import { format } from "timeago.js";
 import axios from "axios";
 
 const Message = ({ message, own, currentUser, currentConversation }) => {
@@ -43,9 +42,7 @@ const Message = ({ message, own, currentUser, currentConversation }) => {
             <p className="activeConversationText">{message.text}</p>
           </div>
           <div className="activeConversationBottom">
-            <p className="activeConversationTime">
-              {format(message.createdAt)}
-            </p>
+            <p className="activeConversationTime">{message.createdAt}</p>
           </div>
         </div>
       </div>

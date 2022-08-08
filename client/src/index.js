@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 import store from "./state/store.js";
 import App from "./App";
@@ -8,14 +8,12 @@ import "./fonts/RobotoMono-Medium.ttf";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-ReactDOM.render(
+root.render(
   <React.StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </React.StrictMode>,
-  document.getElementById("root")
+  </React.StrictMode>
 );
