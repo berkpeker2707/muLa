@@ -122,21 +122,32 @@ const Header = () => {
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Button
+              className={"HeaderLink"}
+              variant="text"
               sx={{ color: "#fff", textDecoration: "none" }}
               href="/profile"
             >
               {"Profile"}
             </Button>
-            <Button sx={{ color: "#fff", textDecoration: "none" }} href="/chat">
+            <Button
+              className={"HeaderLink"}
+              variant="text"
+              sx={{ color: "#fff", textDecoration: "none" }}
+              href="/chat"
+            >
               {"Chat"}
             </Button>
             <Button
+              className={"HeaderLink"}
+              variant="text"
               sx={{ color: "#fff", textDecoration: "none" }}
               href="/settings"
             >
               {"Settings"}
             </Button>
             <Button
+              className={"HeaderLink"}
+              variant="text"
               sx={{ color: "#fff", textDecoration: "none" }}
               href="/"
               onClick={() => logout()}

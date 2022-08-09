@@ -11,6 +11,62 @@ body {
   /* font-family: ArchitectsDaughter !important; */
 }
 
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*******************/
+/* HEADER CSS STARTS */
+/*******************/
+
+.HeaderComponent {
+  background-color: #1e3d59;
+}
+
+.HeaderLink:hover {
+  color: #e2d3a8 ;
+}
+
+/*******************/
+/* HEADER CSS ENDS */
+/*******************/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/*********************/
+/* FOOTER CSS STARTS */
+/*********************/
+
+.Footer {
+  background-color: #1e3d59;
+  font-weight: bolder;
+  text-align: center;
+  color: #f5f0e1;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+  height: 20vh;
+}
+
+.FooterIcon {
+  padding: 10px;
+}
+
+.FooterIcon .FooterIconLink {
+  color: #f5f0e1;
+}
+
+.FooterIcon .FooterIconLink:hover {
+  text-decoration: none;
+  color: #ff6e40;
+}
+
+/*******************/
+/* FOOTER CSS ENDS */
+/*******************/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
 /**********************/
 /* LANDING CSS STARTS */
 /**********************/
@@ -161,62 +217,14 @@ margin:10vh;
 /* ABOUT CSS ENDS */
 /******************/
 
-/*********************/
-/* FOOTER CSS STARTS */
-/*********************/
-
-.Footer {
-  background-color: #1e3d59;
-  font-weight: bolder;
-  text-align: center;
-  color: #f5f0e1;
-  -webkit-user-select: none; /* Chrome all / Safari all */
-  -moz-user-select: none; /* Firefox all */
-  -ms-user-select: none; /* IE 10+ */
-  user-select: none; /* Likely future */
-  height: 20vh;
-}
-
-.FooterIcon {
-  padding: 10px;
-}
-
-.FooterIcon .FooterIconLink {
-  color: #f5f0e1;
-}
-
-.FooterIcon .FooterIconLink:hover {
-  text-decoration: none;
-  color: #ff6e40;
-}
-
-/*******************/
-/* FOOTER CSS ENDS */
-/*******************/
-
-
-
-.nav-link.active {
-  color: #303c6c !important;
-}
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
 .chatCol1,
 .chatCol2 {
   height: 600px;
 }
 
-.HeaderComponent {
-  background-color: #1e3d59;
-  height: 6vh;
-}
 
-.HeaderNavLink {
-  color: #f5f0e1 !important;
-}
-
-.HeaderNavLink:hover {
-  color: #e2d3a8 !important;
-}
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
 
