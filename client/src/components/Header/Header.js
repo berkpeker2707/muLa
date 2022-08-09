@@ -44,7 +44,10 @@ const Header = () => {
       sx={{ textAlign: "center" }}
       style={{ backgroundColor: "#1e3d59" }}
     >
-      <Link href="/dashboard" underline="none" style={{ color: "white" }}>
+      <Link
+        href="/dashboard"
+        style={{ color: "white", textDecoration: "none" }}
+      >
         <Typography variant="h6" sx={{ my: 2 }}>
           muLa
         </Typography>
@@ -52,34 +55,36 @@ const Header = () => {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <Link href="/profile" underline="none">
+          <Link
+            href="/profile"
+            style={{ color: "white", textDecoration: "none" }}
+          >
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={"Profile"} style={{ color: "white" }} />
+              <ListItemText primary={"Profile"} />
             </ListItemButton>
           </Link>
         </ListItem>
         <ListItem disablePadding>
-          <Link href="/chat" underline="none">
+          <Link href="/chat" style={{ color: "white", textDecoration: "none" }}>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={"Chat"} style={{ color: "white" }} />
+              <ListItemText primary={"Chat"} />
             </ListItemButton>
           </Link>
         </ListItem>
         <ListItem disablePadding>
-          <Link href="/settings" underline="none">
+          <Link
+            href="/settings"
+            style={{ color: "white", textDecoration: "none" }}
+          >
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={"Settings"} style={{ color: "white" }} />
+              <ListItemText primary={"Settings"} />
             </ListItemButton>
           </Link>
         </ListItem>
         <ListItem disablePadding>
-          <Link href="/" underline="none">
+          <Link href="/" style={{ color: "white", textDecoration: "none" }}>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText
-                primary={"Logout"}
-                style={{ color: "white" }}
-                onClick={() => logout()}
-              />
+              <ListItemText primary={"Logout"} onClick={() => logout()} />
             </ListItemButton>
           </Link>
         </ListItem>
@@ -106,22 +111,36 @@ const Header = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <Link href="/dashboard" underline="none" style={{ color: "white" }}>
+            <Link
+              href="/dashboard"
+              underline="none"
+              style={{ color: "white", textDecoration: "none" }}
+            >
               muLa
             </Link>
           </Typography>
 
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button sx={{ color: "#fff" }} href="/profile">
+            <Button
+              sx={{ color: "#fff", textDecoration: "none" }}
+              href="/profile"
+            >
               {"Profile"}
             </Button>
-            <Button sx={{ color: "#fff" }} href="/chat">
+            <Button sx={{ color: "#fff", textDecoration: "none" }} href="/chat">
               {"Chat"}
             </Button>
-            <Button sx={{ color: "#fff" }} href="/settings">
+            <Button
+              sx={{ color: "#fff", textDecoration: "none" }}
+              href="/settings"
+            >
               {"Settings"}
             </Button>
-            <Button sx={{ color: "#fff" }} href="/" onClick={() => logout()}>
+            <Button
+              sx={{ color: "#fff", textDecoration: "none" }}
+              href="/"
+              onClick={() => logout()}
+            >
               {"Logout"}
             </Button>
           </Box>
