@@ -93,33 +93,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-//login user action
-export const loginUser = createAsyncThunk(
-  "login",
-  async (body, { rejectWithValue, getState, dispatch }) => {
-    //Headers
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const { data } = await axios.post("/login", body, config);
-      //save user to local storage
-      if (localStorage.token) {
-        await setAuthToken(localStorage.token);
-      }
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      return data;
-    } catch (error) {
-      if (!error?.response) {
-        throw error;
-      }
-      return rejectWithValue(error?.response?.message);
-    }
-  }
-);
-
 //get users on page load
 export const getUsers = createAsyncThunk(
   "getUsers",
@@ -140,11 +113,11 @@ export const getUsers = createAsyncThunk(
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    token: localStorage.getItem("token"),
-    isAuthenticated: null,
-    isLoading: null,
-    user: null,
-    users: null,
+    // token: localStorage.getItem("token"),
+    // isAuthenticated: null,
+    // isLoading: null,
+    // user: null,
+    // users: null,
   },
   extraReducers: (builder) => {
     //registerUser
@@ -160,25 +133,6 @@ const usersSlices = createSlice({
       state.serverErr = undefined;
     });
     builder.addCase(registerUser.rejected, (state, action) => {
-      state.isLoading = false;
-      state.appErr = action?.payload?.message;
-      state.serverErr = action?.error?.message;
-    });
-    //loginUser
-    builder.addCase(loginUser.pending, (state, action) => {
-      state.isLoading = true;
-      state.appErr = undefined;
-      state.serverErr = undefined;
-    });
-    builder.addCase(loginUser.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.appErr = undefined;
-      state.serverErr = undefined;
-      state.isAuthenticated = true;
-      state.token = action?.payload?.token;
-      state.user = action?.payload?.user;
-    });
-    builder.addCase(loginUser.rejected, (state, action) => {
       state.isLoading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

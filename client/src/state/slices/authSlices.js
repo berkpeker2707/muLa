@@ -78,7 +78,7 @@ export const validateUserAction = createAsyncThunk(
 
 //login user action
 export const loginUserAction = createAsyncThunk(
-  "user/login",
+  "auth/login",
   async (userData, { rejectWithValue, getState, dispatch }) => {
     //Headers
     const config = {
@@ -107,10 +107,10 @@ export const loginUserAction = createAsyncThunk(
 
 //Logout action
 export const logoutAction = createAsyncThunk(
-  "/user/logout",
+  "auth/logout",
   async (payload, { rejectWithValue, getState, dispatch }) => {
     try {
-      localStorage.removeItem("userInfo");
+      await localStorage.removeItem("userInfo");
     } catch (error) {
       if (!error?.response) {
         throw error;
