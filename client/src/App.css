@@ -140,12 +140,6 @@ body {
   overflow-y: hidden;
 } */
 
-@media screen and (max-width: 900px) {
-  p {
-color: lightgreen;
-  }
-}
-
 /********************/
 /* LANDING CSS ENDS */
 /********************/
@@ -172,6 +166,8 @@ margin:10vh;
 }
 
 .AboutSection1 {
+
+
   background-color: #f5f0e1;
 
   -webkit-animation: polygonWavingAnimationTop 5s infinite; /* Safari 4+ */
@@ -213,6 +209,43 @@ margin:10vh;
 
 /******************/
 /* ABOUT CSS ENDS */
+/******************/
+
+/*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+/******************/
+/* FAQ CSS STARTS */
+/******************/
+
+.FAQComponent{
+height: 100vh;
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.FAQList{
+  list-style-type: none; /* Remove bullets */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margins */
+}
+
+.FAQListHeader{
+  font-weight: 1000;
+}
+
+.FAQListHeaderLine{
+  margin:auto;
+  width: 50%;
+}
+
+.FAQListElement{
+  font-weight: 1000;
+}
+
+/******************/
+/* FAQ CSS ENDS */
 /******************/
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/

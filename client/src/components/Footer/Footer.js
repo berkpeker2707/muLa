@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Modal from "@mui/material/Modal";
 
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const [open, setOpen] = useState(false);
@@ -18,9 +18,9 @@ export default function Footer() {
       <Grid container item xs={12} sm={12}>
         <Grid item xs={12} sm={4}>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="#" onClick={handleOpen}>
+            <Link className="FooterIconLink" to="#" onClick={handleOpen}>
               Contact
-            </NavLink>
+            </Link>
             <Modal
               open={open}
               onClose={handleClose}
@@ -51,48 +51,48 @@ export default function Footer() {
             </Modal>
           </Grid>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/">
+            <Link className="FooterIconLink" to="/">
               Support
-            </NavLink>
+            </Link>
           </Grid>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/">
+            <Link className="FooterIconLink" to="/">
               Privacy
-            </NavLink>
+            </Link>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/">
+            <Link className="FooterIconLink" to="/">
               <FaGooglePlay style={{ fontSize: "2rem" }} /> Google Play
-            </NavLink>
+            </Link>
           </Grid>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/">
+            <Link className="FooterIconLink" to="/">
               <FaAppStoreIos style={{ fontSize: "2rem" }} /> App Store
-            </NavLink>
+            </Link>
           </Grid>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/">
+            <Link className="FooterIconLink" to="/">
               muLa &reg; {new Date().getFullYear()}
-            </NavLink>
+            </Link>
           </Grid>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/about">
+            <Link className="FooterIconLink" to="/about">
               About Us
-            </NavLink>
+            </Link>
           </Grid>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="/faq">
+            <Link className="FooterIconLink" to="/faq">
               F.A.Q.
-            </NavLink>
+            </Link>
           </Grid>
           <Grid className="FooterIcon">
-            <NavLink className="FooterIconLink" to="#">
+            <Link className="FooterIconLink" to="#">
               Terms of Usage
-            </NavLink>
+            </Link>
           </Grid>
         </Grid>
       </Grid>
