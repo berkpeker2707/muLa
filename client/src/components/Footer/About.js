@@ -9,7 +9,6 @@ import muLaIconTextSuperior from "../images/Icons/muLaMainIconImages/muLa-icon-t
 import mobilePhone from "../images/LandingImages/mobilePhone.png";
 import coupleVector from "../images/LandingImages/coupleVector.png";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
@@ -20,21 +19,6 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 
 export default function About() {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: "#1e3d59",
-      opacity: 1,
-      backgroundColor: "transparent",
-    },
-  }));
-
-  const classes = useStyles();
-
   return (
     <Grid className="AboutContainer" container>
       <Grid className="AboutInnerContainer">
@@ -49,7 +33,6 @@ export default function About() {
           </Grid>
           <Grid item md={8} xs={12} className="AboutSection1Inner2">
             <Paper
-              className={classes.paper}
               style={{
                 background: "rgb(255, 255, 255)",
                 /* Fallback for older browsers without RGBA-support */
@@ -85,7 +68,6 @@ export default function About() {
           <Grid className="AboutSection2Inner1" container>
             <Grid className="AboutSection2Inner1Child1" item xs={3}>
               <Paper
-                className={classes.paper}
                 style={{
                   background: "rgb(255, 255, 255)",
                   /* Fallback for older browsers without RGBA-support */
@@ -119,7 +101,6 @@ export default function About() {
               }}
             >
               <Paper
-                className={classes.paper}
                 style={{
                   background: "rgb(255, 255, 255)",
                   /* Fallback for older browsers without RGBA-support */
@@ -132,7 +113,6 @@ export default function About() {
 
           <Grid container className="AboutSection2Inner2">
             <Paper
-              className={classes.paper}
               style={{
                 background: "rgb(255, 255, 255)",
                 /* Fallback for older browsers without RGBA-support */
@@ -155,7 +135,6 @@ export default function About() {
           </Grid>
         </Grid>
       </Grid>
-      <Footer />
     </Grid>
   );
 }

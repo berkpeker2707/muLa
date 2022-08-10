@@ -4,7 +4,7 @@ import "./App.css";
 import Header from "./components/Header/Header.js";
 import Footer from "./components/Footer/Footer.js";
 import FAQ from "./components/Footer/FAQ.js";
-import About from "./components/Footer/About";
+import About from "./components/Footer/About.js";
 
 import Landing from "./components/Landing/Landing.js";
 import Register from "./components/Landing/Register/Register.js";
@@ -43,13 +43,12 @@ const App = () => {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" exact element={<Landing />} />
+          <Route exact path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-account/:token" element={<ConfirmPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/*" element={<ResetPassword />} />
-          <Route element={<Header />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/profile-update" element={<ProfileUpdate />} />

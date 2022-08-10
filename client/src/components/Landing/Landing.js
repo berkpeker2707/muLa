@@ -7,7 +7,6 @@ import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon.png";
 // import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
 import mobilePhone from "../images/LandingImages/mobilePhone.png";
 
-import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
@@ -44,24 +43,11 @@ const Landing = () => {
   // console.log(loadUser);
   // console.log(auth);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
-    },
-  }));
-
-  const classes = useStyles();
-
   // if (isAuthenticated) {
   //   return <Navigate to="/dashboard" />;
   // }
   return (
-    <div className={classes.root}>
+    <div>
       <Grid>
         <Grid className="LandingSection1" container>
           <Grid container>
@@ -72,8 +58,14 @@ const Landing = () => {
                 types & aims for higher compatibility and suitable
                 relationships.
               </p>
-              <Grid className="LandingButtonGroup" container xs={12} md={12}>
-                <Grid className="LandingButtonInner1" xs={12} md={12}>
+              <Grid
+                className="LandingButtonGroup"
+                container
+                item
+                xs={12}
+                md={12}
+              >
+                <Grid className="LandingButtonInner1" item xs={12} md={12}>
                   <Link to={"/login"}>
                     <Button
                       className="LandingLoginButton"
