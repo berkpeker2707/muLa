@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import "../../../App.css";
+import "../../App.css";
+
 import { FaGooglePlay, FaAppStoreIos, FaEnvelope } from "react-icons/fa";
 
-import muLaIcon from "../../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
-import muLaIconTextSuperior from "../../images/Icons/muLaMainIconImages/muLa-icon-textSuperior-single.png";
-import mobilePhone from "../../images/LandingImages/mobilePhone.png";
-import coupleVector from "../../images/LandingImages/coupleVector.png";
+import Footer from "./Footer";
+import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
+import muLaIconTextSuperior from "../images/Icons/muLaMainIconImages/muLa-icon-textSuperior-single.png";
+import mobilePhone from "../images/LandingImages/mobilePhone.png";
+import coupleVector from "../images/LandingImages/coupleVector.png";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
@@ -16,7 +18,6 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 
 import { Link } from "react-router-dom";
-import Footer from "./Footer";
 
 export default function About() {
   const useStyles = makeStyles((theme) => ({

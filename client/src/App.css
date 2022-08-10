@@ -44,7 +44,6 @@ body {
   -moz-user-select: none; /* Firefox all */
   -ms-user-select: none; /* IE 10+ */
   user-select: none; /* Likely future */
-  height: 20vh;
 }
 
 .FooterIcon {
@@ -65,7 +64,6 @@ body {
 /*******************/
 
 /*///////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-
 
 /**********************/
 /* LANDING CSS STARTS */

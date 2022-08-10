@@ -1,14 +1,16 @@
 import React, { Fragment, useEffect } from "react";
 import "./App.css";
-import Footer from "./components/Landing/Footer/Footer.js";
 
-import FAQ from "./components/Landing/Footer/FAQ.js";
+import Header from "./components/Header/Header.js";
+import Footer from "./components/Footer/Footer.js";
+import FAQ from "./components/Footer/FAQ.js";
+import About from "./components/Footer/About";
+
 import Landing from "./components/Landing/Landing.js";
 import Register from "./components/Landing/Register/Register.js";
 import ConfirmPage from "./components/Landing/Register/ConfirmPage.js";
 import Login from "./components/Landing/Login/Login.js";
 import Dashboard from "./components/Dashboard/Dashboard.js";
-import Header from "./components/Header/Header.js";
 import ChatRoom from "./components/Chat/ChatRoom.js";
 import ForgotPassword from "./components/Landing/ForgotPassword";
 import PrivateRoute from "./components/Routing/PrivateRoute";
@@ -21,7 +23,6 @@ import ReTakeTest from "./components/Profile/ReTakeTest/ReTakeTest";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/Landing/ResetPassword";
 import Uploadfiletest from "./components/Profile/Uploadfiletest";
-import About from "./components/Landing/Footer/About";
 
 import { ThemeProvider, createTheme } from "@material-ui/core/styles";
 
@@ -43,7 +44,6 @@ const App = () => {
         <Header />
         <Routes>
           <Route path="/" exact element={<Landing />} />
-          {/* <Route element={<Header />} /> */}
           <Route path="/register" element={<Register />} />
           <Route path="/verify-account/:token" element={<ConfirmPage />} />
           <Route path="/login" element={<Login />} />
