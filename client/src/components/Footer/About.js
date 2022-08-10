@@ -1,22 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../App.css";
 
-import { FaGooglePlay, FaAppStoreIos, FaEnvelope } from "react-icons/fa";
-
-import Footer from "./Footer";
-import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
 import muLaIconTextSuperior from "../images/Icons/muLaMainIconImages/muLa-icon-textSuperior-single.png";
-import mobilePhone from "../images/LandingImages/mobilePhone.png";
 import coupleVector from "../images/LandingImages/coupleVector.png";
 
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-
-import { Link } from "react-router-dom";
 
 export default function About() {
   return (
@@ -29,7 +18,11 @@ export default function About() {
             md={4}
             xs={12}
           >
-            <img className="muLaIconTextSuperior" src={muLaIconTextSuperior} />
+            <img
+              className="muLaIconTextSuperior"
+              src={muLaIconTextSuperior}
+              alt="muLaIconTextSuperior"
+            />
           </Grid>
           <Grid item md={8} xs={12} className="AboutSection1Inner2">
             <Paper
@@ -88,7 +81,26 @@ export default function About() {
                   <br />{" "}
                 </p>
               </Paper>
+
+              <Paper
+                style={{
+                  background: "rgb(255, 255, 255)",
+                  /* Fallback for older browsers without RGBA-support */
+                  background: "rgba(255, 255, 255, 0.1)",
+                }}
+                elevation={3}
+              >
+                {" "}
+                <h4>How Does It Work?</h4>
+                <p>
+                  MuLa uses MBTI character types & encourages you to complete
+                  your character type test. Once your character classification
+                  is done, we encourage you to find people whom you can form
+                  deep bonds & interested in talk to.
+                </p>
+              </Paper>
             </Grid>
+
             <Grid
               className="AboutSection2Inner1Child2"
               item
@@ -109,29 +121,6 @@ export default function About() {
                 }}
               ></Paper>
             </Grid>
-          </Grid>
-
-          <Grid container className="AboutSection2Inner2">
-            <Paper
-              style={{
-                background: "rgb(255, 255, 255)",
-                /* Fallback for older browsers without RGBA-support */
-                background: "rgba(255, 255, 255, 0.1)",
-              }}
-              elevation={3}
-            >
-              <Grid item xs={5}>
-                <h4>How Does It Work?</h4>
-              </Grid>
-              <Grid item xs={7}>
-                <p>
-                  MuLa uses MBTI character types & encourages you to complete
-                  your character type test. Once your character classification
-                  is done, we encourage you to find people whom you can form
-                  deep bonds & interested in talk to.
-                </p>
-              </Grid>
-            </Paper>
           </Grid>
         </Grid>
       </Grid>
