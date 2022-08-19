@@ -1,6 +1,6 @@
 *{
-  /* font-family: RobotoCustom !important; */
-  font-family: ArchitectsDaughter !important;
+  font-family: RobotoCustom !important;
+  /* font-family: ArchitectsDaughter !important; */
 
 }
 
@@ -223,7 +223,10 @@ text-align: center;
 display: flex;
 justify-content: center;
 align-items: center;
+flex-wrap: wrap;
+margin: 5vh;
 }
+
 
 .FAQList{
   list-style-type: none; /* Remove bullets */
@@ -232,7 +235,7 @@ align-items: center;
 }
 
 .FAQListHeader{
-  font-weight: 1000;
+  font-weight: 800;
 }
 
 .FAQListHeaderLine{
@@ -266,8 +269,9 @@ align-items: center;
   justify-content: center;
   border: 7px dashed rgb(41, 43, 44, 0.3);
   text-align: center;
-  padding: 50px;
+  padding: 10vh;
   background-color: #1e3d59;
+  height: 100vh;
 }
 
 .login-component > h1 {
@@ -285,8 +289,9 @@ align-items: center;
   justify-content: center;
   border: 7px dashed rgb(41, 43, 44, 0.3);
   text-align: center;
-  padding: 50px;
+  padding: 10vh;
   background-color: #1e3d59;
+  height: 110vh;
 }
 
 .register-component > h1 {

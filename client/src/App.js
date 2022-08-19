@@ -4,6 +4,7 @@ import "./App.css";
 import Header from "./components/Header/Header.js";
 import Footer from "./components/Footer/Footer.js";
 import FAQ from "./components/Footer/FAQ.js";
+import Privacy from "./components/Footer/Privacy.js";
 import About from "./components/Footer/About.js";
 
 import Landing from "./components/Landing/Landing.js";
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="/chatroom" element={<ChatRoom />} />
           {/* <Route path="/chat" element={Messenger} /> */}
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/about" element={<About />} />
         </Routes>
         <Footer />
