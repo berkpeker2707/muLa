@@ -190,7 +190,7 @@ const Login = () => {
       <hr />
       <Link to="/Register" style={{ color: "white" }}>
         Don't have account? <br />
-        Click to Sign In!
+        Click to login!
       </Link>
     </div>
   );

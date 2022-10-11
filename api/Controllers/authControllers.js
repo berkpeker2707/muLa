@@ -1,14 +1,92 @@
 const User = require("../models/user");
 const expressAsyncHandler = require("express-async-handler");
 const generateToken = require("../config/token");
+const {
+  smtpAccountCreationFunc,
+  smtpForgotPasswordFunc,
+} = require("../helpers/smtp");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
-//register user controller
-const registerController = expressAsyncHandler(async (req, res) => {
-  const userExists = await User.findOne({ email: req?.body?.email });
+//first step of login with email verification ***
+const preRegisterController = expressAsyncHandler(async (req, res) => {
+  try {
+    //save the user
+    const newUserInvalidated = await User.create({
+      email: req?.body?.email,
+      password: req?.body?.password,
+      firstname: req?.body?.firstname,
+      lastname: req?.body?.lastname,
+      age: req?.body?.age,
+      gender: req?.body?.gender,
+      job: req?.body?.job,
+      description: req?.body?.description,
 
-  if (userExists) {
-    throw new Error("User already exists.");
+      userLatitude: req?.body?.userLatitude,
+      userLongitude: req?.body?.userLongitude,
+
+      language: req?.body?.language,
+      belief: req?.body?.belief,
+      politics: req?.body?.politics,
+      diet: req?.body?.diet,
+      alcohol: req?.body?.alcohol,
+      smoking: req?.body?.smoking,
+
+      extraversionValue: req?.body?.extraversionValue,
+      introversionValue: req?.body?.introversionValue,
+      sensingValue: req?.body?.sensingValue,
+      intuitionValue: req?.body?.intuitionValue,
+      thinkingValue: req?.body?.thinkingValue,
+      feelingValue: req?.body?.feelingValue,
+      judgingValue: req?.body?.judgingValue,
+      perceivingValue: req?.body?.perceivingValue,
+      characterType: req?.body?.characterType,
+    });
+
+    //generate token
+    const verificationToken =
+      await newUserInvalidated.createAccountVerificationToken();
+
+    await newUserInvalidated.save();
+
+    await smtpAccountCreationFunc(verificationToken, newUserInvalidated, res);
+  } catch (error) {
+    res.status(401);
+    throw new Error("Invalid Entry!");
   }
+});
+
+//second step of login with email verification ***
+const verifyRegisterController = expressAsyncHandler(async (req, res) => {
+  try {
+    const token = req.body.token;
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+    //find this user by token
+    const userFound = await User.findOne({
+      accountVerificationToken: hashedToken,
+      accountVerificationTokenExpires: { $gt: new Date() },
+    });
+
+    //update isAccountVerified to true
+    userFound.accountVerified = true;
+    userFound.accountVerificationToken = undefined;
+    userFound.accountVerificationTokenExpires = undefined;
+    await userFound.save();
+
+    await userFound.updateOne({ $unset: { expireAt: 1 } });
+    // await userFound.updateOne({ accountVerified: true });
+
+    res.status(200).json(userFound);
+  } catch (error) {
+    res.status(401);
+    throw new Error("Token expired!");
+  }
+});
+
+//register without email verification ***
+const registerController = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.create({
       email: req?.body?.email,
@@ -40,13 +118,23 @@ const registerController = expressAsyncHandler(async (req, res) => {
       perceivingValue: req?.body?.perceivingValue,
       characterType: req?.body?.characterType,
     });
-    res.json(user);
-  } catch (err) {
-    res.json(err);
+
+    //update isAccountVerified to true
+    user.accountVerified = true;
+    user.accountVerificationToken = undefined;
+    user.accountVerificationTokenExpires = undefined;
+    await user.save();
+
+    await user.updateOne({ $unset: { expireAt: 1 } });
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(401);
+    throw new Error("Invalid Entry!");
   }
 });
 
-//login user controller
+//login controller ***
 const loginController = expressAsyncHandler(async (req, res) => {
   const { email, password } = req.body;
   const userFound = await User.findOne({ email });
@@ -90,7 +178,66 @@ const loginController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//forgot password controller
+const forgotPasswordController = expressAsyncHandler(async (req, res) => {
+  const emailExists = await User.findOne({ email: req.body.userEmail });
+  const recievedEmail = req.body.userEmail;
+  if (!emailExists) {
+    throw new Error("Wrong email.");
+  }
+
+  try {
+    //generate token
+    const verificationToken =
+      await emailExists.createAccountVerificationToken();
+
+    //save the user
+    await emailExists.save();
+
+    await smtpForgotPasswordFunc(verificationToken, recievedEmail, res);
+  } catch (error) {
+    res.status(401);
+    throw new Error("Invalid Entry!");
+  }
+});
+
+//verify password controller
+const verifyPasswordController = expressAsyncHandler(async (req, res) => {
+  const newPassword = req.body.newPassword;
+  const token = req.body.token;
+
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  //find this user by token
+  const userFound = await User.findOne({
+    accountVerificationToken: hashedToken,
+    accountVerificationTokenExpires: { $gt: new Date() },
+  });
+
+  if (newPassword) {
+    userFound.password = newPassword;
+    await userFound.save();
+  } else {
+    res.status(401);
+    throw new Error("Invalid Entry!");
+  }
+
+  if (!userFound) throw new Error("Token expired, try again later");
+  //update isAccountVerified to true
+  userFound.accountVerified = true;
+  userFound.accountVerificationToken = undefined;
+  userFound.accountVerificationTokenExpires = undefined;
+
+  await userFound.updateOne({ $unset: { expireAt: 1 } });
+
+  await userFound.save();
+  res.json(userFound);
+});
+
 module.exports = {
+  preRegisterController,
+  verifyRegisterController,
   registerController,
   loginController,
+  forgotPasswordController,
+  verifyPasswordController,
 };

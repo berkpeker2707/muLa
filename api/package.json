@@ -44,6 +44,7 @@
     "path": "^0.12.7",
     "randomatic": "^3.1.1",
     "sharp": "^0.29.3",
+    "sib-api-v3-sdk": "^8.4.2",
     "socket.io": "^4.0.0",
     "uuidv4": "^6.2.12"
   }

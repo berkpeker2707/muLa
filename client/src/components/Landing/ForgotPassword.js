@@ -49,7 +49,7 @@ const ForgotPassword = ({ isAuthenticated, forgotPasswordActions }) => {
           <hr />
           <Link to="/Register" style={{ color: "white" }}>
             Don't have account? <br />
-            Click to Sign In!
+            Click to login!
           </Link>
         </div>
         <button type="submit" className="btn btn-primary">

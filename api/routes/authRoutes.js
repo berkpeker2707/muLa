@@ -1,15 +1,19 @@
 const express = require("express");
-const auth = require("../middlewares/auth");
 const {
+  preRegisterController,
+  verifyRegisterController,
   registerController,
   loginController,
+  forgotPasswordController,
+  verifyPasswordController,
 } = require("../Controllers/AuthControllers");
 const AuthRoutes = express.Router();
 
-//register controller
+AuthRoutes.post("/pre-register", preRegisterController);
+AuthRoutes.post("/verify-register", verifyRegisterController);
 AuthRoutes.post("/register", registerController);
-
-//login controller
 AuthRoutes.post("/login", loginController);
+AuthRoutes.post("/forgot-password", forgotPasswordController);
+AuthRoutes.post("/verify-password", verifyPasswordController);
 
 module.exports = AuthRoutes;
