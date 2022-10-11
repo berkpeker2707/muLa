@@ -18,38 +18,38 @@ const {
   photoUploadController,
   photoDeleteController,
 } = require("../controllers/userControllers");
-const userRoutes = express.Router();
+const UserRoutes = express.Router();
 
 //get logged in user
-userRoutes.get("/me", auth, getLoggedInUser);
+UserRoutes.get("/me", auth, getLoggedInUser);
 
 //get all users
-userRoutes.get("/users", auth, getUsersController);
+UserRoutes.get("/users", auth, getUsersController);
 
 //get user according to id
-userRoutes.get("/:id", auth, getUserController);
+UserRoutes.get("/:id", auth, getUserController);
 
 //update logged in user
-userRoutes.put("/update", auth, updateUserController);
+UserRoutes.put("/update", auth, updateUserController);
 
 //update logged in user
-userRoutes.put("/update/test", auth, updateUsersTestController);
+UserRoutes.put("/update/test", auth, updateUsersTestController);
 
 //update logged in users password
-userRoutes.put("/update/password", auth, updateUserPasswordController);
+UserRoutes.put("/update/password", auth, updateUserPasswordController);
 
 //send verify email
-userRoutes.post("/generate-verification", auth, generateVerificationController);
+UserRoutes.post("/generate-verification", auth, generateVerificationController);
 
 //verify account
-userRoutes.put(
+UserRoutes.put(
   "/verify-account",
   // auth,
   verifyAccount
 );
 
 //upload profile image
-userRoutes.post(
+UserRoutes.post(
   "/image/profile/upload",
   auth,
   photoUpload.single("image"),
@@ -58,10 +58,10 @@ userRoutes.post(
 );
 
 //delete profile image
-userRoutes.delete("/image/profile/delete", auth, profilePhotoDeleteController);
+UserRoutes.delete("/image/profile/delete", auth, profilePhotoDeleteController);
 
 //upload photo
-userRoutes.post(
+UserRoutes.post(
   "/image/upload",
   auth,
   photoUpload.single("image"),
@@ -70,6 +70,6 @@ userRoutes.post(
 );
 
 //upload photo
-userRoutes.delete("/image/delete", auth, photoDeleteController);
+UserRoutes.delete("/image/delete", auth, photoDeleteController);
 
-module.exports = userRoutes;
+module.exports = UserRoutes;

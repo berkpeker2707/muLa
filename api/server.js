@@ -13,10 +13,10 @@ const Message = require("./models/message");
 const User = require("./models/user");
 
 //routes
-const authRoutes = require("./routes/authRoutes");
-const conversationRoutes = require("./routes/conversationRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const userRoutes = require("./routes/userRoutes");
+const AuthRoutes = require("./routes/AuthRoutes");
+const ConversationRoutes = require("./routes/ConversationRoutes");
+const MessageRoutes = require("./routes/MessageRoutes");
+const UserRoutes = require("./routes/UserRoutes");
 
 //using this in password reset
 const _ = require("lodash");
@@ -73,10 +73,10 @@ const port = process.env.PORT || 1000;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
-app.use("/api/auth", authRoutes);
-app.use("/api/conversation", conversationRoutes);
-app.use("/api/message", messageRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/auth", AuthRoutes);
+app.use("/api/conversation", ConversationRoutes);
+app.use("/api/message", MessageRoutes);
+app.use("/api/user", UserRoutes);
 
 //Error Handler
 //not found has to be at top for json response

@@ -3,13 +3,13 @@ const auth = require("../middlewares/auth");
 const {
   registerController,
   loginController,
-} = require("../controllers/authControllers");
-const authRoutes = express.Router();
+} = require("../Controllers/AuthControllers");
+const AuthRoutes = express.Router();
 
 //register controller
-authRoutes.post("/register", registerController);
+AuthRoutes.post("/register", registerController);
 
 //login controller
-authRoutes.post("/login", loginController);
+AuthRoutes.post("/login", loginController);
 
-module.exports = authRoutes;
+module.exports = AuthRoutes;
