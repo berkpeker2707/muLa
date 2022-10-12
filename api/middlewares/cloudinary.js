@@ -10,8 +10,8 @@ const cloudinaryUploadImg = async (fileToUpload) => {
   try {
     const data = await cloudinary.v2.uploader.upload(fileToUpload, {
       resource_type: "auto",
-      folder: "muLa/profilePhotos",
-      tags: "profilePhoto",
+      folder: "muLa/photos",
+      tags: "photos",
     });
 
     return {
@@ -24,7 +24,7 @@ const cloudinaryUploadImg = async (fileToUpload) => {
 
 const cloudinaryDeleteImg = async (public_id) => {
   try {
-    var imagePath = "muLa/profilePhotos/" + public_id;
+    var imagePath = "muLa/photos/" + public_id;
 
     console.log(imagePath);
     const data = await cloudinary.v2.uploader.destroy(

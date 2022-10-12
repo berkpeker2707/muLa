@@ -24,8 +24,6 @@ const userSchema = new mongoose.Schema(
     },
     expireAt: {
       type: Date,
-      /* Defaults 1 days from now */
-      default: new Date(new Date().valueOf() + 86400000),
       /* Remove doc 5 min after specified date */
       expires: 300,
     },
@@ -182,7 +180,6 @@ userSchema.methods.isPasswordMatched = async function (enteredPassword) {
 userSchema.methods.createAccountVerificationToken = async function () {
   // create token
   const verificationToken = randomatic("Aa0", 32).toString("hex");
-  console.log(verificationToken);
   this.accountVerificationToken = crypto
     .createHash("sha256")
     .update(verificationToken)

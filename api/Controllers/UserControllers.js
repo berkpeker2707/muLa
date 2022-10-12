@@ -1,67 +1,49 @@
 const User = require("../models/user");
 const expressAsyncHandler = require("express-async-handler");
-const generateToken = require("../config/token");
-
-//dotenv config
 require("dotenv").config();
-
-//Mailing System
-const Mailgun = require("mailgun.js");
-const formData = require("form-data");
-const mailgun = new Mailgun(formData);
-const client = mailgun.client({
-  username: "api",
-  key: process.env.MAILGUN_PASS,
-  url: "https://api.eu.mailgun.net",
-});
-
-// hashing token
-const crypto = require("crypto");
-
 const fs = require("fs");
-// cloudinary
 const {
   cloudinaryUploadImg,
   cloudinaryDeleteImg,
 } = require("../middlewares/cloudinary");
 
-//get logged in user *
+//get logged in user ***
 const getLoggedInUser = expressAsyncHandler(async (req, res) => {
-  const id = req.user.id;
   try {
-    const user = await User.findById(id);
-
+    const user = await User.findById(req.user.id);
     res.json(user);
   } catch (error) {
-    res.status(500).json(error);
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
-//get specific user controller *
+//get specific user controller ***
 const getUserController = expressAsyncHandler(async (req, res) => {
-  const { id } = req.params;
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(req.params.id);
     res.json(user);
   } catch (error) {
-    res.json(error);
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
-//get users controller *
+//get users controller ***
 const getUsersController = expressAsyncHandler(async (req, res) => {
   try {
-    const users = await User.find({});
+    const users = await User.find();
     res.json(users);
   } catch (error) {
-    res.json(error);
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
-//update logged in user controller *
+//update logged in user controller ***
 const updateUserController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req?.user;
   try {
+    const { _id } = req.user;
     let modifications = {};
 
     if (req?.body?.firstname)
@@ -90,14 +72,15 @@ const updateUserController = expressAsyncHandler(async (req, res) => {
     );
     res.json(user);
   } catch (error) {
-    res.json(error);
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
-//update logged in user's test controller *
+//update logged in user's test controller ***
 const updateUsersTestController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req?.user;
   try {
+    const { _id } = req.user;
     let modifications = {};
 
     if (req.body.extraversionValue)
@@ -129,15 +112,16 @@ const updateUsersTestController = expressAsyncHandler(async (req, res) => {
     );
     res.json(user);
   } catch (error) {
-    res.json(error);
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
-//update logged in user's password controller *
+//update logged in user's password controller ***
 const updateUserPasswordController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  const { password, newPassword } = req.body;
   try {
+    const { _id } = req.user;
+    const { password, newPassword } = req.body;
     const user = await User.findById(_id);
     if (newPassword && (await user.isPasswordMatched(password))) {
       user.password = newPassword;
@@ -147,64 +131,16 @@ const updateUserPasswordController = expressAsyncHandler(async (req, res) => {
       res.status(401);
       throw new Error("Invalid Entry!");
     }
-    // res.json(user);
   } catch (error) {
-    res.json(error);
+    res.status(400);
+    throw new Error("Bad Request!");
   }
-});
-
-//generate email verification token controller
-const generateVerificationController = expressAsyncHandler(async (req, res) => {
-  const loginUserId = req.user.id;
-  const userEmail = req.user.email;
-
-  const user = await User.findById(loginUserId);
-  try {
-    //generate token
-    const verificationToken = await user.createAccountVerificationToken();
-
-    //save the user
-    await user.save();
-
-    //create a mail
-    const messageData = {
-      from: "muLa Support <noreply@muLa.com>",
-      to: userEmail,
-      subject: "Reset Password Link",
-      html: `<h2>Please click the link to activate your account within a day.</h2>
-      <a href=${process.env.CLIENT_URL}/verify-account/${verificationToken}>Click to Verify</a>`,
-      text: "Testing some Mailgun awesomeness!",
-    };
-    client.messages.create(process.env.MAILGUN_USER, messageData);
-
-    return res.json("Verification Mail Sent!");
-  } catch (error) {
-    throw new Error(error);
-  }
-});
-
-//verify (update) account controller
-const verifyAccount = expressAsyncHandler(async (req, res) => {
-  const { token } = req.body;
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-  //find this user by token
-  const userFound = await User.findOne({
-    accountVerificationToken: hashedToken,
-    accountVerificationTokenExpires: { $gt: new Date() },
-  });
-  if (!userFound) throw new Error("Token expired, try again later");
-  //update isAccountVerified to true
-  userFound.accountVerified = true;
-  userFound.accountVerificationToken = undefined;
-  userFound.accountVerificationTokenExpires = undefined;
-  await userFound.save();
-  res.json(userFound);
 });
 
 //profile photo upload controller
 const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const localPath = `public/images/profile/${req.file.filename}`;
+  const localPath = `public/images/uploads/${req.file.filename}`;
   const imgUploaded = await cloudinaryUploadImg(localPath);
 
   const foundUser = await User.findByIdAndUpdate(
@@ -252,7 +188,7 @@ const profilePhotoDeleteController = expressAsyncHandler(async (req, res) => {
 //photo upload controller
 const photoUploadController = expressAsyncHandler(async (req, res) => {
   const { _id } = req.user;
-  const localPath = `public/images/profile/${req.file.filename}`;
+  const localPath = `public/images/uploads/${req.file.filename}`;
   const imgUploaded = await cloudinaryUploadImg(localPath);
 
   const foundUser = await User.findByIdAndUpdate(
@@ -300,8 +236,6 @@ module.exports = {
   updateUserController,
   updateUsersTestController,
   updateUserPasswordController,
-  generateVerificationController,
-  verifyAccount,
   profilePhotoUploadController,
   profilePhotoDeleteController,
   photoUploadController,

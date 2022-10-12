@@ -1,5 +1,4 @@
 const express = require("express");
-const mongoose = require("mongoose");
 
 //dotenv config
 require("dotenv").config();
@@ -18,45 +17,7 @@ const ConversationRoutes = require("./routes/ConversationRoutes");
 const MessageRoutes = require("./routes/MessageRoutes");
 const UserRoutes = require("./routes/UserRoutes");
 
-//using this in password reset
-const _ = require("lodash");
-
-//file management stuff
-const fs = require("fs");
-
-//image config starts
-//image uploading
-var multer = require("multer");
-//using this for file (image) stream
-const Grid = require("gridfs-stream");
-//image for stream
-const conn = mongoose.createConnection(process.env.dbKEY, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-conn.once("open", () => {
-  //Init Stream
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection("picture");
-});
-
-//image config for multer
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
-
-var picture = multer({ storage: storage });
-//image config ends
-
 //encryption and authentication modules
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { check, validationResult } = require("express-validator");
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
 
 const app = express({ extended: false });
@@ -65,7 +26,6 @@ app.use(express.static("picture"));
 connectDatabase();
 
 //bodyparser like middleware for express
-//app.use(express.json());
 app.use(express.json({ extended: false }));
 
 //port
@@ -74,9 +34,9 @@ app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
 app.use("/api/auth", AuthRoutes);
+app.use("/api/user", UserRoutes);
 app.use("/api/conversation", ConversationRoutes);
 app.use("/api/message", MessageRoutes);
-app.use("/api/user", UserRoutes);
 
 //Error Handler
 //not found has to be at top for json response

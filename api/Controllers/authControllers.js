@@ -5,9 +5,7 @@ const {
   smtpAccountCreationFunc,
   smtpForgotPasswordFunc,
 } = require("../helpers/smtp");
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
-const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 
 //first step of login with email verification ***
@@ -43,6 +41,8 @@ const preRegisterController = expressAsyncHandler(async (req, res) => {
       judgingValue: req?.body?.judgingValue,
       perceivingValue: req?.body?.perceivingValue,
       characterType: req?.body?.characterType,
+      /* Defaults 1 days from now */
+      expireAt: new Date(new Date().valueOf() + 86400000),
     });
 
     //generate token
@@ -76,7 +76,6 @@ const verifyRegisterController = expressAsyncHandler(async (req, res) => {
     await userFound.save();
 
     await userFound.updateOne({ $unset: { expireAt: 1 } });
-    // await userFound.updateOne({ accountVerified: true });
 
     res.status(200).json(userFound);
   } catch (error) {
@@ -124,8 +123,6 @@ const registerController = expressAsyncHandler(async (req, res) => {
     user.accountVerificationToken = undefined;
     user.accountVerificationTokenExpires = undefined;
     await user.save();
-
-    await user.updateOne({ $unset: { expireAt: 1 } });
 
     res.status(200).json(user);
   } catch (error) {
@@ -180,10 +177,9 @@ const loginController = expressAsyncHandler(async (req, res) => {
 
 //forgot password controller ***
 const forgotPasswordController = expressAsyncHandler(async (req, res) => {
-  const emailExists = await User.findOne({ email: req.body.userEmail });
-  const recievedEmail = req.body.userEmail;
-
   try {
+    const emailExists = await User.findOne({ email: req.body.userEmail });
+    const recievedEmail = req.body.userEmail;
     //generate token
     const verificationToken =
       await emailExists.createAccountVerificationToken();
@@ -200,10 +196,9 @@ const forgotPasswordController = expressAsyncHandler(async (req, res) => {
 
 //verify password controller ***
 const verifyPasswordController = expressAsyncHandler(async (req, res) => {
-  const newPassword = req.body.newPassword;
-  const token = req.body.token;
-
   try {
+    const newPassword = req.body.newPassword;
+    const token = req.body.token;
     const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
     //find this user by token
     const userFound = await User.findOne({
@@ -219,8 +214,6 @@ const verifyPasswordController = expressAsyncHandler(async (req, res) => {
     userFound.accountVerified = true;
     userFound.accountVerificationToken = undefined;
     userFound.accountVerificationTokenExpires = undefined;
-
-    await userFound.updateOne({ $unset: { expireAt: 1 } });
 
     await userFound.save();
 
