@@ -178,13 +178,10 @@ const loginController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//forgot password controller
+//forgot password controller ***
 const forgotPasswordController = expressAsyncHandler(async (req, res) => {
   const emailExists = await User.findOne({ email: req.body.userEmail });
   const recievedEmail = req.body.userEmail;
-  if (!emailExists) {
-    throw new Error("Wrong email.");
-  }
 
   try {
     //generate token
@@ -201,36 +198,37 @@ const forgotPasswordController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//verify password controller
+//verify password controller ***
 const verifyPasswordController = expressAsyncHandler(async (req, res) => {
   const newPassword = req.body.newPassword;
   const token = req.body.token;
 
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-  //find this user by token
-  const userFound = await User.findOne({
-    accountVerificationToken: hashedToken,
-    accountVerificationTokenExpires: { $gt: new Date() },
-  });
+  try {
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+    //find this user by token
+    const userFound = await User.findOne({
+      accountVerificationToken: hashedToken,
+      accountVerificationTokenExpires: { $gt: new Date() },
+    });
 
-  if (newPassword) {
+    //change user password
     userFound.password = newPassword;
     await userFound.save();
-  } else {
+
+    //update isAccountVerified to true
+    userFound.accountVerified = true;
+    userFound.accountVerificationToken = undefined;
+    userFound.accountVerificationTokenExpires = undefined;
+
+    await userFound.updateOne({ $unset: { expireAt: 1 } });
+
+    await userFound.save();
+
+    res.json(userFound);
+  } catch (error) {
     res.status(401);
     throw new Error("Invalid Entry!");
   }
-
-  if (!userFound) throw new Error("Token expired, try again later");
-  //update isAccountVerified to true
-  userFound.accountVerified = true;
-  userFound.accountVerificationToken = undefined;
-  userFound.accountVerificationTokenExpires = undefined;
-
-  await userFound.updateOne({ $unset: { expireAt: 1 } });
-
-  await userFound.save();
-  res.json(userFound);
 });
 
 module.exports = {
