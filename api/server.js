@@ -210,34 +210,6 @@ app.get("/liked", async (req, res) => {
 // Conversation Section Starts //
 /////////////////////////////////
 
-//post a conversation
-app.post("/conversation", async (req, res) => {
-  try {
-    //const loggedUser = await User.findById(req.user.id).select(["_id"]);
-    //const user = await User.findById(req.params.id);
-    const newConversation = await new Conversation({
-      members: [req.body.senderId, req.body.recieverId],
-    });
-    const savedConversation = await newConversation.save();
-    res.status(200).json(savedConversation);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
-//get conversations
-app.get("/conversations/:userId", async (req, res) => {
-  try {
-    const conversation = await Conversation.find({
-      members: { $in: [req.params.userId] },
-    });
-    res.status(200).json(conversation);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 //post a messages
 app.post("/message", async (req, res) => {
   try {
@@ -256,18 +228,6 @@ app.get("/messages/:conversationId", async (req, res) => {
       conversationId: req.params.conversationId,
     });
     res.status(200).json(messages);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-// get conv includes two userId
-app.get("/conversations/find/:firstUserId/:secondUserId", async (req, res) => {
-  try {
-    const conversation = await Conversation.findOne({
-      members: { $all: [req.params.firstUserId, req.params.secondUserId] },
-    });
-    res.status(200).json(conversation);
   } catch (err) {
     res.status(500).json(err);
   }

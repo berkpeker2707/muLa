@@ -7,17 +7,15 @@ const {
 } = require("../Controllers/ConversationControllers");
 const ConversationRoutes = express.Router();
 
-//get user according to id
-ConversationRoutes.get("/users/:id", auth, postConversationController);
-
-//get all users
+ConversationRoutes.post("/new", auth, postConversationController);
 ConversationRoutes.get("/users", auth, getConversationsController);
+// ConversationRoutes.get(
+//   "/me/update/password",
+//   auth,
+//   getConversationWithIDsController
+// );
+// ConversationRoutes.get("/users/:id", auth, postConversationController);
 
-//update logged in users password
-ConversationRoutes.put(
-  "/me/update/password",
-  auth,
-  getConversationWithIDsController
-);
+// ConversationRoutes.get("/find/:firstUserId/:secondUserId", auth, adasda);
 
 module.exports = ConversationRoutes;

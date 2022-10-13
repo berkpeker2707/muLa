@@ -21,34 +21,47 @@ const postConversationController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//get conversations controller
+//get conversations of logged in user controller
 const getConversationsController = expressAsyncHandler(async (req, res) => {
   try {
     const conversation = await Conversation.find({
-      members: { $in: [req.params.userId] },
+      members: { $in: [req.user.id] },
     });
     res.status(200).json(conversation);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
-//get conv includes two userId controller
-const getConversationWithIDsController = expressAsyncHandler(
-  async (req, res) => {
-    try {
-      const conversation = await Conversation.findOne({
-        members: { $all: [req.params.firstUserId, req.params.secondUserId] },
-      });
-      res.status(200).json(conversation);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  }
-);
+// //get conv includes two userId controller
+// const getConversationWithIDsController = expressAsyncHandler(
+//   async (req, res) => {
+//     try {
+//       const conversation = await Conversation.findOne({
+//         members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+//       });
+//       res.status(200).json(conversation);
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   }
+// );
+
+// // get conv includes two userId
+// app.get("/conversations/find/:firstUserId/:secondUserId", async (req, res) => {
+//   try {
+//     const conversation = await Conversation.findOne({
+//       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
+//     });
+//     res.status(200).json(conversation);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 module.exports = {
   postConversationController,
   getConversationsController,
-  getConversationWithIDsController,
+  // getConversationWithIDsController,
 };
