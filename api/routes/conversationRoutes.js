@@ -8,9 +8,9 @@ const {
 const ConversationRoutes = express.Router();
 
 ConversationRoutes.post("/new", auth, postConversationController);
-ConversationRoutes.get("/users", auth, getConversationsController);
+ConversationRoutes.get("/my-conversations", auth, getConversationsController);
 ConversationRoutes.get(
-  "/me/update/password",
+  "/conversation/:firstUserId/:secondUserId",
   auth,
   getConversationWithIDsController
 );

@@ -42,7 +42,7 @@ const getConversationsController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//get conv includes two userId controller
+//get conversation (includeing two user ids by user using params) controller ***
 const getConversationWithIDsController = expressAsyncHandler(
   async (req, res) => {
     try {
@@ -50,23 +50,30 @@ const getConversationWithIDsController = expressAsyncHandler(
         members: { $all: [req.params.firstUserId, req.params.secondUserId] },
       });
       res.status(200).json(conversation);
-    } catch (err) {
-      res.status(500).json(err);
+    } catch (error) {
+      res.status(400);
+      throw new Error("Bad Request!");
     }
   }
 );
 
-// // get conv includes two userId
+// get conv includes two userId
+// const getConversationWithIDsController = expressAsyncHandler(
+// async (req, res) => {
+
 // app.get("/conversations/find/:firstUserId/:secondUserId", async (req, res) => {
 //   try {
 //     const conversation = await Conversation.findOne({
 //       members: { $all: [req.params.firstUserId, req.params.secondUserId] },
 //     });
 //     res.status(200).json(conversation);
-//   } catch (err) {
-//     res.status(500).json(err);
+//   } catch (error) {
+//     res.status(400);
+//     throw new Error("Bad Request!");
 //   }
 // });
+// }
+// );
 
 module.exports = {
   postConversationController,
