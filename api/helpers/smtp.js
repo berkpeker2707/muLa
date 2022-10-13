@@ -31,7 +31,6 @@ const smtpAccountCreationFunc = async (
         return res.status(200).json(newUserInvalidated);
       },
       function (error) {
-        console.error(error);
         throw new Error(error);
       }
     );
@@ -67,7 +66,6 @@ const smtpForgotPasswordFunc = async (
         return res.json("Verification Mail Sent!");
       },
       function (error) {
-        console.error(error);
         throw new Error(error);
       }
     );

@@ -13,8 +13,8 @@ const connectDatabase = async () => {
       useUnifiedTopology: true,
     });
     console.log("Database Connected!");
-  } catch (err) {
-    console.error(err.message);
+  } catch (error) {
+    console.error(error.message);
     //exit process with failure
     process.exit(1);
   }

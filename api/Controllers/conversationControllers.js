@@ -5,7 +5,7 @@ const generateToken = require("../config/token");
 //dotenv config
 require("dotenv").config();
 
-//post a conversation
+//post a conversation controller
 const postConversationController = expressAsyncHandler(async (req, res) => {
   try {
     //const loggedUser = await User.findById(req.user.id).select(["_id"]);
@@ -21,7 +21,7 @@ const postConversationController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//get conversations
+//get conversations controller
 const getConversationsController = expressAsyncHandler(async (req, res) => {
   try {
     const conversation = await Conversation.find({
@@ -33,7 +33,7 @@ const getConversationsController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-// get conv includes two userId
+//get conv includes two userId controller
 const getConversationWithIDsController = expressAsyncHandler(
   async (req, res) => {
     try {

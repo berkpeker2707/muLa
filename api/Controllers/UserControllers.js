@@ -7,7 +7,7 @@ const {
   cloudinaryDeleteImg,
 } = require("../middlewares/cloudinary");
 
-//get logged in user ***
+//get logged in user controller ***
 const getLoggedInUser = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -137,96 +137,116 @@ const updateUserPasswordController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//profile photo upload controller
+//profile photo upload controller ***
 const profilePhotoUploadController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  const localPath = `public/images/uploads/${req.file.filename}`;
-  const imgUploaded = await cloudinaryUploadImg(localPath);
+  try {
+    const { _id } = req.user;
+    const localPath = `public/images/uploads/${req.file.filename}`;
+    const imgUploaded = await cloudinaryUploadImg(localPath);
 
-  const foundUser = await User.findByIdAndUpdate(
-    _id,
-    {
-      profilePhoto: imgUploaded?.data?.secure_url,
-      $push: { pictures: imgUploaded?.data?.secure_url },
-    },
-    { new: true }
-  );
-  fs.unlinkSync(localPath);
+    const foundUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        profilePhoto: imgUploaded?.data?.secure_url,
+        $push: { pictures: imgUploaded?.data?.secure_url },
+      },
+      { new: true }
+    );
+    fs.unlinkSync(localPath);
 
-  res.json(imgUploaded);
+    res.json(imgUploaded);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
 });
 
-//profile photo delete controller
+//profile photo delete controller ***
 const profilePhotoDeleteController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req?.user;
-  const { profilePhoto } = req?.body;
+  try {
+    const { _id } = req?.user;
+    const { profilePhoto } = req?.body;
 
-  const imgUploaded = await cloudinaryDeleteImg(profilePhoto);
+    const imgUploaded = await cloudinaryDeleteImg(profilePhoto);
 
-  const foundUser = await User.findById(_id);
+    const foundUser = await User.findById(_id);
 
-  var foundPictureLink = foundUser?.pictures;
+    var foundPictureLink = foundUser?.pictures;
 
-  var indexOfSelectedImage = foundPictureLink.findIndex((element) =>
-    element.includes(profilePhoto)
-  );
+    var indexOfSelectedImage = foundPictureLink.findIndex((element) =>
+      element.includes(profilePhoto)
+    );
 
-  await User.findByIdAndUpdate(
-    _id,
-    {
-      profilePhoto: foundUser?.pictures[indexOfSelectedImage - 1]
-        ? foundUser?.pictures[indexOfSelectedImage - 1]
-        : null,
-      $pull: { pictures: foundPictureLink[indexOfSelectedImage] },
-    },
-    { new: true }
-  );
+    await User.findByIdAndUpdate(
+      _id,
+      {
+        profilePhoto: foundUser?.pictures[indexOfSelectedImage - 1]
+          ? foundUser?.pictures[indexOfSelectedImage - 1]
+          : null,
+        $pull: { pictures: foundPictureLink[indexOfSelectedImage] },
+      },
+      { new: true }
+    );
 
-  res.json(imgUploaded);
+    res.json(imgUploaded);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
 });
 
-//photo upload controller
+//photo upload controller ***
 const photoUploadController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req.user;
-  const localPath = `public/images/uploads/${req.file.filename}`;
-  const imgUploaded = await cloudinaryUploadImg(localPath);
+  try {
+    const { _id } = req.user;
+    const localPath = `public/images/uploads/${req.file.filename}`;
+    const imgUploaded = await cloudinaryUploadImg(localPath);
 
-  const foundUser = await User.findByIdAndUpdate(
-    _id,
-    {
-      $push: { pictures: imgUploaded?.data?.secure_url },
-    },
-    { new: true }
-  );
-  fs.unlinkSync(localPath);
+    const foundUser = await User.findByIdAndUpdate(
+      _id,
+      {
+        $push: { pictures: imgUploaded?.data?.secure_url },
+      },
+      { new: true }
+    );
+    fs.unlinkSync(localPath);
 
-  res.json(imgUploaded);
+    res.json(imgUploaded);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
 });
 
-//photo delete controller
+//photo delete controller ***
 const photoDeleteController = expressAsyncHandler(async (req, res) => {
-  const { _id } = req?.user;
-  const { selectedPhoto } = req?.body;
+  try {
+    const { _id } = req?.user;
+    const { selectedPhoto } = req?.body;
 
-  const imgUploaded = await cloudinaryDeleteImg(selectedPhoto);
+    const imgUploaded = await cloudinaryDeleteImg(selectedPhoto);
 
-  const foundUser = await User.findById(_id);
+    const foundUser = await User.findById(_id);
 
-  var foundPictureLink = foundUser?.pictures;
+    var foundPictureLink = foundUser?.pictures;
 
-  var indexOfSelectedImage = foundPictureLink.findIndex((element) =>
-    element.includes(selectedPhoto)
-  );
+    var indexOfSelectedImage = foundPictureLink.findIndex((element) =>
+      element.includes(selectedPhoto)
+    );
 
-  await User.findByIdAndUpdate(
-    _id,
-    {
-      $pull: { pictures: foundPictureLink[indexOfSelectedImage] },
-    },
-    { new: true }
-  );
+    await User.findByIdAndUpdate(
+      _id,
+      {
+        $pull: { pictures: foundPictureLink[indexOfSelectedImage] },
+      },
+      { new: true }
+    );
 
-  res.json(imgUploaded);
+    res.json(imgUploaded);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
 });
 
 module.exports = {

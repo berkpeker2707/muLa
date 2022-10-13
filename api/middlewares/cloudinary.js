@@ -26,11 +26,10 @@ const cloudinaryDeleteImg = async (public_id) => {
   try {
     var imagePath = "muLa/photos/" + public_id;
 
-    console.log(imagePath);
     const data = await cloudinary.v2.uploader.destroy(
       imagePath,
       (error, result) => {
-        console.log(result);
+        // console.log(result);
       }
     );
 
