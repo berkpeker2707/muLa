@@ -2,7 +2,7 @@ const express = require("express");
 const auth = require("../middlewares/auth");
 const {
   postMessageController,
-  getMessageontroller,
+  getMessageController,
 } = require("../Controllers/MessageControllers");
 const MessageRoutes = express.Router();
 
@@ -10,6 +10,6 @@ const MessageRoutes = express.Router();
 MessageRoutes.get("/users/:id", auth, postMessageController);
 
 //get all users
-MessageRoutes.get("/users", auth, getMessageontroller);
+MessageRoutes.get("/users", auth, getMessageController);
 
 module.exports = MessageRoutes;

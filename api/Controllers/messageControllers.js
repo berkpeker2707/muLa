@@ -17,7 +17,7 @@ const postMessageController = expressAsyncHandler(async (req, res) => {
 });
 
 //get messages
-const getMessageontroller = expressAsyncHandler(async (req, res) => {
+const getMessageController = expressAsyncHandler(async (req, res) => {
   try {
     const messages = await Message.find({
       conversationId: req.params.conversationId,
@@ -30,5 +30,5 @@ const getMessageontroller = expressAsyncHandler(async (req, res) => {
 
 module.exports = {
   postMessageController,
-  getMessageontroller,
+  getMessageController,
 };

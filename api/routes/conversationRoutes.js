@@ -14,8 +14,5 @@ ConversationRoutes.get(
   auth,
   getConversationWithIDsController
 );
-// ConversationRoutes.get("/users/:id", auth, postConversationController);
-
-// ConversationRoutes.get("/find/:firstUserId/:secondUserId", auth, adasda);
 
 module.exports = ConversationRoutes;
