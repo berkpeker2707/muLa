@@ -31,21 +31,17 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsersAction } from "../../state/slices/authSlices";
+import { getUsersAction } from "../../state/slices/usersSlices";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state?.auth?.userAuth);
 
-  const users = useSelector((state) => state?.auth?.users);
+  const users = useSelector((state) => state?.user);
 
   useEffect(() => {
     dispatch(getUsersAction());
@@ -63,116 +59,7 @@ const Dashboard = () => {
     }
   }, [currentIndexNumber]);
 
-  // var showFilteredUsers = getFilteredUsers(users);
-
   console.log(users);
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  // Distance Calculation Based on Lat & Lon
-  // function distance(lat1, lat2, lon1, lon2) {
-  //   // The math module contains a function
-  //   // named toRadians which converts from
-  //   // degrees to radians.
-  //   lon1 = (lon1 * Math.PI) / 180;
-  //   lon2 = (lon2 * Math.PI) / 180;
-  //   lat1 = (lat1 * Math.PI) / 180;
-  //   lat2 = (lat2 * Math.PI) / 180;
-
-  //   // Haversine formula
-  //   let dlon = lon2 - lon1;
-  //   let dlat = lat2 - lat1;
-  //   let a =
-  //     Math.pow(Math.sin(dlat / 2), 2) +
-  //     Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2);
-
-  //   let c = 2 * Math.asin(Math.sqrt(a));
-
-  //   // Radius of earth in kilometers. Use 3956
-  //   // for miles
-  //   let r = 6371;
-
-  //   // calculate the result
-  //   return Math.round(c * r);
-  // }
-  // Driver code
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  // let lat1 = 53.32055555555556;
-  // let lon1 = -1.7297222222222221;
-
-  // let lat2 = 53.31861111111111;
-  // let lon2 = -1.6997222222222223;
-
-  // console.log(
-  //   distance(lat1, lat2, lon1, lon2) + " K.M"
-  // );
-
-  // distance(
-  //   user.userLatitude,
-  //   showFilteredUsers.userLatitude,
-  //   user.userLongitude,
-  //   showFilteredUsers.userLongitude
-  // )
-
-  // function getFilteredUsers(filterByThis) {
-  //   return filterByThis.filter((filteredObj, index) => {
-  //     // return index < 1 && filteredObj.age > 27;
-  //     // return filteredObj.gender !== user?.gender && !(filteredObj.likedBy.includes(user?._id));
-  //     return filteredObj.gender !== user?.gender && !user?.liked.includes(filteredObj._id);
-  //   });
-  // }
-
-  // function sortDist(di) {
-  //   return di
-  //   .filter((dij) => {
-  //     return dij.age > 27;
-  //   })
-  // }
-
-  // let filteredUsers = users.filter=(function (currentElement) {
-  //   return currentElement.age >27 && currentElement.characterType === "ISFP";
-  // })
-
-  // console.log(filteredUsers);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: "#ff6e40",
-    backgroundColor: "#f5f0e1",
-  }));
-
-  const theme = createTheme({
-    palette: {
-      type: "light",
-      primary: {
-        main: "#1e3d59",
-      },
-      secondary: {
-        main: "#ffc13b",
-      },
-      background: {
-        default: "#1e3d59",
-        paper: "#f5f0e1",
-      },
-      text: {
-        primary: "#ff6e40",
-        disabled: "#e16e40",
-        secondary: "#ff6e40",
-        hint: "#e16e40",
-      },
-    },
-    typography: {
-      body1: {
-        fontWeight: 600,
-        letterSpacing: "0.1em",
-      },
-      body2: {
-        fontWeight: 600,
-      },
-    },
-  });
 
   return (
     <Fragment>
@@ -185,7 +72,7 @@ const Dashboard = () => {
               ?.slice(currentIndexNumber, currentIndexNumber + 1)
               .map((users, i) => (
                 <Container fluid>
-                  <ThemeProvider theme={theme} key={users._id}>
+                  <>
                     <Card sx={{ maxWidth: 400, boxShadow: 10, mx: "auto" }}>
                       <CardHeader
                         avatar={
@@ -198,9 +85,7 @@ const Dashboard = () => {
                           </Avatar>
                         }
                         action={
-                          <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                          </IconButton>
+                          <IconButton aria-label="settings">test </IconButton>
                         }
                         title={users && users.firstname + " " + users.lastname}
                         subheader={users && "Age: " + users.age}
@@ -237,71 +122,71 @@ const Dashboard = () => {
                         <Typography paragraph>
                           <Grid container spacing={2}>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaBirthdayCake />
                                 <br />
                                 {users && users.age}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaVenusMars />
                                 <br />
                                 {users && users.gender}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaBriefcase />
                                 <br />
                                 {users && users.job}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaLanguage />
                                 <br />
                                 {users && users.language}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaPray />
                                 <br />
                                 {users && users.belief}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaFlag />
                                 <br />
                                 {users && users.politics}
-                              </Item>
+                              </>
                             </Grid>
                           </Grid>
                         </Typography>
                         <Typography paragraph>
                           <Grid container spacing={2}>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaUtensils />
                                 <br />
                                 {users && users.diet}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaBeer />
                                 <br />
                                 {users && users.alcohol}
-                              </Item>
+                              </>
                             </Grid>
                             <Grid item xs={4} md={4}>
-                              <Item>
+                              <>
                                 <FaSmoking />
                                 <br />
                                 {users && users.smoking}
-                              </Item>
+                              </>
                             </Grid>
                           </Grid>
                         </Typography>
@@ -321,7 +206,6 @@ const Dashboard = () => {
                           // }}
                           sx={{ mx: "auto" }}
                         >
-                          <FavoriteIcon />
                           Like
                         </Button>
                         <Button
@@ -339,7 +223,7 @@ const Dashboard = () => {
                         </Button>
                       </CardActions>
                     </Card>
-                  </ThemeProvider>
+                  </>
                 </Container>
               ))
           ) : (

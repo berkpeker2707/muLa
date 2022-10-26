@@ -25,45 +25,30 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/Landing/ResetPassword";
 import Uploadfiletest from "./components/Profile/Uploadfiletest";
 
-import { ThemeProvider, createTheme } from "@material-ui/core/styles";
-
 const App = () => {
-  const theme = createTheme({
-    palette: {
-      primary: {
-        main: "#1e3d59",
-      },
-      secondary: {
-        main: "#ff6e40",
-      },
-    },
-  });
-
   return (
-    <ThemeProvider theme={theme}>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route exact path="/" element={<Landing />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/verify-account/:token" element={<ConfirmPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/*" element={<ResetPassword />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/profile-update" element={<ProfileUpdate />} />
-          <Route path="/uploadtest" element={<Uploadfiletest />} />
-          <Route path="/test-update" element={<ReTakeTest />} />
-          <Route path="/chatroom" element={<ChatRoom />} />
-          {/* <Route path="/chat" element={Messenger} /> */}
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/privacy" element={<Privacy />} />
-          <Route path="/about" element={<About />} />
-        </Routes>
-        <Footer />
-      </BrowserRouter>
-    </ThemeProvider>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route exact path="/" element={<Landing />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/verify-account/:token" element={<ConfirmPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password/*" element={<ResetPassword />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile-update" element={<ProfileUpdate />} />
+        <Route path="/uploadtest" element={<Uploadfiletest />} />
+        <Route path="/test-update" element={<ReTakeTest />} />
+        <Route path="/chatroom" element={<ChatRoom />} />
+        {/* <Route path="/chat" element={Messenger} /> */}
+        <Route path="/faq" element={<FAQ />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      <Footer />
+    </BrowserRouter>
   );
 };
 

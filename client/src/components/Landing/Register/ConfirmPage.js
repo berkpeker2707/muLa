@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../../../App.css";
-import swal from "@sweetalert/with-react";
-import Swal from "sweetalert2";
+// import swal from "@sweetalert/with-react";
+// import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
 import { validateUserAction } from "../../../state/slices/authSlices";
@@ -24,11 +24,11 @@ const ConfirmPage = () => {
   }, [dispatch]);
 
   const onClickSubmit = () => {
-    swal({
-      title: "Activated!",
-      text: "Your account has been activated, you can login.",
-      icon: "success",
-    });
+    // swal({
+    //   title: "Activated!",
+    //   text: "Your account has been activated, you can login.",
+    //   icon: "success",
+    // });
   };
 
   //   Swal.fire({

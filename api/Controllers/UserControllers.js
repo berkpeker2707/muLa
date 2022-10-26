@@ -30,7 +30,7 @@ const getUserController = expressAsyncHandler(async (req, res) => {
 });
 
 //get users controller ***
-const getUsersController = expressAsyncHandler(async (req, res) => {
+const getAllUserController = expressAsyncHandler(async (req, res) => {
   try {
     const users = await User.find();
     res.json(users);
@@ -252,7 +252,7 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
 module.exports = {
   getLoggedInUser,
   getUserController,
-  getUsersController,
+  getAllUserController,
   updateUserController,
   updateUsersTestController,
   updateUserPasswordController,

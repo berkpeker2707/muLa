@@ -4,8 +4,8 @@ import "../../App.css";
 import muLaIconTextSuperior from "../images/Icons/muLaMainIconImages/muLa-icon-textSuperior-single.png";
 import coupleVector from "../images/LandingImages/coupleVector.png";
 
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
 export default function About() {
   return (

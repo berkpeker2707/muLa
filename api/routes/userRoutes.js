@@ -6,8 +6,8 @@ const {
 } = require("../middlewares/photoUpload");
 const {
   getLoggedInUser,
-  getUsersController,
   getUserController,
+  getAllUserController,
   updateUserController,
   updateUsersTestController,
   updateUserPasswordController,
@@ -15,12 +15,12 @@ const {
   profilePhotoDeleteController,
   photoUploadController,
   photoDeleteController,
-} = require("../controllers/userControllers");
+} = require("../controllers/UserControllers");
 const UserRoutes = express.Router();
 
 UserRoutes.get("/me", auth, getLoggedInUser);
 UserRoutes.get("/:id", auth, getUserController);
-UserRoutes.get("/users", auth, getUsersController);
+UserRoutes.get("/all", auth, getAllUserController);
 UserRoutes.put("/update", auth, updateUserController);
 UserRoutes.put("/update/test", auth, updateUsersTestController);
 UserRoutes.put("/update/password", auth, updateUserPasswordController);

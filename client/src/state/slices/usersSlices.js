@@ -93,14 +93,20 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-//get users on page load
-export const getUsers = createAsyncThunk(
-  "getUsers",
-  async (getUsers, { rejectWithValue, getState, dispatch }) => {
+//get all users
+export const getUsersAction = createAsyncThunk(
+  "user/users",
+  async (id, { rejectWithValue, getState, dispatch }) => {
     //get user token
-    const user = getState()?.users;
+    const user = getState()?.auth;
+    const { userAuth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userAuth?.token}`,
+      },
+    };
     try {
-      const { data } = await axios.get("api/users");
+      const { data } = await axios.get(`/api/user/users`, config);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -109,16 +115,17 @@ export const getUsers = createAsyncThunk(
   }
 );
 
-//slices(reducers)
+//get user from local storage and place into store
+const userLoginFromStorage = localStorage.getItem("userInfo")
+  ? JSON.parse(localStorage.getItem("userInfo"))
+  : null;
+
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    // token: localStorage.getItem("token"),
-    // isAuthenticated: null,
-    // isLoading: null,
-    // user: null,
-    // users: null,
+    userAuth: userLoginFromStorage,
   },
+
   extraReducers: (builder) => {
     //registerUser
     builder.addCase(registerUser.pending, (state, action) => {
@@ -138,18 +145,18 @@ const usersSlices = createSlice({
       state.serverErr = action?.error?.message;
     });
     //getUsers
-    builder.addCase(getUsers.pending, (state, action) => {
+    builder.addCase(getUsersAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
-    builder.addCase(getUsers.fulfilled, (state, action) => {
+    builder.addCase(getUsersAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
       state.users = action.payload.users;
     });
-    builder.addCase(getUsers.rejected, (state, action) => {
+    builder.addCase(getUsersAction.rejected, (state, action) => {
       state.isLoading = false;
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "../../App.css";
 import { FaGooglePlay, FaAppStoreIos, FaEnvelope } from "react-icons/fa";
 
-import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
 import { Link } from "react-router-dom";

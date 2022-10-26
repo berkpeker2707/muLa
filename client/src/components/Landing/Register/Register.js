@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../../../App.css";
 import Logo2 from "./logo2.png";
 import { Row, Col, Modal, Button } from "react-bootstrap";
-import swal from "@sweetalert/with-react";
+// import swal from "@sweetalert/with-react";
 
 import { Link, Navigate } from "react-router-dom";
 //redux
@@ -472,16 +472,18 @@ const Register = ({ registerUser }) => {
   const onClickSubmit = () => {
     {
       appErr || serverErr
-        ? swal({
-            title: `${serverErr}`,
-            text: `${appErr}`,
-            icon: "error",
-          })
-        : swal({
-            title: "Submitted!",
-            text: "You'll recieve an activation email.",
-            icon: "success",
-          });
+        ? // swal({
+          //     title: `${serverErr}`,
+          //     text: `${appErr}`,
+          //     icon: "error",
+          //   })
+          console.log(appErr, serverErr)
+        : //  swal({
+          //     title: "Submitted!",
+          //     text: "You'll recieve an activation email.",
+          //     icon: "success",
+          //   });
+          console.log(appErr, serverErr);
     }
   };
 

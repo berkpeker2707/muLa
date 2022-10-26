@@ -31,14 +31,10 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import LinearProgress, {
   linearProgressClasses,
 } from "@mui/material/LinearProgress";
-
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
 
 //redux
 import { useSelector } from "react-redux";
@@ -60,51 +56,6 @@ function checkCharacterType(characterType) {
   }
 }
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: "#ff6e40",
-  backgroundColor: "#f5f0e1",
-}));
-
-const theme = createTheme({
-  palette: {
-    type: "light",
-    primary: {
-      main: "#1e3d59",
-    },
-    secondary: {
-      main: "#ffc13b",
-    },
-    tertiary: {
-      main: "#ff6e40",
-    },
-    quaternary: {
-      main: "#40fff9",
-    },
-    background: {
-      default: "#1e3d59",
-      paper: "#f5f0e1",
-    },
-    text: {
-      primary: "#ff6e40",
-      disabled: "#e16e40",
-      secondary: "#ff6e40",
-      hint: "#e16e40",
-    },
-  },
-  typography: {
-    body1: {
-      fontWeight: 600,
-      letterSpacing: "0.1em",
-    },
-    body2: {
-      fontWeight: 600,
-    },
-  },
-});
-
 const Profile = () => {
   const user = useSelector((state) => state?.auth?.userAuth);
 
@@ -125,7 +76,7 @@ const Profile = () => {
         <Fragment>
           <Container fluid>
             {user && user.characterType === "INFP" ? (
-              <ThemeProvider theme={theme} key={user && user._id}>
+              <>
                 <Grid container spacing={2}>
                   <Grid item xs={6} md={6}>
                     <Card style={{ textAlign: "center" }}>
@@ -358,7 +309,7 @@ const Profile = () => {
                     </Grid>
                   </Grid>
                 </Grid>
-              </ThemeProvider>
+              </>
             ) : (
               <></>
             )}

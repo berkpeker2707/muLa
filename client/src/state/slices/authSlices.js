@@ -14,6 +14,7 @@ import setAuthToken from "../../utils/setAuthToken";
 /////////////
 // actions //
 /////////////
+
 //register user action
 export const registerUserAction = createAsyncThunk(
   "user/register",
@@ -42,29 +43,17 @@ export const registerUserAction = createAsyncThunk(
 export const validateUserAction = createAsyncThunk(
   "user/validate",
   async (token, { rejectWithValue, getState, dispatch }) => {
-    console.log(`token`);
-    console.log(token);
-    console.log(`token`);
-    //Headers
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    //Request body
-    // const body = JSON.stringify({ email, password });
-
     try {
       const { data } = await axios.put(
         `/api/user/verify-account`,
         token,
         config
       );
-      //save user to local storage
-      // if (localStorage.token) {
-      //   await setAuthToken(localStorage.token);
-      // }
-      // localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -80,20 +69,13 @@ export const validateUserAction = createAsyncThunk(
 export const loginUserAction = createAsyncThunk(
   "auth/login",
   async (userData, { rejectWithValue, getState, dispatch }) => {
-    //Headers
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
-    //Request body
-    // const body = JSON.stringify({ email, password });
     try {
       const { data } = await axios.post("/api/auth/login", userData, config);
-      //save user to local storage
-      // if (localStorage.token) {
-      //   await setAuthToken(localStorage.token);
-      // }
       localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
@@ -121,28 +103,6 @@ export const logoutAction = createAsyncThunk(
 );
 
 /////////////////YUKARIDAKI ACTIONI YAPTIM EN SON
-
-//get all users
-export const getUsersAction = createAsyncThunk(
-  "user/users",
-  async (id, { rejectWithValue, getState, dispatch }) => {
-    //get user token
-    const user = getState()?.auth;
-    const { userAuth } = user;
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userAuth?.token}`,
-      },
-    };
-    try {
-      const { data } = await axios.get(`/api/user/users`, config);
-      return data;
-    } catch (error) {
-      if (!error?.response) throw error;
-      return rejectWithValue(error?.response?.data);
-    }
-  }
-);
 
 ////////////
 // slices //
@@ -229,25 +189,6 @@ const authSlices = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
       state.loading = false;
-    });
-
-    //get all Users
-    builder.addCase(getUsersAction.pending, (state, action) => {
-      state.loading = true;
-      state.appErr = undefined;
-      state.serverErr = undefined;
-    });
-    builder.addCase(getUsersAction.fulfilled, (state, action) => {
-      state.loading = false;
-      state.users = action?.payload;
-      state.appErr = undefined;
-      state.serverErr = undefined;
-    });
-    builder.addCase(getUsersAction.rejected, (state, action) => {
-      console.log(action.payload);
-      state.loading = false;
-      state.appErr = action?.payload?.message;
-      state.serverErr = action?.error?.message;
     });
 
     //update avatar

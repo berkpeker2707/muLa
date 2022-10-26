@@ -7,8 +7,8 @@ import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon.png";
 // import muLaIcon from "../images/Icons/muLaMainIconImages/muLa-icon-blue(ChatBubbleToo).png";
 import mobilePhone from "../images/LandingImages/mobilePhone.png";
 
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 
 import { getUsers } from "../../state/slices/usersSlices";
 
