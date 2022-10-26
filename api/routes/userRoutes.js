@@ -19,7 +19,7 @@ const {
 const UserRoutes = express.Router();
 
 UserRoutes.get("/me", auth, getLoggedInUser);
-UserRoutes.get("/:id", auth, getUserController);
+UserRoutes.get("/select/:id", auth, getUserController);
 UserRoutes.get("/all", auth, getAllUserController);
 UserRoutes.put("/update", auth, updateUserController);
 UserRoutes.put("/update/test", auth, updateUsersTestController);

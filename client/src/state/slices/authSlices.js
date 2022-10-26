@@ -383,7 +383,7 @@ export default authSlices.reducer;
 //   "user/detail",
 //   async (id, { rejectWithValue, getState, dispatch }) => {
 //     try {
-//       const { data } = await axios.get(`/api/users/${id}`);
+//       const { data } = await axios.get(`/api/users/select/${id}`);
 //       return data;
 //     } catch (error) {
 //       if (!error?.response) throw error;
