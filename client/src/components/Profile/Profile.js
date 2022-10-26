@@ -57,7 +57,7 @@ function checkCharacterType(characterType) {
 }
 
 const Profile = () => {
-  const user = useSelector((state) => state?.auth?.userAuth);
+  const user = useSelector((state) => state?.auth?.auth);
 
   ////////////////
   // CHECK HERE //

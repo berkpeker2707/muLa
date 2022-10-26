@@ -116,7 +116,7 @@ const userLoginFromStorage = localStorage.getItem("userInfo")
 const authSlices = createSlice({
   name: "auth",
   initialState: {
-    userAuth: userLoginFromStorage,
+    auth: userLoginFromStorage,
   },
 
   //object notation is used instead of map notation
@@ -167,7 +167,7 @@ const authSlices = createSlice({
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
-      state.userAuth = action?.payload;
+      state.auth = action?.payload;
     });
     builder.addCase(loginUserAction.rejected, (state, action) => {
       state.isLoading = false;
@@ -180,7 +180,7 @@ const authSlices = createSlice({
       state.loading = false;
     });
     builder.addCase(logoutAction.fulfilled, (state, action) => {
-      state.userAuth = undefined;
+      state.auth = undefined;
       state.loading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
@@ -229,10 +229,10 @@ export default authSlices.reducer;
 //   async (id, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     //http call
@@ -257,10 +257,10 @@ export default authSlices.reducer;
 //   async (userToFollowId, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     //http call
@@ -286,10 +286,10 @@ export default authSlices.reducer;
 //   async (unFollowId, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     //http call
@@ -315,10 +315,10 @@ export default authSlices.reducer;
 //   async (userData, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     //http call
@@ -351,10 +351,10 @@ export default authSlices.reducer;
 //   async (password, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     //http call
@@ -398,10 +398,10 @@ export default authSlices.reducer;
 //   async (id, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     try {
@@ -420,10 +420,10 @@ export default authSlices.reducer;
 //   async (id, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     try {
@@ -446,10 +446,10 @@ export default authSlices.reducer;
 //   async (id, { rejectWithValue, getState, dispatch }) => {
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     try {
@@ -473,10 +473,10 @@ export default authSlices.reducer;
 //     console.log(userImg);
 //     //get user token
 //     const user = getState()?.users;
-//     const { userAuth } = user;
+//     const { auth } = user;
 //     const config = {
 //       headers: {
-//         Authorization: `Bearer ${userAuth?.token}`,
+//         Authorization: `Bearer ${auth?.token}`,
 //       },
 //     };
 //     try {
@@ -727,7 +727,7 @@ export default authSlices.reducer;
 //       state.serverErr = undefined;
 //     });
 //     builder.addCase(loginUserAction.fulfilled, (state, action) => {
-//       state.userAuth = action?.payload;
+//       state.auth = action?.payload;
 //       state.loading = false;
 //       state.appErr = undefined;
 //       state.serverErr = undefined;

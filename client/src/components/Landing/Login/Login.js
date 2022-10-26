@@ -39,9 +39,9 @@ const Login = () => {
   });
 
   const store = useSelector((state) => state?.auth);
-  const { userAuth, loading, serverErr, appErr } = store;
+  const { auth, loading, serverErr, appErr } = store;
   // Redirect if authenticated
-  if (userAuth) {
+  if (auth) {
     return <Navigate to="/dashboard" />;
   }
 

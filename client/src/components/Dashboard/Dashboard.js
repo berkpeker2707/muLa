@@ -39,9 +39,8 @@ import { getUsersAction } from "../../state/slices/usersSlices";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state?.auth?.userAuth);
-
-  const users = useSelector((state) => state?.user);
+  const user = useSelector((state) => state.auth.auth);
+  const allUsers = useSelector((state) => state?.users.users);
 
   useEffect(() => {
     dispatch(getUsersAction());
@@ -53,24 +52,24 @@ const Dashboard = () => {
   useEffect(() => {
     if (
       currentIndexNumber === undefined ||
-      currentIndexNumber >= users?.length
+      currentIndexNumber >= allUsers?.length
     ) {
       setCurrentIndexNumber(0);
     }
   }, [currentIndexNumber]);
 
-  console.log(users);
+  console.log(allUsers);
 
   return (
     <Fragment>
-      {!users ? (
+      {!allUsers ? (
         <LoadingGif />
       ) : (
         <Fragment>
-          {users.length > 0 ? (
-            users
+          {allUsers.length > 0 ? (
+            allUsers
               ?.slice(currentIndexNumber, currentIndexNumber + 1)
-              .map((users, i) => (
+              .map((allUsers, i) => (
                 <Container fluid>
                   <>
                     <Card sx={{ maxWidth: 400, boxShadow: 10, mx: "auto" }}>
@@ -81,20 +80,23 @@ const Dashboard = () => {
                             variant="rounded"
                             aria-label="recipe"
                           >
-                            {users && users.characterType}
+                            {allUsers && allUsers.characterType}
                           </Avatar>
                         }
                         action={
                           <IconButton aria-label="settings">test </IconButton>
                         }
-                        title={users && users.firstname + " " + users.lastname}
-                        subheader={users && "Age: " + users.age}
+                        title={
+                          allUsers &&
+                          allUsers.firstname + " " + allUsers.lastname
+                        }
+                        subheader={allUsers && "Age: " + allUsers.age}
                       />
-                      {users.profilePhoto ? (
+                      {allUsers.profilePhoto ? (
                         <CardMedia
                           component="img"
                           className="picture userProfilePhoto"
-                          src={users.profilePhoto}
+                          src={allUsers.profilePhoto}
                         />
                       ) : (
                         <CardMedia
@@ -104,11 +106,11 @@ const Dashboard = () => {
                         />
                       )}
 
-                      {console.log(users.profilePhoto)}
+                      {console.log(allUsers.profilePhoto)}
                       <CardContent>
-                        {users && users.description ? (
+                        {allUsers && allUsers.description ? (
                           <Typography variant="body1">
-                            {users && users.description}
+                            {allUsers && allUsers.description}
                           </Typography>
                         ) : (
                           <Typography
@@ -125,42 +127,42 @@ const Dashboard = () => {
                               <>
                                 <FaBirthdayCake />
                                 <br />
-                                {users && users.age}
+                                {allUsers && allUsers.age}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaVenusMars />
                                 <br />
-                                {users && users.gender}
+                                {allUsers && allUsers.gender}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaBriefcase />
                                 <br />
-                                {users && users.job}
+                                {allUsers && allUsers.job}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaLanguage />
                                 <br />
-                                {users && users.language}
+                                {allUsers && allUsers.language}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaPray />
                                 <br />
-                                {users && users.belief}
+                                {allUsers && allUsers.belief}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaFlag />
                                 <br />
-                                {users && users.politics}
+                                {allUsers && allUsers.politics}
                               </>
                             </Grid>
                           </Grid>
@@ -171,21 +173,21 @@ const Dashboard = () => {
                               <>
                                 <FaUtensils />
                                 <br />
-                                {users && users.diet}
+                                {allUsers && allUsers.diet}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaBeer />
                                 <br />
-                                {users && users.alcohol}
+                                {allUsers && allUsers.alcohol}
                               </>
                             </Grid>
                             <Grid item xs={4} md={4}>
                               <>
                                 <FaSmoking />
                                 <br />
-                                {users && users.smoking}
+                                {allUsers && allUsers.smoking}
                               </>
                             </Grid>
                           </Grid>
@@ -201,7 +203,7 @@ const Dashboard = () => {
                           aria-label="add to favorites"
                           // className="letstalkbutton"
                           // onClick={() => {
-                          //   likeUser(users?._id);
+                          //   likeUser(allUsers?._id);
                           //   setCurrentIndexNumber(currentIndexNumber + 1);
                           // }}
                           sx={{ mx: "auto" }}
@@ -213,8 +215,8 @@ const Dashboard = () => {
                           aria-label="add to meh"
                           // className="mehbutton"
                           onClick={() => {
-                            setUnlikedUserState(users?._id);
-                            // unlikeUser(users?._id);
+                            setUnlikedUserState(allUsers?._id);
+                            // unlikeUser(allUsers?._id);
                             setCurrentIndexNumber(currentIndexNumber + 1);
                           }}
                           sx={{ mx: "auto" }}
@@ -240,7 +242,7 @@ const Dashboard = () => {
   );
 };
 
-// Old test button for checking liked users
+// Old test button for checking liked allUsers
 {
   /* <Button
   className="mehbutton"
@@ -250,7 +252,7 @@ const Dashboard = () => {
     setCurrentIndexNumber(currentIndexNumber + 1);
   }}
 >
-  <h6> Get Liked Users (Test Button)</h6>
+  <h6> Get Liked allUsers (Test Button)</h6>
 </Button>; */
 }
 

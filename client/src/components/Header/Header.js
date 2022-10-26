@@ -23,7 +23,7 @@ import { logoutAction } from "../../state/slices/authSlices";
 const Header = () => {
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state?.auth?.userAuth);
+  const user = useSelector((state) => state?.auth?.auth);
 
   const logout = async () => {
     dispatch(logoutAction());

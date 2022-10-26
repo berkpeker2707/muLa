@@ -95,18 +95,18 @@ export const registerUser = createAsyncThunk(
 
 //get all users
 export const getUsersAction = createAsyncThunk(
-  "user/users",
+  "user/all",
   async (id, { rejectWithValue, getState, dispatch }) => {
     //get user token
     const user = getState()?.auth;
-    const { userAuth } = user;
+    const { auth } = user;
     const config = {
       headers: {
-        Authorization: `Bearer ${userAuth?.token}`,
+        Authorization: `Bearer ${auth?.token}`,
       },
     };
     try {
-      const { data } = await axios.get(`/api/user/users`, config);
+      const { data } = await axios.get(`/api/user/all`, config);
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -115,15 +115,10 @@ export const getUsersAction = createAsyncThunk(
   }
 );
 
-//get user from local storage and place into store
-const userLoginFromStorage = localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : null;
-
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    userAuth: userLoginFromStorage,
+    users: "",
   },
 
   extraReducers: (builder) => {
@@ -154,7 +149,7 @@ const usersSlices = createSlice({
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
-      state.users = action.payload.users;
+      state.users = action.payload;
     });
     builder.addCase(getUsersAction.rejected, (state, action) => {
       state.isLoading = false;
