@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import "../../App.css";
 
 //@mui imports
+import Container from "@mui/material/Container";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -15,6 +16,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
 
 //redux & state management
 import { useSelector, useDispatch } from "react-redux";
@@ -92,7 +94,7 @@ const Header = () => {
   );
 
   const authLinks = (
-    <AppBar component="nav" style={{ backgroundColor: "#1e3d59" }}>
+    <Grid>
       <Toolbar>
         <IconButton
           color="inherit"
@@ -177,13 +179,13 @@ const Header = () => {
         </Drawer>
       </Box>
       {/* for smaller screens section ends  */}
-    </AppBar>
+    </Grid>
   );
 
   return (
-    <div className="HeaderComponent">
-      {user ? authLinks : <Fragment></Fragment>}
-    </div>
+    <Grid style={{ backgroundColor: "#1e3d59" }}>
+      {user ? authLinks : <></>}
+    </Grid>
   );
 };
 

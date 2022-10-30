@@ -8,7 +8,7 @@ import Modal from "@mui/material/Modal";
 
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+const Footer = () => {
   const [openContact, setOpenContact] = useState(false);
   const [openToU, setOpenToU] = useState(false);
   const handleOpenContact = () => setOpenContact(true);
@@ -232,4 +232,6 @@ export default function Footer() {
       </Grid>
     </Grid>
   );
-}
+};
+
+export default Footer;
