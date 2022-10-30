@@ -15,13 +15,43 @@ import setAuthToken from "../../utils/setAuthToken";
 // actions //
 /////////////
 
-//register user action
-export const registerUserAction = createAsyncThunk(
-  "user/register",
+export const preRegisterAction = createAsyncThunk(
+  "auth/preRegister",
   async (user, { rejectWithValue, getState, dispatch }) => {
     try {
-      //http call
-      //Header
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post("api/auth/pre-register", user, config);
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+export const verifyRegisterAction = createAsyncThunk(
+  "auth/verifyRegister",
+  async (user, { rejectWithValue, getState, dispatch }) => {
+    try {
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+export const registerUserAction = createAsyncThunk(
+  "auth/register",
+  async (user, { rejectWithValue, getState, dispatch }) => {
+    try {
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -38,34 +68,6 @@ export const registerUserAction = createAsyncThunk(
   }
 );
 
-////////
-//validate user action
-export const validateUserAction = createAsyncThunk(
-  "user/validate",
-  async (token, { rejectWithValue, getState, dispatch }) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const { data } = await axios.put(
-        `/api/user/verify-account`,
-        token,
-        config
-      );
-      return data;
-    } catch (error) {
-      if (!error?.response) {
-        throw error;
-      }
-      return rejectWithValue(error?.response?.data);
-    }
-  }
-);
-////////
-
-//login user action
 export const loginUserAction = createAsyncThunk(
   "auth/login",
   async (userData, { rejectWithValue, getState, dispatch }) => {
@@ -87,10 +89,51 @@ export const loginUserAction = createAsyncThunk(
   }
 );
 
-//Logout action
+export const forgotPasswordAction = createAsyncThunk(
+  "auth/login",
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const { data } = await axios.post("/api/auth/login", userData, config);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+export const verifyPasswordAction = createAsyncThunk(
+  "auth/login",
+  async (userData, { rejectWithValue, getState, dispatch }) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      const { data } = await axios.post("/api/auth/login", userData, config);
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
+    } catch (error) {
+      if (!error?.response) {
+        throw error;
+      }
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 export const logoutAction = createAsyncThunk(
   "auth/logout",
-  async (payload, { rejectWithValue, getState, dispatch }) => {
+  async (_, { rejectWithValue, getState, dispatch }) => {
     try {
       await localStorage.removeItem("userInfo");
     } catch (error) {
@@ -101,8 +144,6 @@ export const logoutAction = createAsyncThunk(
     }
   }
 );
-
-/////////////////YUKARIDAKI ACTIONI YAPTIM EN SON
 
 ////////////
 // slices //
@@ -119,8 +160,16 @@ const authSlices = createSlice({
     auth: userLoginFromStorage,
   },
 
-  //object notation is used instead of map notation
   extraReducers: (builder) => {
+    // preRegister reducer
+
+    // verifyRegister reducer
+    // registerUser reducer
+    // loginUser reducer
+    // forgotPassword reducer
+    // verifyPassword reducer
+    // logout reducer
+
     //register
     builder.addCase(registerUserAction.pending, (state) => {
       state.isLoading = true;
@@ -140,18 +189,18 @@ const authSlices = createSlice({
     });
 
     //validate
-    builder.addCase(validateUserAction.pending, (state) => {
+    builder.addCase(verifyRegisterAction.pending, (state) => {
       state.isLoading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
-    builder.addCase(validateUserAction.fulfilled, (state, action) => {
+    builder.addCase(verifyRegisterAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
       state.validated = action?.payload;
     });
-    builder.addCase(validateUserAction.rejected, (state, action) => {
+    builder.addCase(verifyRegisterAction.rejected, (state, action) => {
       state.isLoading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;

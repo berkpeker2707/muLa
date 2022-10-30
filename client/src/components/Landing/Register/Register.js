@@ -7,7 +7,7 @@ import { Row, Col, Modal, Button } from "react-bootstrap";
 import { Link, Navigate } from "react-router-dom";
 //redux
 import { useDispatch, useSelector } from "react-redux";
-import { registerUserAction } from "../../../state/slices/authSlices";
+import { preRegisterAction } from "../../../state/slices/authSlices";
 
 import { set, useForm } from "react-hook-form";
 
@@ -459,8 +459,7 @@ const Register = ({ registerUser }) => {
   };
 
   const onSubmit = (data) => {
-    // console.log(data);
-    dispatch(registerUserAction(data));
+    dispatch(preRegisterAction(data));
   };
 
   const { isLoading, appErr, serverErr, registered } = storeData;

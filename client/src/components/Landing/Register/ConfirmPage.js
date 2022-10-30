@@ -8,7 +8,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
-import { validateUserAction } from "../../../state/slices/authSlices";
+import { verifyRegisterAction } from "../../../state/slices/authSlices";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ const ConfirmPage = () => {
   const validateErrorState = useSelector((state) => state?.auth?.appErr);
 
   useEffect(() => {
-    dispatch(validateUserAction({ ...tokenData }));
+    dispatch(verifyRegisterAction({ ...tokenData }));
   }, [dispatch]);
 
   const onClickSubmit = () => {
@@ -57,7 +57,7 @@ const ConfirmPage = () => {
     console.log(tokenData);
     console.log("tokenData");
     e.preventDefault();
-    validateUserAction(tokenData);
+    verifyRegisterAction(tokenData);
   };
 
   return (

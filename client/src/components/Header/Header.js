@@ -92,76 +92,68 @@ const Header = () => {
   );
 
   const authLinks = (
-    <Box sx={{ display: "flex" }}>
-      <AppBar component="nav" style={{ backgroundColor: "#1e3d59" }}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <Link
-              href="/dashboard"
-              underline="none"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              test
-            </Link>
-          </IconButton>
+    <AppBar component="nav" style={{ backgroundColor: "#1e3d59" }}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2, display: { sm: "none" } }}
+        >
+          muLa
+        </IconButton>
 
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+        >
+          <Link
+            href="/dashboard"
+            underline="none"
+            style={{ color: "white", textDecoration: "none" }}
           >
-            <Link
-              href="/dashboard"
-              underline="none"
-              style={{ color: "white", textDecoration: "none" }}
-            >
-              muLa
-            </Link>
-          </Typography>
+            muLa
+          </Link>
+        </Typography>
 
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Button
-              className={"HeaderLink"}
-              variant="text"
-              sx={{ color: "#fff", textDecoration: "none" }}
-              href="/profile"
-            >
-              {"Profile"}
-            </Button>
-            <Button
-              className={"HeaderLink"}
-              variant="text"
-              sx={{ color: "#fff", textDecoration: "none" }}
-              href="/chat"
-            >
-              {"Chat"}
-            </Button>
-            <Button
-              className={"HeaderLink"}
-              variant="text"
-              sx={{ color: "#fff", textDecoration: "none" }}
-              href="/settings"
-            >
-              {"Settings"}
-            </Button>
-            <Button
-              className={"HeaderLink"}
-              variant="text"
-              sx={{ color: "#fff", textDecoration: "none" }}
-              href="/"
-              onClick={() => logout()}
-            >
-              {"Logout"}
-            </Button>
-          </Box>
-        </Toolbar>
-      </AppBar>
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Button
+            className={"HeaderLink"}
+            variant="text"
+            sx={{ color: "#fff", textDecoration: "none" }}
+            href="/profile"
+          >
+            {"Profile"}
+          </Button>
+          <Button
+            className={"HeaderLink"}
+            variant="text"
+            sx={{ color: "#fff", textDecoration: "none" }}
+            href="/chat"
+          >
+            {"Chat"}
+          </Button>
+          <Button
+            className={"HeaderLink"}
+            variant="text"
+            sx={{ color: "#fff", textDecoration: "none" }}
+            href="/settings"
+          >
+            {"Settings"}
+          </Button>
+          <Button
+            className={"HeaderLink"}
+            variant="text"
+            sx={{ color: "#fff", textDecoration: "none" }}
+            href="/"
+            onClick={() => logout()}
+          >
+            {"Logout"}
+          </Button>
+        </Box>
+      </Toolbar>
 
       {/* for smaller screens section starts  */}
       <Box component="nav">
@@ -185,7 +177,7 @@ const Header = () => {
         </Drawer>
       </Box>
       {/* for smaller screens section ends  */}
-    </Box>
+    </AppBar>
   );
 
   return (

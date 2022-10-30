@@ -11,6 +11,8 @@ import {
 import storage from "redux-persist/lib/storage";
 
 import authReducer from "./slices/authSlices";
+import conversationReducer from "./slices/conversationSlices";
+import messageReducer from "./slices/messageSlices";
 import usersReducer from "./slices/usersSlices";
 
 const persistConfig = {
@@ -20,6 +22,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  conversation: conversationReducer,
+  message: messageReducer,
   users: usersReducer,
 });
 
