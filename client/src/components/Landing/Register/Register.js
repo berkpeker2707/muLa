@@ -462,7 +462,7 @@ const Register = ({ registerUser }) => {
     dispatch(preRegisterAction(data));
   };
 
-  const { isLoading, appErr, serverErr, registered } = storeData;
+  const { isLoading, appErr, serverErr, preregistered } = storeData;
 
   useEffect(() => {
     setErrorHappened(appErr, serverErr);
@@ -486,9 +486,9 @@ const Register = ({ registerUser }) => {
     }
   };
 
-  // console.log(registered);
+  // console.log(preregistered);
 
-  if (registered) {
+  if (preregistered) {
     return <Navigate to="/" />;
   }
 

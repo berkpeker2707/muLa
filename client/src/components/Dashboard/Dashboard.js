@@ -34,16 +34,19 @@ import IconButton from "@mui/material/IconButton";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
-import { getUsersAction } from "../../state/slices/usersSlices";
+import { getAllUserAction } from "../../state/slices/usersSlices";
+import { useTheme } from "@mui/material";
 
 const Dashboard = () => {
+  const theme = useTheme();
+
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.auth.auth);
   const allUsers = useSelector((state) => state?.users.users);
 
   useEffect(() => {
-    dispatch(getUsersAction());
+    dispatch(getAllUserAction());
   }, [dispatch]);
 
   const [currentIndexNumber, setCurrentIndexNumber] = useState(0);
@@ -103,7 +106,10 @@ const Dashboard = () => {
 
                   <CardContent>
                     {allUsers && allUsers.description ? (
-                      <Typography variant="body1">
+                      <Typography
+                        variant="body1"
+                        color={theme.vars.palette.primary.main}
+                      >
                         {allUsers && allUsers.description}
                       </Typography>
                     ) : (
@@ -118,11 +124,9 @@ const Dashboard = () => {
                     <Typography paragraph>
                       <Grid container spacing={2}>
                         <Grid item xs={4} md={4}>
-                          <>
-                            <FaBirthdayCake />
-                            <br />
-                            {allUsers && allUsers.age}
-                          </>
+                          <FaBirthdayCake />
+                          <br />
+                          {allUsers && allUsers.age}
                         </Grid>
                         <Grid item xs={4} md={4}>
                           <>

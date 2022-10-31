@@ -133,7 +133,7 @@ const Header = () => {
             className={"HeaderLink"}
             variant="text"
             sx={{ color: "#fff", textDecoration: "none" }}
-            href="/chat"
+            href="/chatroom"
           >
             {"Chat"}
           </Button>

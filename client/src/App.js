@@ -25,30 +25,65 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/Landing/ResetPassword";
 import Uploadfiletest from "./components/Profile/Uploadfiletest";
 
+import {
+  Experimental_CssVarsProvider as CssVarsProvider,
+  experimental_extendTheme as extendTheme,
+} from "@mui/material/styles";
+
+const theme = extendTheme({
+  palette: {
+    primary: {
+      light: "#1e3d10",
+      main: "#1e3d59",
+      dark: "#fff",
+      contrastText: "#fff",
+    },
+    secondary: {
+      light: "#fff",
+      main: "#ff6e40",
+      dark: "#fff",
+      contrastText: "#fff",
+    },
+    tertiary: {
+      light: "#fff",
+      main: "#ffc13b",
+      dark: "#fff",
+      contrastText: "#fff",
+    },
+    backgroundColor: {
+      light: "#fff",
+      main: "#f5f0e1",
+      dark: "#fff",
+      contrastText: "#fff",
+    },
+  },
+});
 const App = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route exact path="/" element={<Landing />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/verify-account/:token" element={<ConfirmPage />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/*" element={<ResetPassword />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/profile-update" element={<ProfileUpdate />} />
-        <Route path="/uploadtest" element={<Uploadfiletest />} />
-        <Route path="/test-update" element={<ReTakeTest />} />
-        <Route path="/chatroom" element={<ChatRoom />} />
-        {/* <Route path="/chat" element={Messenger} /> */}
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/privacy" element={<Privacy />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <CssVarsProvider theme={theme}>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Landing />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/verify-account/:token" element={<ConfirmPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/*" element={<ResetPassword />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile-update" element={<ProfileUpdate />} />
+          <Route path="/uploadtest" element={<Uploadfiletest />} />
+          <Route path="/test-update" element={<ReTakeTest />} />
+          <Route path="/chatroom" element={<ChatRoom />} />
+          {/* <Route path="/chat" element={Messenger} /> */}
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </CssVarsProvider>
   );
 };
 
