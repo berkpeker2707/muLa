@@ -205,6 +205,10 @@ export const photoDeleteAction = createAsyncThunk(
   }
 );
 
+////////////
+// slices //
+////////////
+
 const usersSlices = createSlice({
   name: "users",
   initialState: {
@@ -212,7 +216,7 @@ const usersSlices = createSlice({
   },
 
   extraReducers: (builder) => {
-    //getLoggedInAction Action
+    // getLoggedInAction Action
     builder.addCase(getLoggedInAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -229,7 +233,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //getUserAction Action
+    // getUserAction Action
     builder.addCase(getUserAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -246,7 +250,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //getAllUserAction Reducer
+    // getAllUserAction Reducer
     builder.addCase(getAllUserAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -263,7 +267,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //updateUserAction Reducer
+    // updateUserAction Reducer
     builder.addCase(updateUserAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -280,7 +284,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //updateUsersTestAction Reducer
+    // updateUsersTestAction Reducer
     builder.addCase(updateUsersTestAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -297,7 +301,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //updateUserPasswordAction Reducer
+    // updateUserPasswordAction Reducer
     builder.addCase(updateUserPasswordAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -314,7 +318,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //profilePhotoUploadAction Reducer
+    // profilePhotoUploadAction Reducer
     builder.addCase(profilePhotoUploadAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -331,7 +335,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //profilePhotoDeleteAction Reducer
+    // profilePhotoDeleteAction Reducer
     builder.addCase(profilePhotoDeleteAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -348,7 +352,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //photoUploadAction Reducer
+    // photoUploadAction Reducer
     builder.addCase(photoUploadAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
@@ -365,7 +369,7 @@ const usersSlices = createSlice({
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
     });
-    //photoDeleteAction Reducer
+    // photoDeleteAction Reducer
     builder.addCase(photoDeleteAction.pending, (state, action) => {
       state.isLoading = true;
       state.appErr = undefined;
