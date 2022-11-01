@@ -58,7 +58,7 @@ app.put("/like/:id", async (req, res) => {
       return res.status(400).json({ msg: "Already Liked" });
     } else {
       await user.likedBy.unshift(req.user.id);
-      await loggedUser.liked.unshift(req.params.id);
+      await loggedUser.liked.unshift(req.params.id); /////here
       await user.save();
       await loggedUser.save();
 

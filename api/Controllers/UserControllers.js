@@ -249,29 +249,29 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//////////////////////////////////
-// like, unlike, dislike, match //
-//////////////////////////////////
+///////////////////////////////////////////////
+// like, unlike, dislike, match interactions //
+///////////////////////////////////////////////
 
-//update logged in user controller ***
+//like & unlike user controller
 const likeUserController = expressAsyncHandler(async (req, res) => {
   try {
+    const user = await User.findById(req.user._id);
+    const likedUser = await User.findById(req.body.liked);
+    if (!user.liked.includes(req.body.liked)) {
+      await user.updateOne({ $push: { liked: req.body.liked } });
+      res.status(200).json("User has been liked");
+    } else {
+      await user.updateOne({ $pull: { liked: req.body.liked } });
+      res.status(200).json("User has been unliked");
+    }
   } catch (error) {
     res.status(400);
     throw new Error("Bad Request!");
   }
 });
 
-//update logged in user controller ***
-const unlikeUserController = expressAsyncHandler(async (req, res) => {
-  try {
-  } catch (error) {
-    res.status(400);
-    throw new Error("Bad Request!");
-  }
-});
-
-//update logged in user controller ***
+//dislike & remove dislike user controller
 const dislikeUserController = expressAsyncHandler(async (req, res) => {
   try {
   } catch (error) {
@@ -280,7 +280,7 @@ const dislikeUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update logged in user controller ***
+//get liked users controller
 const getLikedUserController = expressAsyncHandler(async (req, res) => {
   try {
   } catch (error) {
@@ -289,7 +289,7 @@ const getLikedUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//update logged in user controller ***
+//get matched users controller
 const getMatchedUserController = expressAsyncHandler(async (req, res) => {
   try {
   } catch (error) {
@@ -309,4 +309,5 @@ module.exports = {
   profilePhotoDeleteController,
   photoUploadController,
   photoDeleteController,
+  likeUserController,
 };
