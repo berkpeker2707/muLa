@@ -1,6 +1,4 @@
-const User = require("../models/user");
 const expressAsyncHandler = require("express-async-handler");
-const generateToken = require("../config/token");
 
 //dotenv config
 require("dotenv").config();

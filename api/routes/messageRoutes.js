@@ -7,9 +7,9 @@ const {
 const MessageRoutes = express.Router();
 
 //get user according to id
-MessageRoutes.get("/users/:id", auth, postMessageController);
+MessageRoutes.post("/new/:conversationId", auth, postMessageController);
 
 //get all users
-MessageRoutes.get("/users", auth, getMessageController);
+MessageRoutes.get("/all/:conversationId", auth, getMessageController);
 
 module.exports = MessageRoutes;

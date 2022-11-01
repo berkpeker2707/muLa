@@ -6,7 +6,7 @@ import axios from "axios";
 /////////////
 
 export const registerUserAction = createAsyncThunk(
-  "auth/register",
+  "message/new",
   async (user, { rejectWithValue, getState, dispatch }) => {
     try {
       //http call

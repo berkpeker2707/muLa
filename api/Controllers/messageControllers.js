@@ -1,6 +1,5 @@
-const User = require("../models/user");
 const expressAsyncHandler = require("express-async-handler");
-const generateToken = require("../config/token");
+const Message = require("../models/message");
 
 //dotenv config
 require("dotenv").config();
@@ -8,11 +7,16 @@ require("dotenv").config();
 //post a messages
 const postMessageController = expressAsyncHandler(async (req, res) => {
   try {
-    const newMesssage = new Message(req.body);
+    const newMesssage = new Message({
+      conversationId: req.params.conversationId,
+      sender: req.user.id,
+      text: req.body.text,
+    });
     const savedMessage = await newMesssage.save();
     res.status(200).json(savedMessage);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
@@ -23,8 +27,9 @@ const getMessageController = expressAsyncHandler(async (req, res) => {
       conversationId: req.params.conversationId,
     });
     res.status(200).json(messages);
-  } catch (err) {
-    res.status(500).json(err);
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
   }
 });
 
