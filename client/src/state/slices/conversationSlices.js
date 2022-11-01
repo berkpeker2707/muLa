@@ -103,7 +103,6 @@ const conversationSlices = createSlice({
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
     });
-
     // getConversationsAction Reducer
     builder.addCase(getConversationsAction.pending, (state) => {
       state.isLoading = true;

@@ -5,23 +5,48 @@ import axios from "axios";
 // actions //
 /////////////
 
-export const registerUserAction = createAsyncThunk(
-  "message/new",
-  async (user, { rejectWithValue, getState, dispatch }) => {
+export const postMessageAction = createAsyncThunk(
+  "message/new/:conversationId",
+  async (messageData, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.auth;
+    const { auth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${auth?.token}`,
+      },
+    };
     try {
-      //http call
-      //Header
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const { data } = await axios.post("api/auth/register", user, config);
+      const { data } = await axios.post(
+        `/api/message/new/:conversationId`,
+        messageData,
+        config
+      );
       return data;
     } catch (error) {
-      if (!error?.response) {
-        throw error;
-      }
+      if (!error?.response) throw error;
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+export const getMessageAction = createAsyncThunk(
+  "message/all/:conversationId",
+  async (_, { rejectWithValue, getState, dispatch }) => {
+    const user = getState()?.auth;
+    const { auth } = user;
+    const config = {
+      headers: {
+        Authorization: `Bearer ${auth?.token}`,
+      },
+    };
+    try {
+      const { data } = await axios.get(
+        `/api/message/all/:conversationId`,
+        _,
+        config
+      );
+      return data;
+    } catch (error) {
+      if (!error?.response) throw error;
       return rejectWithValue(error?.response?.data);
     }
   }
@@ -38,19 +63,36 @@ const messageSlices = createSlice({
   },
 
   extraReducers: (builder) => {
-    //register
-    builder.addCase(registerUserAction.pending, (state) => {
+    // postMessageAction Reducer
+    builder.addCase(postMessageAction.pending, (state) => {
       state.isLoading = true;
       state.appErr = undefined;
       state.serverErr = undefined;
     });
-    builder.addCase(registerUserAction.fulfilled, (state, action) => {
+    builder.addCase(postMessageAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
-      state.registered = action?.payload;
+      state.postedMessage = action?.payload;
     });
-    builder.addCase(registerUserAction.rejected, (state, action) => {
+    builder.addCase(postMessageAction.rejected, (state, action) => {
+      state.isLoading = false;
+      state.appErr = action?.payload?.message;
+      state.serverErr = action?.error?.message;
+    });
+    // getMessageAction Reducer
+    builder.addCase(getMessageAction.pending, (state) => {
+      state.isLoading = true;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+    });
+    builder.addCase(getMessageAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.appErr = undefined;
+      state.serverErr = undefined;
+      state.fetchedMessage = action?.payload;
+    });
+    builder.addCase(getMessageAction.rejected, (state, action) => {
       state.isLoading = false;
       state.appErr = action?.payload?.message;
       state.serverErr = action?.error?.message;
