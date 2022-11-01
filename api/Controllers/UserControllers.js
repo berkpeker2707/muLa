@@ -249,6 +249,55 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
   }
 });
 
+//////////////////////////////////
+// like, unlike, dislike, match //
+//////////////////////////////////
+
+//update logged in user controller ***
+const likeUserController = expressAsyncHandler(async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
+});
+
+//update logged in user controller ***
+const unlikeUserController = expressAsyncHandler(async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
+});
+
+//update logged in user controller ***
+const dislikeUserController = expressAsyncHandler(async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
+});
+
+//update logged in user controller ***
+const getLikedUserController = expressAsyncHandler(async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
+});
+
+//update logged in user controller ***
+const getMatchedUserController = expressAsyncHandler(async (req, res) => {
+  try {
+  } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
+});
+
 module.exports = {
   getLoggedInUser,
   getUserController,

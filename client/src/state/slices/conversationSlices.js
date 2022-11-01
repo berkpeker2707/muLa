@@ -113,7 +113,7 @@ const conversationSlices = createSlice({
       state.isLoading = false;
       state.appErr = undefined;
       state.serverErr = undefined;
-      state.conversation = action?.payload;
+      state.fetchedConversation = action?.payload;
     });
     builder.addCase(getConversationsAction.rejected, (state, action) => {
       state.isLoading = false;

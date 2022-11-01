@@ -135,6 +135,37 @@ app.put("/unlike/:id", async (req, res) => {
   }
 });
 
+//dislike user by using it's id. update it to disliked
+app.put("/dislike/:id", async (req, res) => {
+  try {
+    // const user = await User.findById(req.params.id);
+    const loggedUser = await User.findById(req.user.id).select("-password");
+    //check if it is already liked
+    if (loggedUser.disliked.filter((dis) => dis === req.params.id).length > 0) {
+      return res.status(400).json({ msg: "Already Disliked" });
+    } else {
+      // await user.likedBy.unshift( req.user.id );
+      await loggedUser.disliked.unshift(req.params.id);
+      // await user.save();
+      await loggedUser.save();
+
+      res.status(200).send("Disliked");
+    }
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+});
+
+app.get("/liked", async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id).select(["liked"]);
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
 //get user's matched
 app.get("/matched/:id", async (req, res) => {
   try {
@@ -152,55 +183,5 @@ app.get("/matched/:id", async (req, res) => {
     res.status(200).json(matchedList);
   } catch (err) {
     res.status(500).json(err);
-  }
-});
-
-//dislike user by using it's id. update it to disliked
-app.put("/dislike/:id", async (req, res) => {
-  try {
-    // const user = await User.findById(req.params.id);
-    const loggedUser = await User.findById(req.user.id).select("-password");
-    //check if it is already liked
-    if (loggedUser.disliked.filter((dis) => dis === req.params.id).length > 0) {
-      return res.status(400).json({ msg: "Already Disliked" });
-    } else {
-      // await user.likedBy.unshift( req.user.id );
-      await loggedUser.disliked.unshift(req.params.id);
-      // await user.save();
-      await loggedUser.save();
-
-      // const value1 = await user.likedBy.includes(req.user.id);
-      // const value1 = await user.likedBy[0].user;
-      // const value2 = await user.liked.includes(req.user.id);
-      // const value2 = await user.liked[0].user;
-
-      // await user.matched.unshift(req.user.id);
-      // await loggedUser.matched.unshift(req.params.id);
-      // await user.save();
-      // await loggedUser.save();
-      //if matched, create a new conversation
-
-      // const filter = { members: [req.user.id, req.params.id] };
-      // const update = { members: [req.user.id, req.params.id] };
-      // const newConversation = await Conversation.findOneAndUpdate(filter, update, {
-      //   new: true,
-      //   upsert: true,
-      // });
-      // await newConversation.save();
-
-      res.status(200).send("Disliked");
-    }
-  } catch (err) {
-    res.status(500).send("Server Error");
-  }
-});
-
-app.get("/liked", async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select(["liked"]);
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
   }
 });

@@ -4,7 +4,7 @@ const Message = require("../models/message");
 //dotenv config
 require("dotenv").config();
 
-//post a messages
+//post a messages ***
 const postMessageController = expressAsyncHandler(async (req, res) => {
   try {
     const newMesssage = new Message({
@@ -20,7 +20,7 @@ const postMessageController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//get messages
+//get messages ***
 const getMessageController = expressAsyncHandler(async (req, res) => {
   try {
     const messages = await Message.find({
