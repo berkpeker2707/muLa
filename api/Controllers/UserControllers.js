@@ -275,40 +275,37 @@ const likeUserController = expressAsyncHandler(async (req, res) => {
         { new: true }
       );
 
-      console.log(updatedUser);
-      console.log(updatedLikedUser);
-
       const matchValue1 = await updatedUser.liked.includes(req.body.liked);
       const matchValue2 = await updatedLikedUser.liked.includes(req.user.id);
 
-      console.log({ matchValue1, matchValue2 });
-
       const existingConversation = await Conversation.find({
-        members: [req.user._id, req.body.liked],
+        members: [req.user.id, req.body.liked],
       });
 
       if (matchValue1 && matchValue2) {
-        await user.matched.unshift(req.user._id);
-        await likedUser.matched.unshift(req.body.liked);
-        await user.save();
-        await likedUser.save();
+        await updatedUser.matched.unshift(req.body.liked);
+        await updatedLikedUser.matched.unshift(req.user.id);
+        await updatedUser.save();
+        await updatedLikedUser.save();
 
-        //if matched, create a new conversation
-        const filter = { members: [req.user.id, req.body.liked] };
-        const update = { members: [req.user.id, req.body.liked] };
-        const newConversation = await Conversation.findOneAndUpdate(
-          filter,
-          update,
-          {
-            new: true,
-            upsert: true,
-          }
-        );
+        //if matched & conversation does not exist, create a new conversation
+        if (existingConversation.length > 0) {
+          res.status(200).json("User has been liked & matched!");
+        } else {
+          const filter = { members: [req.user.id, req.body.liked] };
+          const update = { members: [req.user.id, req.body.liked] };
 
-        // console.log(newConversation);
-        // await newConversation.save();
+          const newConversation = await Conversation.findOneAndUpdate(
+            filter,
+            update,
+            {
+              new: true,
+              upsert: true,
+            }
+          );
 
-        res.status(200).send("User has been liked & matched!");
+          res.status(200).json("User has been liked & matched!");
+        }
       } else {
         res.status(200).json("User has been liked");
       }

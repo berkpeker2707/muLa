@@ -48,54 +48,6 @@ app.use(errorHandler);
 // ????????????????????????????????????????? //
 // ????????????????????????????????????????? //
 
-//like user by using it's id. update it to liked
-app.put("/like/:id", async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    const loggedUser = await User.findById(req.user.id).select("-password");
-    //check if it is already liked
-    if (user.likedBy.filter((like) => like === req.user.id).length > 0) {
-      return res.status(400).json({ msg: "Already Liked" });
-    } else {
-      await user.likedBy.unshift(req.user.id);
-      await loggedUser.liked.unshift(req.params.id); /////here
-      await user.save();
-      await loggedUser.save();
-
-      const value1 = await user.likedBy.includes(req.user.id);
-      // const value1 = await user.likedBy[0].user;
-      const value2 = await user.liked.includes(req.user.id);
-      // const value2 = await user.liked[0].user;
-
-      if (value1 && value2) {
-        await user.matched.unshift(req.user.id);
-        await loggedUser.matched.unshift(req.params.id);
-        await user.save();
-        await loggedUser.save();
-        //if matched, create a new conversation
-
-        const filter = { members: [req.user.id, req.params.id] };
-        const update = { members: [req.user.id, req.params.id] };
-        const newConversation = await Conversation.findOneAndUpdate(
-          filter,
-          update,
-          {
-            new: true,
-            upsert: true,
-          }
-        );
-        await newConversation.save();
-
-        res.status(200).send("Liked & Matched!");
-      } else {
-        res.status(200).send("Liked!");
-      }
-    }
-  } catch (err) {
-    res.status(500).send("Server Error");
-  }
-});
-
 //dislike user by using it's id. update it to disliked
 app.put("/dislike/:id", async (req, res) => {
   try {
