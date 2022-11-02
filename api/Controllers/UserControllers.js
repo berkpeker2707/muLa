@@ -253,7 +253,7 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
 // like, unlike, dislike, match interactions //
 ///////////////////////////////////////////////
 
-//like & unlike user controller
+//like & unlike (match and create conversation) user controller
 const likeUserController = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
