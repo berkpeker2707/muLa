@@ -256,16 +256,71 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
 //like & unlike user controller
 const likeUserController = expressAsyncHandler(async (req, res) => {
   try {
-    const user = await User.findById(req.user._id);
+    const user = await User.findById(req.user.id);
     const likedUser = await User.findById(req.body.liked);
+
     if (!user.liked.includes(req.body.liked)) {
-      await user.updateOne({ $push: { liked: req.body.liked } });
-      res.status(200).json("User has been liked");
+      const updatedUser = await User.findByIdAndUpdate(
+        req.user.id,
+        {
+          $push: { liked: req.body.liked },
+        },
+        { new: true }
+      );
+      const updatedLikedUser = await User.findByIdAndUpdate(
+        req.body.liked,
+        {
+          $push: { likedBy: req.user.id },
+        },
+        { new: true }
+      );
+
+      console.log(updatedUser);
+      console.log(updatedLikedUser);
+
+      const matchValue1 = await updatedUser.liked.includes(req.body.liked);
+      const matchValue2 = await updatedLikedUser.liked.includes(req.user.id);
+
+      console.log({ matchValue1, matchValue2 });
+
+      const existingConversation = await Conversation.find({
+        members: [req.user._id, req.body.liked],
+      });
+
+      if (matchValue1 && matchValue2) {
+        await user.matched.unshift(req.user._id);
+        await likedUser.matched.unshift(req.body.liked);
+        await user.save();
+        await likedUser.save();
+
+        //if matched, create a new conversation
+        const filter = { members: [req.user.id, req.body.liked] };
+        const update = { members: [req.user.id, req.body.liked] };
+        const newConversation = await Conversation.findOneAndUpdate(
+          filter,
+          update,
+          {
+            new: true,
+            upsert: true,
+          }
+        );
+
+        // console.log(newConversation);
+        // await newConversation.save();
+
+        res.status(200).send("User has been liked & matched!");
+      } else {
+        res.status(200).json("User has been liked");
+      }
     } else {
       await user.updateOne({ $pull: { liked: req.body.liked } });
+      await likedUser.updateOne({ $pull: { likedBy: req.user.id } });
+      await user.updateOne({ $pull: { matched: req.body.liked } });
+      await likedUser.updateOne({ $pull: { matched: req.user.id } });
       res.status(200).json("User has been unliked");
     }
   } catch (error) {
+    console.log(error);
     res.status(400);
     throw new Error("Bad Request!");
   }

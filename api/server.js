@@ -96,45 +96,6 @@ app.put("/like/:id", async (req, res) => {
   }
 });
 
-//unlike liked user
-app.put("/unlike/:id", async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id);
-    const loggedUser = await User.findById(req.user.id).select("-password");
-    //check if it is already liked
-    if (user.likedBy.filter((like) => like === req.user.id).length === 0) {
-      return res.status(400).json({ msg: "User already unliked" });
-    }
-
-    //finding location index
-    const removeIndex = await user.likedBy.indexOf(req.user.id);
-
-    //finding location index
-    const removeIndex2 = await loggedUser.liked.indexOf(req.user.id);
-
-    const removeIndex3 = await user.matched.indexOf(req.user.id);
-
-    //finding location index
-    const removeIndex4 = await loggedUser.matched.indexOf(req.user.id);
-
-    //removing element according to index
-    await loggedUser.liked.splice(removeIndex2, 1);
-    await user.likedBy.splice(removeIndex, 1);
-
-    await loggedUser.matched.splice(removeIndex3, 1);
-    await user.matched.splice(removeIndex4, 1);
-
-    await user.save();
-    await loggedUser.save();
-
-    //res.json(user.liked);
-    res.status(200).send("Unliked");
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error");
-  }
-});
-
 //dislike user by using it's id. update it to disliked
 app.put("/dislike/:id", async (req, res) => {
   try {
