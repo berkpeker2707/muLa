@@ -322,7 +322,7 @@ const likeUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//dislike & remove dislike user controller
+//dislike & remove dislike user controller ***
 const dislikeUserController = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -337,11 +337,12 @@ const dislikeUserController = expressAsyncHandler(async (req, res) => {
           disliked: [
             {
               dislikedID: req.body.dislike,
-              dislikedDate: new Date(new Date().valueOf() + 86400000),
+              dislikedDate: new Date(new Date()),
             },
           ],
         },
       });
+
       await user.save();
       res.status(200).json("User has been disliked");
     } else {
@@ -352,7 +353,6 @@ const dislikeUserController = expressAsyncHandler(async (req, res) => {
       res.status(200).json("Removed disliked from user");
     }
   } catch (error) {
-    console.log(error);
     res.status(400);
     throw new Error("Bad Request!");
   }
