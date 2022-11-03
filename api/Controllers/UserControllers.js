@@ -358,25 +358,6 @@ const blockUserController = expressAsyncHandler(async (req, res) => {
       res.status(200).json("User has been unblocked");
     }
   } catch (error) {
-    console.log(error);
-    res.status(400);
-    throw new Error("Bad Request!");
-  }
-});
-
-//get liked users controller
-const getLikedUserController = expressAsyncHandler(async (req, res) => {
-  try {
-  } catch (error) {
-    res.status(400);
-    throw new Error("Bad Request!");
-  }
-});
-
-//get matched users controller
-const getMatchedUserController = expressAsyncHandler(async (req, res) => {
-  try {
-  } catch (error) {
     res.status(400);
     throw new Error("Bad Request!");
   }
