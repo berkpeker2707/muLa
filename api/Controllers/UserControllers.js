@@ -253,7 +253,7 @@ const photoDeleteController = expressAsyncHandler(async (req, res) => {
 // like, unlike, dislike, match interactions //
 ///////////////////////////////////////////////
 
-//like & unlike (match and create conversation) user controller
+//like & unlike (match and create conversation) user controller ***
 const likeUserController = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -326,6 +326,17 @@ const likeUserController = expressAsyncHandler(async (req, res) => {
 //dislike & remove dislike user controller
 const dislikeUserController = expressAsyncHandler(async (req, res) => {
   try {
+    const user = await User.findById(req.user.id);
+
+    if (!user.disliked.includes(req.body.dislike)) {
+      await user.updateOne({ $push: { disliked: req.body.dislike } });
+      await user.save();
+      res.status(200).json("User has been disliked");
+    } else {
+      await user.updateOne({ $pull: { disliked: req.body.dislike } });
+      await user.save();
+      res.status(200).json("Removed disliked from user");
+    }
   } catch (error) {
     res.status(400);
     throw new Error("Bad Request!");
@@ -362,4 +373,5 @@ module.exports = {
   photoUploadController,
   photoDeleteController,
   likeUserController,
+  dislikeUserController,
 };

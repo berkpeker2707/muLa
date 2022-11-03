@@ -16,6 +16,7 @@ const {
   photoUploadController,
   photoDeleteController,
   likeUserController,
+  dislikeUserController,
 } = require("../controllers/UserControllers");
 const UserRoutes = express.Router();
 
@@ -42,5 +43,6 @@ UserRoutes.post(
 );
 UserRoutes.delete("/image/delete", auth, photoDeleteController);
 UserRoutes.put("/like", auth, likeUserController);
+UserRoutes.put("/dislike", auth, dislikeUserController);
 
 module.exports = UserRoutes;
