@@ -323,7 +323,7 @@ const likeUserController = expressAsyncHandler(async (req, res) => {
   }
 });
 
-//dislike & remove dislike user controller
+//dislike & remove dislike user controller ***
 const dislikeUserController = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -338,6 +338,27 @@ const dislikeUserController = expressAsyncHandler(async (req, res) => {
       res.status(200).json("Removed disliked from user");
     }
   } catch (error) {
+    res.status(400);
+    throw new Error("Bad Request!");
+  }
+});
+
+//block user & ublock user controller ***
+const blockUserController = expressAsyncHandler(async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (!user.blocked.includes(req.body.block)) {
+      await user.updateOne({ $push: { blocked: req.body.block } });
+      await user.save();
+      res.status(200).json("User has been blocked");
+    } else {
+      await user.updateOne({ $pull: { blocked: req.body.block } });
+      await user.save();
+      res.status(200).json("User has been unblocked");
+    }
+  } catch (error) {
+    console.log(error);
     res.status(400);
     throw new Error("Bad Request!");
   }
@@ -374,4 +395,5 @@ module.exports = {
   photoDeleteController,
   likeUserController,
   dislikeUserController,
+  blockUserController,
 };

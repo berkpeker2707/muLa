@@ -48,27 +48,6 @@ app.use(errorHandler);
 // ????????????????????????????????????????? //
 // ????????????????????????????????????????? //
 
-//dislike user by using it's id. update it to disliked
-app.put("/dislike/:id", async (req, res) => {
-  try {
-    // const user = await User.findById(req.params.id);
-    const loggedUser = await User.findById(req.user.id).select("-password");
-    //check if it is already liked
-    if (loggedUser.disliked.filter((dis) => dis === req.params.id).length > 0) {
-      return res.status(400).json({ msg: "Already Disliked" });
-    } else {
-      // await user.likedBy.unshift( req.user.id );
-      await loggedUser.disliked.unshift(req.params.id);
-      // await user.save();
-      await loggedUser.save();
-
-      res.status(200).send("Disliked");
-    }
-  } catch (err) {
-    res.status(500).send("Server Error");
-  }
-});
-
 app.get("/liked", async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select(["liked"]);
