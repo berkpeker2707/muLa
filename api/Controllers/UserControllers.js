@@ -317,27 +317,42 @@ const likeUserController = expressAsyncHandler(async (req, res) => {
       res.status(200).json("User has been unliked");
     }
   } catch (error) {
-    console.log(error);
     res.status(400);
     throw new Error("Bad Request!");
   }
 });
 
-//dislike & remove dislike user controller ***
+//dislike & remove dislike user controller
 const dislikeUserController = expressAsyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
 
-    if (!user.disliked.includes(req.body.dislike)) {
-      await user.updateOne({ $push: { disliked: req.body.dislike } });
+    if (
+      !user.disliked.some((alreadyDis) =>
+        alreadyDis.dislikedID.includes(req.body.dislike)
+      )
+    ) {
+      await user.updateOne({
+        $push: {
+          disliked: [
+            {
+              dislikedID: req.body.dislike,
+              dislikedDate: new Date(new Date().valueOf() + 86400000),
+            },
+          ],
+        },
+      });
       await user.save();
       res.status(200).json("User has been disliked");
     } else {
-      await user.updateOne({ $pull: { disliked: req.body.dislike } });
+      await user.updateOne({
+        $pull: { disliked: { dislikedID: req.body.dislike } },
+      });
       await user.save();
       res.status(200).json("Removed disliked from user");
     }
   } catch (error) {
+    console.log(error);
     res.status(400);
     throw new Error("Bad Request!");
   }

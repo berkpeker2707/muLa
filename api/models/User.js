@@ -118,7 +118,11 @@ const userSchema = new mongoose.Schema(
     disliked: {
       type: Array,
       default: [],
-      createdAt: { type: Date, expires: "2m", default: Date.now },
+      expireAt: {
+        type: Date,
+        /* Remove doc 5 min after specified date */
+        expires: 300,
+      },
     },
     matched: {
       type: Array,
