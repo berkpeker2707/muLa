@@ -20,7 +20,7 @@ connectDatabase();
 app.use(express.json({ extended: false }));
 
 //port
-const port = process.env.PORT || 1001;
+const port = process.env.PORT || 1101;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes

@@ -7,7 +7,7 @@ require("dotenv").config();
 const connectDatabase = require("../config/db");
 
 //routes
-const AuthRoutes = require("./Routes/AuthRoutes");
+const ConversationRoutes = require("./Routes/ConversationRoutes");
 
 //encryption and authentication modules
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
@@ -20,11 +20,11 @@ connectDatabase();
 app.use(express.json({ extended: false }));
 
 //port
-const port = process.env.PORT || 1001;
+const port = process.env.PORT || 1301;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
-app.use("/api/src/Auth", AuthRoutes);
+app.use("/api/src/Conversation", ConversationRoutes);
 
 //Error Handler
 //not found has to be at top for json response
