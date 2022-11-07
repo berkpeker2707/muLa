@@ -10,10 +10,8 @@ const auth = expressAsyncHandler(async (req, res, next) => {
       token = req.headers.authorization.split(" ")[1];
       if (token) {
         const decodedUserId = jwt.verify(token, process.env.JWT_KEY);
-        //find user by id
-        const user = await User.findById(decodedUserId?.id).select("-password");
-        //attach the user to the request object
-        req.user = user;
+        //attach the decodedUserId to the request object
+        req.user = decodedUserId;
         next();
       } else {
         throw new Error("Not authorized.");

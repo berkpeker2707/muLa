@@ -1,4 +1,5 @@
 const expressAsyncHandler = require("express-async-handler");
+const Conversation = require("../models/conversation");
 
 //dotenv config
 require("dotenv").config();
@@ -21,7 +22,6 @@ const postConversationController = expressAsyncHandler(async (req, res) => {
       throw new Error("Invalid Entry!");
     }
   } catch (error) {
-    console.log(error);
     res.status(400);
     throw new Error("Bad Request!");
   }
