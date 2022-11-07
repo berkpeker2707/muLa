@@ -7,7 +7,7 @@ require("dotenv").config();
 const connectDatabase = require("./config/db");
 
 //routes
-const authRoutes = require("./Routes/authRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 //encryption and authentication modules
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
@@ -24,7 +24,7 @@ const port = process.env.PORT || 1100;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
-app.use("/api/src/Auth", authRoutes);
+app.use("/api/auth", authRoutes);
 
 //Error Handler
 //not found has to be at top for json response

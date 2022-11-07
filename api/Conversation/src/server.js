@@ -24,7 +24,7 @@ const port = process.env.PORT || 1300;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
-app.use("/api/src/Conversation", conversationRoutes);
+app.use("/api/conversation", conversationRoutes);
 
 //Error Handler
 //not found has to be at top for json response

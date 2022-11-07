@@ -3,7 +3,7 @@ const auth = require("../middlewares/auth");
 const {
   postMessageController,
   getMessageController,
-} = require("../Controllers/messageControllers");
+} = require("../controllers/messageControllers");
 const messageRoutes = express.Router();
 
 //get user according to id
