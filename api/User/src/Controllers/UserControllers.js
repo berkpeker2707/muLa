@@ -1,4 +1,4 @@
-const User = require("../Models/user");
+const User = require("../models/user");
 const expressAsyncHandler = require("express-async-handler");
 require("dotenv").config();
 const fs = require("fs");

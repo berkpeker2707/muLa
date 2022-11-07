@@ -4,15 +4,15 @@ const {
   postConversationController,
   getConversationsController,
   getConversationWithIDsController,
-} = require("../Controllers/ConversationControllers");
-const ConversationRoutes = express.Router();
+} = require("../controllers/conversationControllers");
+const conversationRoutes = express.Router();
 
-ConversationRoutes.post("/new", auth, postConversationController);
-ConversationRoutes.get("/my-conversations", auth, getConversationsController);
-ConversationRoutes.get(
+conversationRoutes.post("/new", auth, postConversationController);
+conversationRoutes.get("/my-conversations", auth, getConversationsController);
+conversationRoutes.get(
   "/conversation/:firstUserId/:secondUserId",
   auth,
   getConversationWithIDsController
 );
 
-module.exports = ConversationRoutes;
+module.exports = conversationRoutes;

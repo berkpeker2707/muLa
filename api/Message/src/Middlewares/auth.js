@@ -1,7 +1,7 @@
 //auth middleware for token checking in header
 const expressAsyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
-const User = require("../Models/user");
+const User = require("../models/user");
 
 const auth = expressAsyncHandler(async (req, res, next) => {
   let token;

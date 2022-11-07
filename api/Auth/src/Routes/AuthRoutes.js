@@ -6,14 +6,14 @@ const {
   loginController,
   forgotPasswordController,
   verifyPasswordController,
-} = require("../Controllers/AuthControllers");
-const AuthRoutes = express.Router();
+} = require("../controllers/authControllers");
+const authRoutes = express.Router();
 
-AuthRoutes.post("/pre-register", preRegisterController);
-AuthRoutes.post("/verify-register", verifyRegisterController);
-AuthRoutes.post("/register", registerController);
-AuthRoutes.post("/login", loginController);
-AuthRoutes.post("/forgot-password", forgotPasswordController);
-AuthRoutes.post("/verify-password", verifyPasswordController);
+authRoutes.post("/pre-register", preRegisterController);
+authRoutes.post("/verify-register", verifyRegisterController);
+authRoutes.post("/register", registerController);
+authRoutes.post("/login", loginController);
+authRoutes.post("/forgot-password", forgotPasswordController);
+authRoutes.post("/verify-password", verifyPasswordController);
 
-module.exports = AuthRoutes;
+module.exports = authRoutes;

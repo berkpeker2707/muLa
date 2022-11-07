@@ -4,10 +4,10 @@ const express = require("express");
 require("dotenv").config();
 
 //connection for db
-const connectDatabase = require("../config/db");
+const connectDatabase = require("./config/db");
 
 //routes
-const ConversationRoutes = require("./Routes/ConversationRoutes");
+const conversationRoutes = require("./routes/conversationRoutes");
 
 //encryption and authentication modules
 const { errorHandler, notFound } = require("./middlewares/errorHandler");
@@ -20,11 +20,11 @@ connectDatabase();
 app.use(express.json({ extended: false }));
 
 //port
-const port = process.env.PORT || 1301;
+const port = process.env.PORT || 1300;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
-app.use("/api/src/Conversation", ConversationRoutes);
+app.use("/api/src/Conversation", conversationRoutes);
 
 //Error Handler
 //not found has to be at top for json response

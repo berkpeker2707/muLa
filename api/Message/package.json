@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "message": "nodemon server.js",
+    "message": "nodemon src/server.js",
     "client": "cd .. && cd client && npm start",
     "dev": "concurrently \"npm run api\" \"npm run client\""
   },

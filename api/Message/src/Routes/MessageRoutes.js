@@ -3,13 +3,13 @@ const auth = require("../middlewares/auth");
 const {
   postMessageController,
   getMessageController,
-} = require("../Controllers/MessageControllers");
-const MessageRoutes = express.Router();
+} = require("../Controllers/messageControllers");
+const messageRoutes = express.Router();
 
 //get user according to id
-MessageRoutes.post("/new/:conversationId", auth, postMessageController);
+messageRoutes.post("/new/:conversationId", auth, postMessageController);
 
 //get all users
-MessageRoutes.get("/all/:conversationId", auth, getMessageController);
+messageRoutes.get("/all/:conversationId", auth, getMessageController);
 
-module.exports = MessageRoutes;
+module.exports = messageRoutes;

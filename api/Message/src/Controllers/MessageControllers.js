@@ -1,5 +1,5 @@
 const expressAsyncHandler = require("express-async-handler");
-const Message = require("../Models/message");
+const Message = require("../models/message");
 
 //dotenv config
 require("dotenv").config();
