@@ -38,8 +38,9 @@ const Login = () => {
     },
   });
 
-  const store = useSelector((state) => state?.auth);
+  const store = useSelector((state) => state.auth);
   const { auth, loading, serverErr, appErr } = store;
+
   // Redirect if authenticated
   if (auth) {
     return <Navigate to="/dashboard" />;
@@ -69,6 +70,9 @@ const Login = () => {
           />
         </label>
         <br />
+        {formik.touched.email && formik.errors.email ? (
+          <p style={{ color: "yellow" }}>{formik.errors.email}</p>
+        ) : null}
 
         <label>
           Your Password
@@ -83,10 +87,7 @@ const Login = () => {
             value={formik.values.firstName}
           />
         </label>
-
-        {formik.touched.email && formik.errors.email ? (
-          <p style={{ color: "yellow" }}>{formik.errors.email}</p>
-        ) : null}
+        <br />
         {formik.touched.password && formik.errors.password ? (
           <p style={{ color: "yellow" }}>{formik.errors.password}</p>
         ) : null}
@@ -99,8 +100,8 @@ const Login = () => {
       <br />
       <Link to="/forgot-password" style={{ color: "white" }}>
         Forgot Password
-        <br />
       </Link>
+      <br />
 
       <hr />
       <Link to="/Register" style={{ color: "white" }}>

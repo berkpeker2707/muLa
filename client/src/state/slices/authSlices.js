@@ -23,7 +23,7 @@ export const preRegisterAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "api/auth/pre-register",
+        "http://localhost:1100/api/auth/pre-register",
         userData,
         config
       );
@@ -47,7 +47,7 @@ export const verifyRegisterAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "api/auth/verify-register",
+        "http://localhost:1100/api/auth/verify-register",
         userData,
         config
       );
@@ -70,7 +70,11 @@ export const registerUserAction = createAsyncThunk(
           "Content-Type": "application/json",
         },
       };
-      const { data } = await axios.post("api/auth/register", userData, config);
+      const { data } = await axios.post(
+        "http://localhost:1100/api/auth/register",
+        userData,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) {
@@ -90,7 +94,11 @@ export const loginUserAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.post("/api/auth/login", userData, config);
+      const { data } = await axios.post(
+        "http://localhost:1100/api/auth/login",
+        userData,
+        config
+      );
       localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
     } catch (error) {
@@ -112,7 +120,7 @@ export const forgotPasswordAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "api/auth/forgot-password",
+        "http://localhost:1100/api/auth/forgot-password",
         userData,
         config
       );
@@ -136,7 +144,7 @@ export const verifyPasswordAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        "api/auth/verify-password",
+        "http://localhost:1100/api/auth/verify-password",
         userData,
         config
       );

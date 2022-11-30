@@ -21,7 +21,7 @@ import Profile from "./components/Profile/Profile";
 import ProfileUpdate from "./components/Profile/ProfileUpdate";
 import ReTakeTest from "./components/Profile/ReTakeTest/ReTakeTest";
 
-import { BrowserRouter, routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ResetPassword from "./components/Landing/ResetPassword";
 import Uploadfiletest from "./components/Profile/Uploadfiletest";
 
@@ -63,7 +63,7 @@ const App = () => {
     <CssVarsProvider theme={theme}>
       <BrowserRouter>
         <Header />
-        <routes>
+        <Routes>
           <Route exact path="/" element={<Landing />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify-account/:token" element={<ConfirmPage />} />
@@ -80,7 +80,7 @@ const App = () => {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/about" element={<About />} />
-        </routes>
+        </Routes>
         <Footer />
       </BrowserRouter>
     </CssVarsProvider>

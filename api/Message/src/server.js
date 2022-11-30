@@ -1,5 +1,7 @@
 const express = require("express");
 
+const cors = require("cors");
+
 //dotenv config
 require("dotenv").config();
 
@@ -18,6 +20,8 @@ connectDatabase();
 
 //bodyparser like middleware for express
 app.use(express.json({ extended: false }));
+
+app.use(cors());
 
 //port
 const port = process.env.PORT || 1400;

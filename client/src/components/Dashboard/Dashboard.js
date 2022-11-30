@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "../../App.css";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import defaultProfilePicture from "../../../src/defaultProfilePicture.png";
 import LoadingGif from "./LoadingGif";
 import {
@@ -42,8 +43,11 @@ const Dashboard = () => {
 
   const dispatch = useDispatch();
 
+  const store = useSelector((state) => state.auth);
+  const { auth, loading, serverErr, appErr } = store;
+
   const user = useSelector((state) => state.auth.auth);
-  const allUsers = useSelector((state) => state?.users.users);
+  const allUsers = useSelector((state) => state?.users.allUsers);
 
   useEffect(() => {
     dispatch(getAllUserAction());

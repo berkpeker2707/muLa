@@ -16,7 +16,11 @@ export const getLoggedInAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.get(`/api/user/me`, _, config);
+      const { data } = await axios.get(
+        `http://localhost:1200/api/user/me`,
+        _,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -35,7 +39,10 @@ export const getUserAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.get(`/api/user/select/${id}`, config);
+      const { data } = await axios.get(
+        `http://localhost:1200/api/user/select/${id}`,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -46,15 +53,17 @@ export const getUserAction = createAsyncThunk(
 export const getAllUserAction = createAsyncThunk(
   "user/all",
   async (_, { rejectWithValue, getState, dispatch }) => {
-    const user = getState()?.auth;
-    const { auth } = user;
+    const auth = getState()?.auth?.auth;
     const config = {
       headers: {
         Authorization: `Bearer ${auth?.token}`,
       },
     };
     try {
-      const { data } = await axios.get(`/api/user/all`, _, config);
+      const { data } = await axios.get(
+        `http://localhost:1200/api/user/all`,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -73,7 +82,11 @@ export const updateUserAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.put(`/api/user/update`, _, config);
+      const { data } = await axios.put(
+        `http://localhost:1200/api/user/update`,
+        _,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -92,7 +105,11 @@ export const updateUsersTestAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.put(`/api/user/update/test`, _, config);
+      const { data } = await axios.put(
+        `http://localhost:1200/api/user/update/test`,
+        _,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -111,7 +128,11 @@ export const updateUserPasswordAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.put(`/api/user/update/password`, _, config);
+      const { data } = await axios.put(
+        `http://localhost:1200/api/user/update/password`,
+        _,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -132,7 +153,7 @@ export const profilePhotoUploadAction = createAsyncThunk(
     };
     try {
       const { data } = await axios.post(
-        `/api/user/image/profile/upload`,
+        `http://localhost:1200/api/user/image/profile/upload`,
         _,
         config
       );
@@ -155,7 +176,7 @@ export const profilePhotoDeleteAction = createAsyncThunk(
     };
     try {
       const { data } = await axios.delete(
-        `/api/user/image/profile/delete`,
+        `http://localhost:1200/api/user/image/profile/delete`,
         _,
         config
       );
@@ -177,7 +198,11 @@ export const photoUploadAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.post(`/api/user/image/upload`, _, config);
+      const { data } = await axios.post(
+        `http://localhost:1200/api/user/image/upload`,
+        _,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -196,7 +221,11 @@ export const photoDeleteAction = createAsyncThunk(
       },
     };
     try {
-      const { data } = await axios.delete(`/api/user/image/delete`, _, config);
+      const { data } = await axios.delete(
+        `http://localhost:1200/api/user/image/delete`,
+        _,
+        config
+      );
       return data;
     } catch (error) {
       if (!error?.response) throw error;
@@ -212,7 +241,7 @@ export const photoDeleteAction = createAsyncThunk(
 const usersSlices = createSlice({
   name: "users",
   initialState: {
-    users: "",
+    allUsers: null,
   },
 
   extraReducers: (builder) => {
@@ -266,6 +295,7 @@ const usersSlices = createSlice({
       state.isLoading = false;
       state.appErr = action.payload.message;
       state.serverErr = action.error.message;
+      state.user.allUsers = undefined;
     });
     // updateUserAction Reducer
     builder.addCase(updateUserAction.pending, (state, action) => {
