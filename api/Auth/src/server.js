@@ -6,13 +6,16 @@ const cors = require("cors");
 require("dotenv").config();
 
 //connection for db
-const connectDatabase = require("./config/db");
+const connectDatabase = require(`${__dirname}/config/db`);
 
 //routes
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require(`${__dirname}/Routes/AuthRoutes`);
 
 //encryption and authentication modules
-const { errorHandler, notFound } = require("./middlewares/errorHandler");
+const {
+  errorHandler,
+  notFound,
+} = require(`${__dirname}/middlewares/errorHandler`);
 
 const app = express({ extended: false });
 
@@ -28,7 +31,7 @@ const port = process.env.PORT || 1100;
 app.listen(port, () => console.log(`Server started on port ${port}.`));
 
 //routes
-app.use("/api/auth", authRoutes);
+app.use(`${__dirname}/api/auth`, authRoutes);
 
 //Error Handler
 //not found has to be at top for json response

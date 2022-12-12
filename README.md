@@ -31,3 +31,9 @@ Make sure you change db & api keys.
 3. First we check whether email and password are good for required conditions and validate. Then we pull entered fields from body. We check if user with entered email exists and match the password with database. If all satisfied, we return payload, and give user 1 year long token.
    Later we use auth for authenticated requests, which checks token and returns requests according to token.
 4. Under like we first get logged user and targeted user according to their id. Then check if the user is already liked. If not save targeted user's id to logged user's liked field, and save logged user's id to targeted user's likedBy. Store id's in an array. If user has both fields equal, we store id to matched field.
+
+## RUN DOCKER
+
+docker build -t mula-auth .
+docker images
+docker run -p 8080:1100 (image_id)
