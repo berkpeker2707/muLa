@@ -32,6 +32,9 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 
 //redux
 import { useSelector, useDispatch } from "react-redux";
@@ -40,6 +43,17 @@ import { useTheme } from "@mui/material";
 
 const Dashboard = () => {
   const theme = useTheme();
+
+  //three dots starts
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  //three dots ends
 
   const dispatch = useDispatch();
 
@@ -66,16 +80,19 @@ const Dashboard = () => {
   }, [currentIndexNumber]);
 
   return (
-    <Container fluid>
+    <Container>
       {!allUsers ? (
         <LoadingGif />
       ) : (
-        <Container fluid>
+        <Container>
           {allUsers.length > 0 ? (
             allUsers
               ?.slice(currentIndexNumber, currentIndexNumber + 1)
               .map((allUsers, i) => (
-                <Card sx={{ maxWidth: 400, boxShadow: 10, mx: "auto" }}>
+                <Card
+                  sx={{ maxWidth: 400, boxShadow: 10, mx: "auto" }}
+                  key={allUsers._id}
+                >
                   <CardHeader
                     avatar={
                       <Avatar
@@ -87,7 +104,26 @@ const Dashboard = () => {
                       </Avatar>
                     }
                     action={
-                      <IconButton aria-label="settings">test </IconButton>
+                      <IconButton
+                        aria-label="settings"
+                        aria-controls={open ? "basic-menu" : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? "true" : undefined}
+                        onClick={handleClick}
+                      >
+                        <MoreVertIcon />
+                        <Menu
+                          id="basic-menu"
+                          anchorEl={anchorEl}
+                          open={open}
+                          onClose={handleClose}
+                          MenuListProps={{
+                            "aria-labelledby": "basic-button",
+                          }}
+                        >
+                          <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        </Menu>
+                      </IconButton>
                     }
                     title={
                       allUsers && allUsers.firstname + " " + allUsers.lastname
