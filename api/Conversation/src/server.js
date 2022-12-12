@@ -9,7 +9,7 @@ require("dotenv").config();
 const connectDatabase = require("./config/db");
 
 //routes
-const conversationRoutes = require("./routes/conversationRoutes");
+const conversationRoutes = require("./Routes/conversationRoutes");
 
 //encryption and authentication modules
 const { errorHandler, notFound } = require("./middlewares/errorHandler");

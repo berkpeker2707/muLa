@@ -1,4 +1,10 @@
 const express = require("express");
+
+var path = require("path");
+
+console.log(__dirname);
+console.log(path.resolve("./"));
+
 const {
   preRegisterController,
   verifyRegisterController,
@@ -6,7 +12,8 @@ const {
   loginController,
   forgotPasswordController,
   verifyPasswordController,
-} = require("../controllers/authControllers");
+} = require(`${__dirname}/Controllers/authControllers`);
+
 const authRoutes = express.Router();
 
 authRoutes.post("/pre-register", preRegisterController);
